@@ -16,8 +16,8 @@
 	El segundo paso será esperar que el usuario se loguee en Anfix y que la API Anfix realice una llamada a returnUrl con los datos de acceso
 	Para esto crearemos un script que contendrá una llamada a Anfix::onGeneratedToken(callable $function); 
 		Parámetros:
-		function: Closure que se ejecutará cuando se reciba un token válido, recibe el array con los datos del token y se utiliza para almacenar el 
-		token una vez el usuario le haya autorizado el acceso a su cuenta
+		function(identifier,token,secret): Closure que se ejecutará cuando se reciba un token válido, recibe los datos del token y se utiliza para almacenar el 
+		token una vez el usuario le haya autorizado el acceso a su cuenta. Recibe el identificador indicado en el paso anterior, el token y la clave del mismo
 
 	Nota importante: Tenga en cuenta que la solicitud de token se realiza en dos pasos, el primero es lanzar la solicitud generateToken que llevará
 	al usuario a la página de anfix para loguearse. En cambio la segunda parte será una llamada desde anfix al script indicado en $returnUrl, tenga en
