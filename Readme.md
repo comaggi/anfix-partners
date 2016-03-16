@@ -43,10 +43,8 @@
 
 #Ejemplos de uso
 	Ejemplo de obtención de todas las empresas disponibles:
-		```
 		$EnterprisesModel = Anfix::Enterprises(); //Obtención del Modelo`
 		$myEnterprises = $EnterprisesModel->all(); //Obtener todas las empresas (entidades)
-		```
 
 	Ejemplo de obtención y modificación de una factura:
 		$SInvoiceModel = Anfix::SuppliedInvoice(); //Obtención del Modelo
