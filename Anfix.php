@@ -228,6 +228,32 @@ class Anfix {
         //Enviamos la respuesta al closure indicado
 		return $function($identifier,$response['oauth_token'],$response['oauth_token_secret']);
     }
+
+    /**
+     * Invalida un token
+     * @param string $token Token a invalidar
+     * @param string $secret Contraseña del token a invalidar
+     * @return mixed
+     */
+    public static function ivalidateToken($token,$secret){
+
+        if(empty(self::$config))
+            self::env();
+
+        $realm = self::$config['realm'];
+        $oauth_consumer_key = self::$config['oauth_consumer_key'];
+        $oauth_signature = self::$config['oauth_signature'];
+
+        $response = Anfix::getHeaders(self::$config['invalidateTokenUrl'],
+            ["Authorization: realm=\"{$realm}\",
+            oauth_consumer_key=\"{$oauth_consumer_key}\",
+            oauth_signature_method=\"PLAINTEXT\",
+            oauth_token=\"{$token}\",
+            oauth_signature=\"{$oauth_signature}&{$secret}\""]
+        );
+
+        return true;
+    }
 }
 
 /**

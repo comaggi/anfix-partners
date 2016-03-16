@@ -25,6 +25,12 @@
 	será posible finalizar el proceso con éxito, cuando Anfix realice dicha llamada a su url le entregará el token definitivo para la cuenta del 
 	usuario que se logueó en el paso 1, la función closure indicada en onGeneratedToken recibirá el token y deberá almacenarlo para su uso posterior
 
+###Invalidación de un token
+    Si desea invalidar un token utilice la funcion Anfix\Anfix::ivalidateToken(token,secret)
+        Parámetros:
+        token: Token a invalidar
+        secret: Secret del token a invalidar
+
 ##Obtención de un Modelo
 	Para obtener un Modelo llamaremos a la siguiente función estática: Anfix::{_MODELO_}([array $token] [,string $config_path])
 	Siendo {_MODELO_} cualquiera de las entidades existentes en el directorio /Entities (Enterprise;IssuedInvoice;SentInvoice;Customer;Supplier) 
