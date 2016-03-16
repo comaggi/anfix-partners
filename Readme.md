@@ -1,10 +1,10 @@
-#Utilización de la librería:
-	[Configuración base]
-	Deberá indicar en el fichero config.inc.php sus credenciales para la conexión a Anfix como partner, dichas credenciales le serán enviadas por Anfix
-	En la instanciación de cada modelo podrá indicar otro fichero de configuración si desea disponer de varios
-	La clave default del fichero de configuración le permitirá indicar el token y clave (cuenta anfix) a utilizar en caso de no indicarse ninguno en la
-	instanciación de los modelos
-
+#Instalación
+    El fichero tokens_temp.php o en su defecto el que se indique en el fichero de configuración debe tener permiso de escritura
+    Para el ejemplo get_tokens tambien se necesitará permiso de escritura en el fichero examples/tokens.php
+    Deberá indicar en el fichero config.inc.php sus credenciales para la conexión a Anfix como partner, dichas credenciales le serán enviadas por Anfix
+    La clave default_token del fichero de configuración le permitirá indicar el token y clave (cuenta anfix) a utilizar en caso de no indicarse ninguno 
+    mediante Anfix\Anfix::env();
+        	
 ##Obtención de un token
 	El primer paso para poder conectar a una cuenta de Anfix será obtener un token de acceso, para esto puede observar el fichero /Examples/new_token.php
 	donde se indica como realizar una solicitud/validación de token. La solicitud se basa en dos pasos bien diferenciados (Oauth1)

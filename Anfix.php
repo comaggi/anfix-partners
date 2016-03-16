@@ -10,9 +10,10 @@ class Anfix {
 	private static $config;
     private static $current_token;
 	
-    //Traducción de los errores más comunes al cristiano
+    //Traducción de los errores más comunes
     private static $errorsCodes = [
-        'ERR000050000' => 'Normalmente lo que no es válido es companyId'
+        'ERR000050000' => 'Es posible que companyId no sea válido',
+        'ERR000020001' => 'Debe indicar un oauth_consumer_key y oauth_signature en el fichero de configuración'
     ];
 
     /**
@@ -176,12 +177,18 @@ class Anfix {
         );
 
         //Obtenemos el fichero temporal de tokens
-		$temp = file_exists('tokens_temp.php') ? (include 'tokens_temp.php') : [];
-		$temp[$response['oauth_token']] = ['identifier' => $identifier, 'secret' => $response['oauth_token_secret']];
-		$fpresult = file_put_contents('tokens_temp.php','<?php return '.var_export($temp));
+		$temp = file_exists(self::$config['tokens_temp_file']) ? (include self::$config['tokens_temp_file']) : [];
+
+        //Borramos las solicitudes expiradas
+        foreach($temp as $k => $values)
+            if($values['timestamp'] + 3600 < time())
+                unset($temp[$k]);
+
+		$temp[$response['oauth_token']] = ['identifier' => $identifier, 'secret' => $response['oauth_token_secret'], 'timestamp' => time()];
+		$fpresult = file_put_contents(self::$config['tokens_temp_file'],'<?php return '.var_export($temp,true).';');
 		
 		if($fpresult === false)
-			throw new AnfixResponseException('No se puede escribir el fichero '.__DIR__.'/tokens_temp.php este fichero necesita ser escrito para almacenar las claves temporales.');
+			throw new AnfixResponseException('No se puede escribir el fichero '.self::$config['tokens_temp_file'].' este fichero necesita ser escrito para almacenar las claves temporales.');
 
         //Enviamos al usuario a la página de anfix
 		header("Location: {$loginUrl}?oauth_token={$response['oauth_token']}", true, 302);
