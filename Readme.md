@@ -1,13 +1,14 @@
 #Instalación
+    Copie la librería
+    Edite el fichero config.inc.php y añada sus credenciales para la conexión a Anfix como partner, dichas credenciales le serán enviadas por Anfix
+    La clave default_token del fichero de configuración le permitirá indicar el token y clave (cuenta anfix) a utilizar por defecto y en caso de no indicarse ninguno 
+    mediante Anfix\Anfix::env([array $token] [,$config_file]);
     El fichero tokens_temp.php o en su defecto el que se indique en el fichero de configuración debe tener permiso de escritura
     Para el ejemplo get_tokens tambien se necesitará permiso de escritura en el fichero examples/tokens.php ya que dicho ejemplo registra los tokens recibidos en este fichero
-    Deberá indicar en el fichero config.inc.php sus credenciales para la conexión a Anfix como partner, dichas credenciales le serán enviadas por Anfix
-    La clave default_token del fichero de configuración le permitirá indicar el token y clave (cuenta anfix) a utilizar en caso de no indicarse ninguno 
-    mediante Anfix\Anfix::env([array $token] [,$config_file]);
-    Deberá incluir el fichero principal Anfix.php en todos aquellos scripts donde quiera hacer uso de la librería
+    Por último para utilizar la librería deberá incluir el fichero principal Anfix.php en todos aquellos scripts donde quiera hacer uso de la librería
 
 ##Selección de entorno
-	Antes de realizar cualquier uso de la librería deberá asignar un entorno de trabajo, (cuenta a la que desea conectarse y fichero de configuración).
+	Antes de realizar cualquier uso de la librería podrá asignar un entorno de trabajo, (cuenta a la que desea conectarse y fichero de configuración).
 	Esta selección se realiza mediante la función Anfix\Anfix::env([array $token] [, string $config_file]);
 		[Parámetros]:
 		token: Array conteniendo el token y la clave para dicho token, Ex: Array('USER_TOKEN','TOKEN_PASSWORD') Si no se indica se obtendrán de la clave default_token
@@ -49,7 +50,7 @@
 		
 ##Operaciones con entidades
 	El sistema trabaja con todas las entidades que se encuentran dentro del directorio /Entities
-	Todas estas entidades disponen de los siguientes métodos estáticos:
+	Todas estas entidades disponen de los siguientes métodos:
 	
 	###Creación de entidades:
 	Para crear nuevas entidades utilizaremos el método estático ::create(array $params [, $companyId = null] [, $path = 'create'])
