@@ -22,29 +22,29 @@ namespace Anfix;
 
 class NextNumberFromSerial 
 {
-    protected $applicationId = 'E';
-	protected $Model = 'NextNumberFromSerial';
-	protected $apiBaseUrl = 'http://apps.anfix.com/facturapro-servicios/gestiona/servicios/common/nextnumber-fromserial/compute';
+	private static $applicationId = 'E';
+	private static $Model = 'NextNumberFromSerial';
+	private static $apiBaseUrl = 'http://apps.anfix.com/facturapro-servicios/gestiona/servicios/common/nextnumber-fromserial/compute';
 	
 	/**
-	 * Devuelve el siguiente número disponible para un tipo de entidad
+	 * Devuelve el siguiente nï¿½mero disponible para un tipo de entidad
 	 * @param array $params Debe contener [DocumentDate => 'DATE', DocumentTypeId => 'ID', SerialNum => 'SERIAL'] obligatoriamente
 	 * @param string $companyId Id de empresa
 	 */
 	public static function compute(array $params, $companyId){
 
-	    $result = Anfix::sendRequest($this->apiBaseUrl,[
-            'applicationId' =>  $this->applicationId,
+	    $result = Anfix::sendRequest(self::$apiBaseUrl,[
+            'applicationId' =>  self::$applicationId,
             'companyId' => $companyId,
             'inputBusinessData' => [
-                $this->Model => $params
+				self::$Model => $params
             ]
         ]);
 
-        if(empty($result->outputData->{$this->Model}))
+        if(empty($result->outputData->{self::$Model}))
             return false;
 
-        return $result->outputData->{$this->Model}->Number;
+        return $result->outputData->{self::$Model}->Number;
 	}
 
 }

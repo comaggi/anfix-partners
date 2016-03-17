@@ -22,31 +22,31 @@ namespace Anfix;
 
 class NextNumber 
 {
-    protected $applicationId = 'E';
-	protected $Model = 'NextNumber';
-	protected $apiBaseUrl = 'http://apps.anfix.com/facturapro-servicios/gestiona/servicios/common/nextnumber/compute';
+    private static $applicationId = 'E';
+	private static $Model = 'NextNumber';
+	private static $apiBaseUrl = 'http://apps.anfix.com/facturapro-servicios/gestiona/servicios/common/nextnumber/compute';
 
 	/**
-	 * Devuelve el siguiente número disponible para un tipo de entidad
+	 * Devuelve el siguiente nï¿½mero disponible para un tipo de entidad
 	 * @param string $entityTypeId Tipo de entidad: 1 Clientes, 2 Proveedores/Acreedores
 	 * @param string $companyId Id de empresa
 	 */
 	public static function compute($entityTypeId, $companyId){
 		
-	    $result = Anfix::sendRequest($this->apiBaseUrl,[
-            'applicationId' =>  $this->applicationId,
+	    $result = Anfix::sendRequest(self::$apiBaseUrl,[
+            'applicationId' =>  self::$applicationId,
             'companyId' => $companyId,
             'inputBusinessData' => [
-                $this->Model => [
+				self::$Model => [
                     'EntityTypeId' => $entityTypeId
                 ]
             ]
         ]);
 
-        if(empty($result->outputData->{$this->Model}))
+        if(empty($result->outputData->{self::$Model}))
             return false;
 
-        return $result->outputData->{$this->Model}->Number;
+        return $result->outputData->{self::$Model}->Number;
 	}
 
 }

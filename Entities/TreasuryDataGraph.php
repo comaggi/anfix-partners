@@ -22,28 +22,28 @@ namespace Anfix;
 
 class TreasuryDataGraph
 {
-    protected $applicationId = 'E';
-	protected $Model = 'NextNumberFromSerial';
-	protected $apiBaseUrl = 'http://apps.anfix.com/facturapro-simple/gestiona/simple/treasury/search';
+    private static $applicationId = 'E';
+	private static $Model = 'NextNumberFromSerial';
+	private static $apiBaseUrl = 'http://apps.anfix.com/facturapro-simple/gestiona/simple/treasury/search';
 	
 	/**
-	 * Devuelve el siguiente número disponible para un tipo de entidad
+	 * Devuelve el siguiente nï¿½mero disponible para un tipo de entidad
 	 * @param array $params Debe contener CheckExpenses, CheckRevenues, CheckTreasury obligatoriamente
 	 * @param string $companyId Id de empresa
 	 */
 	public static function compute(array $params, $companyId){
 
-	    $result = Anfix::sendRequest($this->apiBaseUrl,[
-            'applicationId' =>  $this->applicationId,
+	    $result = Anfix::sendRequest(self::$apiBaseUrl,[
+            'applicationId' =>  self::$applicationId,
             'companyId' => $companyId,
             'inputBusinessData' => [
-                $this->Model => $params
+				self::$Model => $params
             ]
         ]);
 
-        if(empty($result->outputData->{$this->Model}))
+        if(empty($result->outputData->{self::$Model}))
             return false;
 
-        return $result->outputData->{$this->Model};
+        return $result->outputData->{self::$Model};
 	}
 }
