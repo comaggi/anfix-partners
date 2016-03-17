@@ -8,7 +8,7 @@ class Anfix {
 
     private static $curl;
 	private static $config;
-    private static $current_token;
+    private static $token;
 	
     //Traducción de los errores más comunes
     private static $errorsCodes = [
@@ -30,20 +30,20 @@ class Anfix {
 			self::$config = (include 'config.inc.php');
 
         if(!empty($token))
-            self::$current_token = $token;
+            self::$token = $token;
         else
-            self::$current_token = self::$config['default_token'];
+            self::$token = self::$config['default_token'];
 	}
 
     /**
      * Devuelve los valores de configuración
-     * @return array
+     * @return array ['config' => ..., 'token' => ...]
      */
     public static function getEnv(){
         if(empty(self::$config))
             self::env();
 
-        return ['config' => self::$config, 'current_token' => self::$current_token];
+        return ['config' => self::$config, 'token' => self::$token];
     }
 
     /**
@@ -61,25 +61,18 @@ class Anfix {
      * Devuelve el retorno de una petición
      * @param $url
      * @param array $data Parámetros de la petición
+	 * @param array $config Parámetros de configuración
+	 * @param array $token ['TOKEN','TOKEN_PASSWORD']
      * @return mixed
      * @throws \Exception
      */
-    public static function sendRequest($url, array $data){
+    public static function sendRequest($url, array $data, array $config, array $token){
 
-        if(empty(self::$config))
-            self::env();
-
-        $realm = self::$config['realm'];
-        $oauth_consumer_key = self::$config['oauth_consumer_key'];
-        $oauth_signature = self::$config['oauth_signature'];
-        $api_token = self::$current_token[0];
-        $api_secret = self::$current_token[1];
-
-        $headers = ["Authorization: realm=\"{$realm}\",
-            oauth_consumer_key=\"{$oauth_consumer_key}\",
+        $headers = ["Authorization: realm=\"{$config['realm']}\",
+            oauth_consumer_key=\"{$config['oauth_consumer_key']}\",
             oauth_signature_method=\"PLAINTEXT\",
-            oauth_token=\"{$api_token}\",
-            oauth_signature=\"{$oauth_signature}&{$api_secret}\""];
+            oauth_token=\"{$token[0]}\",
+            oauth_signature=\"{$config['oauth_signature']}&{$token[1]}\""];
 
         return self::send($url,$headers,json_encode($data),false)['response'];
     }
@@ -235,7 +228,7 @@ class Anfix {
      * @param string $secret Contraseña del token a invalidar
      * @return mixed
      */
-    public static function ivalidateToken($token,$secret){
+    public static function invalidateToken($token,$secret){
 
         if(empty(self::$config))
             self::env();
