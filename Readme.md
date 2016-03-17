@@ -3,7 +3,7 @@
     Para el ejemplo get_tokens tambien se necesitará permiso de escritura en el fichero examples/tokens.php ya que dicho ejemplo registra los tokens recibidos en este fichero
     Deberá indicar en el fichero config.inc.php sus credenciales para la conexión a Anfix como partner, dichas credenciales le serán enviadas por Anfix
     La clave default_token del fichero de configuración le permitirá indicar el token y clave (cuenta anfix) a utilizar en caso de no indicarse ninguno 
-    mediante Anfix\{MODEL}::env();
+    mediante Anfix\Anfix::env([array $token] [,$config_file]);
     Deberá incluir el fichero principal Anfix.php en todos aquellos scripts donde quiera hacer uso de la librería
 
 ##Selección de entorno
