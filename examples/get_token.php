@@ -29,6 +29,6 @@ else //Si se recibe oauth_token estaremos en la segunda parte (llamada desde anf
         /**
          * Ejemplo de mostrado de los datos en pantalla
          */
-        echo "Token generado con éxito.<br/> Identifier: $identifier <br/> Token: $token <br/> Secret: $secret";
+        echo "Token generado con exito.<br/> Identifier: $identifier <br/> Token: $token <br/> Secret: $secret";
     });
 
