@@ -73,7 +73,7 @@
 		[Parámetros]:
 		params: Array con los datos a buscar, Ejemplo: ['province' => 'Madrid', 'telephone' => '91123456']
 		companyId: Identificador de la empresa con la que trabajar, obligatorio en algunas entidades (aquellas que guardan una relacción con una empresa determinada
-en anfix)
+                en anfix)
 	Método no estático get():
 	El método ->get([array $fields = Array()] [, $maxRows = null] [, $path = 'search']) genera una búsqueda de entidades, combinado con where podremos definir unos filtros
         y después ejecutar la búsqueda
@@ -93,7 +93,7 @@ en anfix)
 		[Parámetros]:
 		id: Identificador de la entidad a destruir
 		companyId: Identificador de la empresa con la que trabajar, obligatorio en algunas entidades (aquellas que guardan una relacción con una empresa determinada
-en anfix)
+                en anfix)
 		path: Método anfix al que llamar remotamente (última parte del punto de acceso anfix), por defecto suele ser delete pero puede especificarse otro
 		
 #Ejemplos de uso
