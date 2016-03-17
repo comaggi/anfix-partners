@@ -4,6 +4,7 @@
     Deberá indicar en el fichero config.inc.php sus credenciales para la conexión a Anfix como partner, dichas credenciales le serán enviadas por Anfix
     La clave default_token del fichero de configuración le permitirá indicar el token y clave (cuenta anfix) a utilizar en caso de no indicarse ninguno 
     mediante Anfix\{MODEL}::env();
+	Deberá incluir el fichero principal Anfix.php en todos aquellos scripts donde quiera hacer uso de la librería
 
 ##Selección de entorno
 	Antes de realizar cualquier uso de la librería deberá asignar un entorno de trabajo, (cuenta a la que desea conectarse y fichero de configuración).
@@ -61,7 +62,8 @@
 	Estos son los métodos estáticos para realizar búsquedas simples:
 	::first(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o null
 	::firstOrCreate(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o lo crea en anfix
-	::firstOrNew(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o devuelve un modelo con los datos, pero no lo crea en anfix (podremos guardarlo manualmente si lo deseamos)
+	::firstOrNew(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o devuelve un modelo con los datos, pero no lo crea en anfix (podremos guardarlo manualmente 
+	  si lo deseamos)
 	::firstOrFail(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o genera una excepción Anfix\Exceptions\AnfixException
 	::all([$companyId = null]) Devuelve todas las entidades
 	::where(array $params, [,$companyId = null]) Realiza una búsqueda de todas las entidades que cumplan los parámetros indicados, debe llamarse a ->get() para obtener el resultado
@@ -79,7 +81,8 @@
 	Todos los métodos de búsquedas devolverán un array de entidades o una entidad, a continuación se describen las operaciones que podemos realizar con cada una de estas entidades
 	->save() Guarda la entidad en anfix, el sistema sabrá si debe crear o actualizar en cada momento en función de si existe o no un id para la entidad
 	->delete() Borra una entidad en anfix
-	->update(array $params [, $path = 'update']) Actualiza la entidad con los datos indicados indicados en params, permite especificar un punto de acceso diferente a update. (Se recomienda utilizar save() en lugar de update())
+	->update(array $params [, $path = 'update']) Actualiza la entidad con los datos indicados indicados en params, permite especificar un punto de acceso diferente a update. (Se recomienda utilizar save() 
+	  en lugar de update())
 	El método estático ::destroy($id [, $companyId = null] [, $path = 'delete']) permite destruir una entidad de la que conocemos su id
 		Parámetros:
 		id: Identificador de la entidad a destruir
