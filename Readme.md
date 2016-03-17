@@ -7,9 +7,9 @@
 
 ##Selección de entorno
 	Antes de realizar cualquier uso de la librería deberá asignar un entorno de trabajo, (cuenta a la que desea conectarse y fichero de configuración).
-	Esta selección se realiza mediante la función Anfix\Anfix::env(array $token [, string $config_file]);
+	Esta selección se realiza mediante la función Anfix\Anfix::env([array $token] [, string $config_file]);
 		Parámetros:
-		token: Array conteniendo el token y la clave para dicho token, Ex: Array('USER_TOKEN','TOKEN_PASSWORD')
+		token: Array conteniendo el token y la clave para dicho token, Ex: Array('USER_TOKEN','TOKEN_PASSWORD') Si no se indica se obtendrán de la clave default_token del fichero de configuración
 		config_file: (Opcional) Path al fichero de configuración, si no se indica se obtendra config.inc.php
 	Si se desea utilizar el fichero de configuración por defecto y el token y password indicados en dicho fichero bajo la clave default_token podemos omitir
 	la llamada a Anfix\Anfix::env();
