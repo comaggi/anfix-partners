@@ -31,7 +31,7 @@ use Anfix\Exceptions\AnfixException;
  */
 class BaseModel
 {
-    protected $applicationId; //Obligatorio, Identificador de la App Anfix, este identificador asocia la Url base por defecto conforme a config/anfix.php
+ protected $applicationId; //Obligatorio, Identificador de la App Anfix, este identificador asocia la Url base por defecto conforme a config/anfix.php
 
     protected $Model; //Opcional, Nombre de la entidad en Anfix, por defecto será el nombre de la clase
     protected $primaryKey; //Opcional, Nombre de la clave primaria en Anfix, por defecto {$Model}Id
@@ -45,7 +45,7 @@ class BaseModel
     private $attributes = [];
     private $wherecond = [];
     private $config;
-    private $current_token;
+    private $token;
     protected $companyId = null;
     private $applicationsIdCompanyMandatory = ['E']; //ApplicationsId que requieren definición de la compañia
 
@@ -58,7 +58,7 @@ class BaseModel
             $this->Model = end(explode('\\',get_called_class()));
 
         $this->config = Anfix::getEnv()['config'];
-        $this->current_token = Anfix::getEnv()['current_token'];
+        $this->token = Anfix::getEnv()['token'];
 
         if(!empty($params))
             $this->fill($params);
@@ -181,7 +181,7 @@ class BaseModel
             'inputBusinessData' => [
                 $this->Model => !empty($obj_data) ? $obj_data : new \stdClass()
             ]
-        ]);
+        ] ,$this->config, $this->token);
         if($result->outputData->TotalRowNumber == 0)
             return [];
 
@@ -215,7 +215,7 @@ class BaseModel
             'inputBusinessData' => [
                 $this->Model => $params
             ]
-        ]);
+        ] ,$this->config, $this->token);
 
         if($result->result == 0) {
             $this->fill($params);
