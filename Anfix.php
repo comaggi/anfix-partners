@@ -61,13 +61,18 @@ class Anfix {
      * Devuelve el retorno de una petición
      * @param $url
      * @param array $data Parámetros de la petición
-	 * @param array $config Parámetros de configuración
-	 * @param array $token ['TOKEN','TOKEN_PASSWORD']
+	 * @param array $config Parámetros de configuración o config por defecto si vacío
+	 * @param array $token ['TOKEN','TOKEN_PASSWORD'] o default_token si vacío
      * @return mixed
      * @throws \Exception
      */
-    public static function sendRequest($url, array $data, array $config, array $token){
-
+    public static function sendRequest($url, array $data, array $config = [], array $token = []){
+		if(empty($config))
+			$config = self::getEnv()['config'];
+	
+		if(empty($token))
+			$token = self::getEnv()['token'];
+			
         $headers = ["Authorization: realm=\"{$config['realm']}\",
             oauth_consumer_key=\"{$config['oauth_consumer_key']}\",
             oauth_signature_method=\"PLAINTEXT\",
