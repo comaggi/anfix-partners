@@ -62,13 +62,13 @@
 	
 	###Búsquedas:
 	Estos son los métodos estáticos para realizar búsquedas simples:
-	*::first(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o null
-	*::firstOrCreate(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o lo crea en anfix
-	*::firstOrNew(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o devuelve un modelo con los datos, pero no lo crea en anfix     
+	* ::first(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o null
+	* ::firstOrCreate(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o lo crea en anfix
+	* ::firstOrNew(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o devuelve un modelo con los datos, pero no lo crea en anfix     
           (podremos guardarlo manualmente si lo deseamos)
-	*::firstOrFail(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o genera una excepción Anfix\Exceptions\AnfixException
-	*::all([$companyId = null]) Devuelve todas las entidades
-	*::where(array $params, [,$companyId = null]) Realiza una búsqueda de todas las entidades que cumplan los parámetros indicados, debe llamarse a ->get() para obtener el
+	* ::firstOrFail(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o genera una excepción Anfix\Exceptions\AnfixException
+	* ::all([$companyId = null]) Devuelve todas las entidades
+	* ::where(array $params, [,$companyId = null]) Realiza una búsqueda de todas las entidades que cumplan los parámetros indicados, debe llamarse a ->get() para obtener el
           resultado
 		Parámetros:
 		params: Array con los datos a buscar, Ejemplo: ['province' => 'Madrid', 'telephone' => '91123456']
@@ -85,10 +85,10 @@
 	###Operaciones con entidades	
 	Todos los métodos de búsquedas devolverán un array de entidades o una entidad, a continuación se describen las operaciones que podemos realizar con cada una de estas
         entidades
-	*->save() Guarda la entidad en anfix, el sistema sabrá si debe crear o actualizar en cada momento en función de si existe o no un id para la entidad
-	*->delete() Borra una entidad en anfix
-	*->update(array $params [, $path = 'update']) Actualiza la entidad con los datos indicados indicados en params, permite especificar un punto de acceso diferente a
-         update. (Se recomienda utilizar save() en lugar de update())
+	* ->save() Guarda la entidad en anfix, el sistema sabrá si debe crear o actualizar en cada momento en función de si existe o no un id para la entidad
+	* ->delete() Borra una entidad en anfix
+	* ->update(array $params [, $path = 'update']) Actualiza la entidad con los datos indicados indicados en params, permite especificar un punto de acceso diferente a
+            update. (Se recomienda utilizar save() en lugar de update())
 	El método estático ::destroy($id [, $companyId = null] [, $path = 'delete']) permite destruir una entidad de la que conocemos su id
 		Parámetros:
 		id: Identificador de la entidad a destruir
