@@ -95,19 +95,20 @@
 		companyId: Identificador de la empresa con la que trabajar, obligatorio en algunas entidades (aquellas que guardan una relacción con una empresa determinada
                 en anfix)
 		path: Método anfix al que llamar remotamente (última parte del punto de acceso anfix), por defecto suele ser delete pero puede especificarse otro
-###Otras utilidades
+		
+##Otras utilidades
     Anfix\NextNumberFromSerial::compute(array $params, $companyId) Esta función nos permite obtener el siguiente número libre dentro de una serie para   facturas y presupuestos
-	[Parámetros]
+	[Parámetros]:
 	params: Array que debe contener obligatoriamente DocumentDate,DocumentTypeId y SerialNum
 	companyId: Identificador de la empresa sobre la que obtener los datos
 	
     Anfix\NextNumber::compute($entityTypeId, $companyId) Esta función nos permite obtener el siguiente código para cliente/proveedor.
-	[Parámetros]
+	[Parámetros]:
 	entityTypeId: Tipo de entidad: 1 Clientes, 2 Proveedores/Acreedores
 	companyId: Identificador de la empresa sobre la que obtener los datos
 	
     Anfix\TreasuryDataGraph::compute(array $params, $companyId) Esta función nos permite obtener información agregada de tesorería.
-	[Parámetros]
+	[Parámetros]:
 	params: Array que debe contener obligatoriamente CheckExpenses, CheckRevenues, CheckTreasury
 	companyId: Identificador de la empresa sobre la que obtener los datos	
 		
