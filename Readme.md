@@ -1,11 +1,11 @@
-#Instalación
-    Copie la librería
-    Edite el fichero config.inc.php y añada sus credenciales para la conexión a Anfix como partner, dichas credenciales le serán enviadas por Anfix
-    La clave default_token del fichero de configuración le permitirá indicar el token y clave (cuenta anfix) a utilizar por defecto y en caso de no indicarse ninguno 
-    mediante Anfix\Anfix::env([array $token] [,$config_file]);
-    El fichero tokens_temp.php o en su defecto el que se indique en el fichero de configuración debe tener permiso de escritura
-    Para el ejemplo get_tokens tambien se necesitará permiso de escritura en el fichero examples/tokens.php ya que dicho ejemplo registra los tokens recibidos en este fichero
-    Por último para utilizar la librería deberá incluir el fichero principal Anfix.php en todos aquellos scripts donde quiera hacer uso de la librería
+#QuickStart
+    1 - Copie la librería a su servidor php
+    2 - Edite el fichero config.inc.php y añada sus credenciales para la conexión a Anfix como partner, dichas credenciales le serán enviadas por Anfix
+      * Asegúrese que dispone de permiso de escritura en el fichero tokens_temp.php y examples/tokens.php
+    3 - Ejecute el script examples/get_token.php, este le redirigirá a la página de login de anfix
+      * Una vez haya finalizado este paso podrá visualizar las claves de acceso a su cuenta (token) en pantalla, además se habrán almacenado en el fichero examples/tokens.php
+    4 - Copie dichas claves en el apartado default_token del fichero config.inc.php que debe quedar de la siguiente forma: default_token => ['token_obtenido','secret_obtenido']
+    Ya puede acceder a su cuenta anfix como se indica en el apartado Operaciones con entidades, recuerde que dispone de muchos más ejemplos en el directorio examples
 
 ##Selección de entorno
 	Antes de realizar cualquier uso de la librería podrá asignar un entorno de trabajo, (cuenta a la que desea conectarse y fichero de configuración).
@@ -15,7 +15,7 @@
         del fichero de configuración
 		config_file: (Opcional) Path al fichero de configuración, si no se indica se obtendra config.inc.php
 	Si se desea utilizar el fichero de configuración por defecto y el token y password indicados en dicho fichero bajo la clave default_token podemos omitir
-	la llamada a Anfix\Anfix::env();
+	la selección de entorno
 	Podremos llamar a este método en cualquier momento durante la ejecución para cambiar el entorno, los cambios afectarán a los nuevos Modelos pero no a los
 	anteriormente generados. Es decir, todos aquellos Modelos que hayan sido generados con la configuración A seguirán utilizando la configuración A aunque la 
 	hayamos modificado. Logicamente las llamadas a métodos estáticos aplicarán la nueva configuración
@@ -44,11 +44,9 @@
     Si desea invalidar un token utilice la funcion Anfix\Anfix::invalidateToken(token,secret)
         [Parámetros]:
         token: Token a invalidar
-        secret: Clave del token a invalidar
-
-#Operaciones con la libreria		
+        secret: Clave del token a invalidar	
 		
-##Operaciones con entidades
+#Operaciones con entidades
 	El sistema trabaja con todas las entidades que se encuentran dentro del directorio /Entities
 	Todas estas entidades disponen de los siguientes métodos:
 	
@@ -99,19 +97,19 @@
 		
 ##Otras utilidades
     Anfix\NextNumberFromSerial::compute(array $params, $companyId) Esta función nos permite obtener el siguiente número libre dentro de una serie para   facturas y presupuestos
-	[Parámetros]:
-	params: Array que debe contener obligatoriamente DocumentDate,DocumentTypeId y SerialNum
-	companyId: Identificador de la empresa sobre la que obtener los datos
+	    [Parámetros]:
+	    params: Array que debe contener obligatoriamente DocumentDate,DocumentTypeId y SerialNum
+	    companyId: Identificador de la empresa sobre la que obtener los datos
 	
     Anfix\NextNumber::compute($entityTypeId, $companyId) Esta función nos permite obtener el siguiente código para cliente/proveedor.
-	[Parámetros]:
-	entityTypeId: Tipo de entidad: 1 Clientes, 2 Proveedores/Acreedores
-	companyId: Identificador de la empresa sobre la que obtener los datos
+	    [Parámetros]:
+	    entityTypeId: Tipo de entidad: 1 Clientes, 2 Proveedores/Acreedores
+	    companyId: Identificador de la empresa sobre la que obtener los datos
 	
     Anfix\TreasuryDataGraph::compute(array $params, $companyId) Esta función nos permite obtener información agregada de tesorería.
-	[Parámetros]:
-	params: Array que debe contener obligatoriamente CheckExpenses, CheckRevenues, CheckTreasury
-	companyId: Identificador de la empresa sobre la que obtener los datos	
+	    [Parámetros]:
+	    params: Array que debe contener obligatoriamente CheckExpenses, CheckRevenues, CheckTreasury
+	    companyId: Identificador de la empresa sobre la que obtener los datos	
 		
 #Ejemplos de uso
 	Ejemplo de obtención de todas las empresas disponibles para la cuenta por defecto:

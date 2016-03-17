@@ -161,6 +161,10 @@ class Anfix {
 
 		$oauth_callback = urlencode($returnUrl);
 
+        //Comprobación de permiso de escritura del fichero de tokens temporal
+        if(!is_writable(self::$config['tokens_temp_file']))
+            throw new AnfixResponseException('No se puede escribir el fichero '.self::$config['tokens_temp_file'].' este fichero necesita ser escrito para almacenar las claves temporales.');
+
         $realm = self::$config['realm'];
         $oauth_consumer_key = self::$config['oauth_consumer_key'];
         $oauth_signature = self::$config['oauth_signature'];
@@ -175,7 +179,7 @@ class Anfix {
         );
 
         //Obtenemos el fichero temporal de tokens
-		$temp = file_exists(self::$config['tokens_temp_file']) ? (include self::$config['tokens_temp_file']) : [];
+		$temp = (include self::$config['tokens_temp_file']);
 
         //Borramos las solicitudes expiradas
         foreach($temp as $k => $values)
@@ -183,10 +187,7 @@ class Anfix {
                 unset($temp[$k]);
 
 		$temp[$response['oauth_token']] = ['identifier' => $identifier, 'secret' => $response['oauth_token_secret'], 'timestamp' => time()];
-		$fpresult = file_put_contents(self::$config['tokens_temp_file'],'<?php return '.var_export($temp,true).';');
-		
-		if($fpresult === false)
-			throw new AnfixResponseException('No se puede escribir el fichero '.self::$config['tokens_temp_file'].' este fichero necesita ser escrito para almacenar las claves temporales.');
+		file_put_contents(self::$config['tokens_temp_file'],'<?php return '.var_export($temp,true).';');
 
         //Enviamos al usuario a la página de anfix
 		header("Location: {$loginUrl}?oauth_token={$response['oauth_token']}", true, 302);
