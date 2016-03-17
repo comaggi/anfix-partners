@@ -11,10 +11,10 @@ $self_url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; //Url a la 
 if(empty($_GET['oauth_token'])) //Si se trata de una petición simple get estamos en la primera parte de la obtención del token
     Anfix\Anfix::generateToken('test_identifier', $self_url);
 
-else //Si se reciben datos por post estaremos en la segunda parte (llamada desde anfix a nuestro script)
+else //Si se recibe oauth_token estaremos en la segunda parte (llamada desde anfix a nuestro script)
     \Anfix\Anfix::onGeneratedToken(function($identifier,$token,$secret) use ($tokens_file){
 
-        //Introducimos los datos del token en una variable
+        //Introducimos los datos del token recibido en una variable
         $tokenData = ['identifier' => $identifier, 'token' => $token, 'secret' => $secret];
 
         /**
