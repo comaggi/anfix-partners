@@ -9,7 +9,7 @@
 ##Selección de entorno
 	Antes de realizar cualquier uso de la librería deberá asignar un entorno de trabajo, (cuenta a la que desea conectarse y fichero de configuración).
 	Esta selección se realiza mediante la función Anfix\Anfix::env([array $token] [, string $config_file]);
-		Parámetros:
+		[Parámetros]:
 		token: Array conteniendo el token y la clave para dicho token, Ex: Array('USER_TOKEN','TOKEN_PASSWORD') Si no se indica se obtendrán de la clave default_token
         del fichero de configuración
 		config_file: (Opcional) Path al fichero de configuración, si no se indica se obtendra config.inc.php
@@ -23,13 +23,13 @@
 	El primer paso para poder conectar a una cuenta de Anfix será obtener un token de acceso, para esto puede observar el fichero /examples/new_token.php
 	donde se indica como realizar una solicitud y registro de un token. La solicitud se basa en dos pasos bien diferenciados (Oauth1)
 	El primer paso será realizar una llamada a Anfix::generateToken(string $identifier, string $returnUrl); que redirigirá a la página de login Anfix
-		Parámetros:
+		[Parámetros]:
 		identifier: Identificador que sera devuelto junto con el token definitivo, su uso responde únicamente a poder diferenciar entre varias solicitudes
 		returnUrl: Url donde deberá encontrarse el script que recibirá y almacenará el token (paso2)
 
 	El segundo paso será esperar que el usuario se loguee en Anfix y que la API Anfix realice una llamada a returnUrl con los datos de acceso
 	Para esto crearemos un script que contendrá una llamada a Anfix::onGeneratedToken(callable $function(identifier,token,secret)); 
-		Parámetros:
+		[Parámetros]:
 		function(identifier,token,secret): Closure que se ejecutará cuando se reciba un token válido, recibe los datos del token y se utiliza para almacenar el 
 		token una vez el usuario le haya autorizado el acceso a su cuenta. Recibe el identificador indicado en el paso anterior, el token y la clave del mismo
 
@@ -41,7 +41,7 @@
 
 ###Invalidación de un token
     Si desea invalidar un token utilice la funcion Anfix\Anfix::invalidateToken(token,secret)
-        Parámetros:
+        [Parámetros]:
         token: Token a invalidar
         secret: Clave del token a invalidar
 
@@ -53,7 +53,7 @@
 	
 	###Creación de entidades:
 	Para crear nuevas entidades utilizaremos el método estático ::create(array $params [, $companyId = null] [, $path = 'create'])
-		Parámetros:
+		[Parámetros]:
 		params: Array con los datos a introducir en la nueva entidad
 		companyId: Identificador de la empresa con la que trabajar, obligatorio en algunas entidades (aquellas que guardan una relacción con una empresa determinada
                            en anfix)
@@ -68,16 +68,16 @@
           (podremos guardarlo manualmente si lo deseamos)
 	::firstOrFail(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o genera una excepción Anfix\Exceptions\AnfixException
 	::all([$companyId = null]) Devuelve todas las entidades
-	::where(array $params, [,$companyId = null]) Realiza una búsqueda de todas las entidades que cumplan los parámetros indicados, debe llamarse a ->get() para obtener el
+	::where(array $params, [,$companyId = null]) Realiza una búsqueda de todas las entidades que cumplan los [Parámetros] indicados, debe llamarse a ->get() para obtener el
           resultado
-		Parámetros:
+		[Parámetros]:
 		params: Array con los datos a buscar, Ejemplo: ['province' => 'Madrid', 'telephone' => '91123456']
 		companyId: Identificador de la empresa con la que trabajar, obligatorio en algunas entidades (aquellas que guardan una relacción con una empresa determinada
                 en anfix)
 	Método no estático get():
 	El método ->get([array $fields = Array()] [, $maxRows = null] [, $path = 'search']) genera una búsqueda de entidades, combinado con where podremos definir unos filtros
          y después ejecutar la búsqueda
-		Parámetros:
+		[Parámetros]:
 		fields: Array que contendrá los campos que deseamos obtener, todos si se indica un array vacío
 		maxRows: Número máximo de resultados a retornar
 		path: Método anfix al que llamar remotamente (última parte del punto de acceso anfix), por defecto suele ser search pero puede especificarse otro
@@ -90,7 +90,7 @@
 	->update(array $params [, $path = 'update']) Actualiza la entidad con los datos indicados indicados en params, permite especificar un punto de acceso diferente a
           update. (Se recomienda utilizar save() en lugar de update())
 	El método estático ::destroy($id [, $companyId = null] [, $path = 'delete']) permite destruir una entidad de la que conocemos su id
-		Parámetros:
+		[Parámetros]:
 		id: Identificador de la entidad a destruir
 		companyId: Identificador de la empresa con la que trabajar, obligatorio en algunas entidades (aquellas que guardan una relacción con una empresa determinada
                 en anfix)
