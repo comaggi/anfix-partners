@@ -23,7 +23,7 @@ namespace Anfix;
 class PredefinedAccountingEntry extends BaseModel
 {
     protected $applicationId = '3';
-    protected $apiBaseUrl = 'http://apps.anfix.com/contapro/conta/company/predefinedaccountingentry/';
+    protected $apiUrlSufix = 'company/predefinedaccountingentry/';
     protected $update = true;
     protected $create = true;
     protected $delete = true;
