@@ -22,7 +22,7 @@ namespace Anfix;
 
 class Sheet
 {
-    protected $applicationId = '3';
-    protected $apiBaseUrl = 'http://apps.anfix.com/contapro/conta/sheet/';
+    private static $applicationId = '3';
+    private static $apiBaseUrl = 'http://apps.anfix.com/contapro/conta/sheet/';
 
 }
