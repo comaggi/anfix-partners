@@ -23,7 +23,7 @@ namespace Anfix;
 class NextNumberFromSerial extends StaticModel
 {
 	protected static $applicationId = 'E';
-	protected static $apiUrlSufix = 'common/nextnumber-fromserial/compute';
+	protected static $apiUrlSufix = 'common/nextnumber-fromserial/';
 	
 	/**
 	 * Devuelve el siguiente número disponible para una serie
@@ -34,7 +34,7 @@ class NextNumberFromSerial extends StaticModel
 	
 		self::constructStatic();
 		
-	    $result = Anfix::sendRequest(self::$apiBaseUrl,[
+	    $result = Anfix::sendRequest(self::$apiBaseUrl.'compute',[
             'applicationId' =>  self::$applicationId,
             'companyId' => $companyId,
             'inputBusinessData' => [
