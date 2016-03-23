@@ -22,8 +22,8 @@ namespace Anfix;
 
 class NextNumber extends StaticModel
 {
-    private static $applicationId = 'E';
-	private static $apiUrlSufix = 'common/nextnumber/compute';
+    protected static $applicationId = 'E';
+	protected static $apiUrlSufix = 'common/nextnumber/compute';
 
 	/**
 	 * Devuelve el siguiente n�mero disponible para un tipo de entidad
