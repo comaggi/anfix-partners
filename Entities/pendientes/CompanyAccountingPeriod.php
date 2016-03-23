@@ -23,7 +23,7 @@ namespace Anfix;
 class CompanyAccountingPeriod extends BaseModel
 {
     protected $applicationId = '3';
-    protected $apiBaseUrl = 'http://apps.anfix.com/contapro/conta/company/accountingperiod/';
+    protected $apiUrlSufix = 'company/accountingperiod/';
     protected $update = true;
     protected $create = false;
     protected $delete = true;
