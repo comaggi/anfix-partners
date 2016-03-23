@@ -42,7 +42,7 @@ class StaticModel{
     /**
      * Construye la configuración estática
      */
-    private static function constructStatic(){
+    protected static function constructStatic(){
     
         if(empty(self::$applicationId))
             throw new AnfixException('Debe indicar un applicationId en el modelo para poder utilizar la API');
