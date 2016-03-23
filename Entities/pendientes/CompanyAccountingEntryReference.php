@@ -23,7 +23,7 @@ namespace Anfix;
 class CompanyAccountingEntryReference extends BaseModel
 {
     protected $applicationId = '3';
-    protected $apiBaseUrl = 'http://apps.anfix.com/contapro/conta/company/accountingentryreference/';
+    protected $apiUrlSufix = 'company/accountingentryreference/';
     protected $update = true;
     protected $create = true;
     protected $delete = true;
