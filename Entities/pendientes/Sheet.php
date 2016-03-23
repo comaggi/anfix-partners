@@ -20,9 +20,8 @@
 
 namespace Anfix;
 
-class Sheet
+class Sheet extends StaticModel
 {
     private static $applicationId = '3';
-    private static $apiBaseUrl = 'http://apps.anfix.com/contapro/conta/sheet/';
 
 }
