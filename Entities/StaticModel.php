@@ -49,7 +49,7 @@ class StaticModel{
             self::$Model = end(explode('\\',get_called_class()));
             
         if(empty(self::$apiUrlSufix))
-            self::$piUrlSufix = strtolower(self::$Model).'/';
+            self::$apiUrlSufix = strtolower(self::$Model).'/';
 
         if(empty(self::$apiBaseUrl))
             self::$apiBaseUrl = Anfix::getEnv()['config']['applicationIdUrl'][self::$applicationId].self::$apiUrlSufix;
