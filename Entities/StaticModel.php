@@ -36,8 +36,6 @@ class StaticModel{
     protected static $primaryKey; //Opcional, Nombre de la clave primaria en Anfix, por defecto {$Model}Id
     protected static $apiBaseUrl; //Opcional, Url de la API a la que conectar, por defecto se obtiene de config/anfix en función del applicationId
     protected static $apiUrlSufix; //Opcional, Sufijo que se añade a la url de la API, por defecto nombre de la entidad, si se indica apiBaseUrl no se tendrá en cuenta este parámetro
-    protected static $config;
-    protected static $token;
     
     /**
      * Construye la configuración estática
@@ -47,17 +45,14 @@ class StaticModel{
         if(empty(self::$applicationId))
             throw new AnfixException('Debe indicar un applicationId en el modelo para poder utilizar la API');
             
-        if(!self::$Model)
+        if(empty(self::$Model))
             self::$Model = end(explode('\\',get_called_class()));
-
-        self::$config = Anfix::getEnv()['config'];
-        self::$token = Anfix::getEnv()['token'];
             
         if(empty(self::$apiUrlSufix))
             self::$piUrlSufix = strtolower(self::$Model).'/';
 
         if(empty(self::$apiBaseUrl))
-            self::$apiBaseUrl = self::$config['applicationIdUrl'][self::$applicationId].self::$apiUrlSufix;
+            self::$apiBaseUrl = Anfix::getEnv()['config']['applicationIdUrl'][self::$applicationId].self::$apiUrlSufix;
 
         if(empty(self::$primaryKey))
             self::$primaryKey = self::$Model.'Id';
