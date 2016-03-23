@@ -27,7 +27,7 @@ class NextNumberFromSerial
 	private static $apiBaseUrl = 'http://apps.anfix.com/facturapro-servicios/gestiona/servicios/common/nextnumber-fromserial/compute';
 	
 	/**
-	 * Devuelve el siguiente n�mero disponible para un tipo de entidad
+	 * Devuelve el siguiente número disponible para una serie
 	 * @param array $params Debe contener [DocumentDate => 'DATE', DocumentTypeId => 'ID', SerialNum => 'SERIAL'] obligatoriamente
 	 * @param string $companyId Id de empresa
 	 */
