@@ -20,9 +20,9 @@
 
 namespace Anfix;
 
-class Journal
+class Journal extends StaticModel
 {
-    private static $applicationId = '3';
-    private static $apiBaseUrl = 'http://apps.anfix.com/contapro/conta/report/';
+    protected static $applicationId = '3';
+    protected static $apiUrlSufix = 'report/';
 
 }
