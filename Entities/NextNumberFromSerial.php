@@ -23,8 +23,7 @@ namespace Anfix;
 class NextNumberFromSerial 
 {
 	private static $applicationId = 'E';
-	private static $Model = 'NextNumberFromSerial';
-	private static $apiBaseUrl = 'http://apps.anfix.com/facturapro-servicios/gestiona/servicios/common/nextnumber-fromserial/compute';
+	private static $apiUrlSufix = 'common/nextnumber-fromserial/compute';
 	
 	/**
 	 * Devuelve el siguiente número disponible para una serie
@@ -32,12 +31,15 @@ class NextNumberFromSerial
 	 * @param string $companyId Id de empresa
 	 */
 	public static function compute(array $params, $companyId){
-
-	    $result = Anfix::sendRequest(self::$apiBaseUrl,[
+	
+		$url = Anfix::getEnv()['config']['applicationIdUrl'][self::$applicationId].self::$apiUrlSufix;
+		$model = !empty(self::$Model) ? self::$Model : end(explode('\\',get_called_class()));
+		
+	    $result = Anfix::sendRequest($url,[
             'applicationId' =>  self::$applicationId,
             'companyId' => $companyId,
             'inputBusinessData' => [
-				self::$Model => $params
+				$model => $params
             ]
         ]);
 
