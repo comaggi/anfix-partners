@@ -23,15 +23,15 @@ namespace Anfix;
 class TreasuryDataGraph
 {
     private static $applicationId = 'E';
-	private static $Model = 'NextNumberFromSerial';
+	private static $Model = 'TreasuryDataGraph';
 	private static $apiBaseUrl = 'http://apps.anfix.com/facturapro-simple/gestiona/simple/treasury/search';
 	
 	/**
-	 * Devuelve el siguiente n�mero disponible para un tipo de entidad
+	 * Obtiene información agregada de tesorería.
 	 * @param array $params Debe contener CheckExpenses, CheckRevenues, CheckTreasury obligatoriamente
 	 * @param string $companyId Id de empresa
 	 */
-	public static function compute(array $params, $companyId){
+	public static function search(array $params, $companyId){
 
 	    $result = Anfix::sendRequest(self::$apiBaseUrl,[
             'applicationId' =>  self::$applicationId,
