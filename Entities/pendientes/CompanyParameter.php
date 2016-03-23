@@ -22,7 +22,7 @@ namespace Anfix;
 
 class CompanyParameter
 {
-    protected $applicationId = '3';
-	private $apiBaseUrl = 'http://apps.anfix.com/contapro/conta/company/parameter/';
+    private static $applicationId = '3';
+	private static $apiBaseUrl = 'http://apps.anfix.com/contapro/conta/company/parameter/';
 
 }
