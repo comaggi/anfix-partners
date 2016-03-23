@@ -32,14 +32,13 @@ class NextNumberFromSerial
 	 */
 	public static function compute(array $params, $companyId){
 	
-		$url = Anfix::getEnv()['config']['applicationIdUrl'][self::$applicationId].self::$apiUrlSufix;
-		$model = !empty(self::$Model) ? self::$Model : end(explode('\\',get_called_class()));
+		self::constructStatic();
 		
-	    $result = Anfix::sendRequest($url,[
+	    $result = Anfix::sendRequest(self::$apiBaseUrl,[
             'applicationId' =>  self::$applicationId,
             'companyId' => $companyId,
             'inputBusinessData' => [
-				$model => $params
+				self::$Model => $params
             ]
         ]);
 
