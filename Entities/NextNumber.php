@@ -23,7 +23,7 @@ namespace Anfix;
 class NextNumber extends StaticModel
 {
     protected static $applicationId = 'E';
-	protected static $apiUrlSufix = 'common/nextnumber/compute';
+	protected static $apiUrlSufix = 'common/nextnumber/';
 
 	/**
 	 * Devuelve el siguiente n�mero disponible para un tipo de entidad
@@ -34,7 +34,7 @@ class NextNumber extends StaticModel
 	
 		self::constructStatic();
 		
-	    $result = Anfix::sendRequest(self::$apiBaseUrl,[
+	    $result = Anfix::sendRequest(self::$apiBaseUrl.'compute',[
             'applicationId' =>  self::$applicationId,
             'companyId' => $companyId,
             'inputBusinessData' => [
