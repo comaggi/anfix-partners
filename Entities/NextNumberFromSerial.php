@@ -20,7 +20,7 @@
 
 namespace Anfix;
 
-class NextNumberFromSerial 
+class NextNumberFromSerial extends StaticModel
 {
 	private static $applicationId = 'E';
 	private static $apiUrlSufix = 'common/nextnumber-fromserial/compute';
