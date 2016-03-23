@@ -23,7 +23,7 @@ namespace Anfix;
 class TreasuryDataGraph extends StaticModel
 {
     protected static $applicationId = 'E';
-	protected static $apiBaseUrl = 'http://apps.anfix.com/facturapro-simple/gestiona/simple/treasury/search';
+	protected static $apiBaseUrl = 'http://apps.anfix.com/facturapro-simple/gestiona/simple/treasury/';
 	
 	/**
 	 * Obtiene información agregada de tesorería.
@@ -34,7 +34,7 @@ class TreasuryDataGraph extends StaticModel
 	
 		self::constructStatic();
 
-	    $result = Anfix::sendRequest(self::$apiBaseUrl,[
+	    $result = Anfix::sendRequest(self::$apiBaseUrl.'search',[
             'applicationId' =>  self::$applicationId,
             'companyId' => $companyId,
             'inputBusinessData' => [
