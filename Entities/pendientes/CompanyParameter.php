@@ -20,9 +20,9 @@
 
 namespace Anfix;
 
-class CompanyParameter
+class CompanyParameter extends StaticModel
 {
-    private static $applicationId = '3';
-	private static $apiBaseUrl = 'http://apps.anfix.com/contapro/conta/company/parameter/';
+    protected static $applicationId = '3';
+	protected static $apiUrlSufix = 'company/parameter/';
 
 }
