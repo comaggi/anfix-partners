@@ -20,10 +20,9 @@
 
 namespace Anfix;
 
-class NextNumber 
+class NextNumber extends StaticModel
 {
     private static $applicationId = 'E';
-	private static $Model = 'NextNumber';
 	private static $apiUrlSufix = 'common/nextnumber/compute';
 
 	/**
@@ -33,9 +32,9 @@ class NextNumber
 	 */
 	public static function compute($entityTypeId, $companyId){
 	
-		$url = Anfix::getEnv()['config']['applicationIdUrl'][self::$applicationId].self::$apiUrlSufix;
+		self::constructStatic();
 		
-	    $result = Anfix::sendRequest($url,[
+	    $result = Anfix::sendRequest(self::$apiBaseUrl,[
             'applicationId' =>  self::$applicationId,
             'companyId' => $companyId,
             'inputBusinessData' => [
