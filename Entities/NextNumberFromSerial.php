@@ -22,8 +22,8 @@ namespace Anfix;
 
 class NextNumberFromSerial extends StaticModel
 {
-	private static $applicationId = 'E';
-	private static $apiUrlSufix = 'common/nextnumber-fromserial/compute';
+	protected static $applicationId = 'E';
+	protected static $apiUrlSufix = 'common/nextnumber-fromserial/compute';
 	
 	/**
 	 * Devuelve el siguiente número disponible para una serie
