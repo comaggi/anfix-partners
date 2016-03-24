@@ -26,5 +26,32 @@ class Invoice extends BaseModel
     protected $update = true;
     protected $create = true;
     protected $delete = true;
-
+	
+   /*
+	* Renumera las facturas
+	* @param $accountingPeriodYear Año
+	* @param $invoiceType Tipo de factura a renumerar según doc anfix
+	* @param $companyId Identificador de la empresa
+	*/
+	public static function renumerate($accountingPeriodYear,$invoiceType,$companyId){
+		//renumerate
+	}
+	
+   /*
+	* Informe de IVA repercutido
+	* @param array $params Parámetros para el reporte, AccountingPeriodYear es obligatorio
+	* @param $companyId Identificador de la empresa
+	*/
+	public static function reportIssued(array $params,$companyId){
+		//report/issuedinvoice
+	}
+	
+   /*
+	* Informe de IVA soportado
+	* @param array $params Parámetros para el reporte, AccountingPeriodYear es obligatorio
+	* @param $companyId Identificador de la empresa
+	*/
+	public static function reportReceived($params,$companyId){
+		//report/issuedinvoice
+	}
 }
