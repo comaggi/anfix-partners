@@ -7,6 +7,7 @@
         '1' => 'https://apps.anfix.com/os/os/parc/',
         'E' => 'https://apps.anfix.com/facturapro-servicios/gestiona/servicios/',
         '3' => 'https://apps.anfix.com/contapro/conta/',
+        '5' => 'https://apps.anfix.com/documentos/'
     ),
     'requestTokenUrl' => 'http://apps.anfix.com/os/os/parc/partner/request_token',
     'accessTokenUrl' => 'http://apps.anfix.com/os/os/parc/partner/access_token',
