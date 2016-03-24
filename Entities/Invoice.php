@@ -32,9 +32,11 @@ class Invoice extends BaseModel
 	* @param $accountingPeriodYear Año
 	* @param $invoiceType Tipo de factura a renumerar según doc anfix
 	* @param $companyId Identificador de la empresa
+	* @return int Número de facturas afectadas
 	*/
 	public static function renumerate($accountingPeriodYear,$invoiceType,$companyId){
 		//renumerate
+		return $response->rowcount;
 	}
 	
    /*
