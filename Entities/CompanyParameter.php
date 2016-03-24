@@ -25,4 +25,16 @@ class CompanyParameter extends StaticModel
     protected static $applicationId = '3';
 	protected static $apiUrlSufix = 'company/parameter/';
 
+    /*
+     * Obtención de parametrización por defecto para una empresa.
+     * @param array $params SourceAccountingPlanId y SourceCompanyId obligatorios
+     * @param $companyId Identificador de la empresa
+     * @return Object
+     */
+    public static function parameterinitialize(array $params, $companyId){
+        $result = self::send($params,$companyId,'initialize');
+
+        return $result->outputData->{self::$Model};
+    }
+
 }

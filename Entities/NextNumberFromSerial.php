@@ -31,16 +31,8 @@ class NextNumberFromSerial extends StaticModel
 	 * @param string $companyId Id de empresa
 	 */
 	public static function compute(array $params, $companyId){
-	
-		self::constructStatic();
-		
-	    $result = Anfix::sendRequest(self::$apiBaseUrl.'compute',[
-            'applicationId' =>  self::$applicationId,
-            'companyId' => $companyId,
-            'inputBusinessData' => [
-				self::$Model => $params
-            ]
-        ]);
+
+		$result = self::send($params,$companyId,'compute');
 
         if(empty($result->outputData->{self::$Model}))
             return false;

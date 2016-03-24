@@ -41,7 +41,6 @@ class BaseModel
     protected $create = false; //Por defecto no se permite la creación
     protected $delete = false; //Por defecto no se permite el borrado
 
-
     private $draft = [];
     private $attributes = [];
     private $wherecond = [];
@@ -232,6 +231,25 @@ class BaseModel
     // ############################## STATIC FUNCTIONS ##############################
 
     /**
+     * Envia una solicitud estándar
+     * @param array $params
+     * @param null $companyId
+     * @param $path
+     * @return mixed
+     */
+    protected static function send(array $params, $companyId = null, $path){
+        $obj = new static([],false,$companyId);
+
+        return Anfix::sendRequest($obj->apiBaseUrl.$path,[
+            'applicationId' =>  $obj->applicationId,
+            'companyId' => $companyId,
+            'inputBusinessData' => [
+                $obj->Model => $params
+            ]
+        ]);
+    }
+
+    /**
      * Crea el objeto en la API
      * @param array $params
      * @param string $companyId Identificador de la compañia, sólo necesario en algunas entidades
@@ -245,13 +263,7 @@ class BaseModel
         if(!$obj->create)
             throw new AnfixException("El objeto {$obj->Model} no admite creación");
 
-        $result = Anfix::sendRequest($obj->apiBaseUrl.$path,[
-            'applicationId' =>  $obj->applicationId,
-            'companyId' => $companyId,
-            'inputBusinessData' => [
-                $obj->Model => $params
-            ]
-        ]);
+        $result = self::send($params,$companyId,$path);
 
         $received_params = array_filter(get_object_vars($result->outputData->{$obj->Model}),function($value){ return !is_array($value); });
         $received_params_arr = array_filter(get_object_vars($result->outputData->{$obj->Model}),function($value){ return is_array($value); });
@@ -281,15 +293,11 @@ class BaseModel
      */
     public static function destroy($id, $companyId = null, $path = 'delete'){
         $obj = new static([],false,$companyId);
-        $result = Anfix::sendRequest($obj->apiBaseUrl.$path,[
-            'applicationId' =>  $obj->applicationId,
-            'companyId' => $companyId,
-            'inputBusinessData' => [
-                $obj->Model => [
-                    $obj->primaryKey => $id
-                ]
-            ]
-        ]);
+
+        if(!$obj->delete)
+            throw new AnfixException("El objeto {$obj->Model} no admite eliminación");
+
+        $result = self::send([$obj->primaryKey => $id],$companyId,$path);
 
         if($result->result == 0)
             return true;

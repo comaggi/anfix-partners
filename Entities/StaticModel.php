@@ -57,5 +57,24 @@ class StaticModel{
         if(empty(self::$primaryKey))
             self::$primaryKey = self::$Model.'Id';
     }
+
+    /**
+     * Envia una solicitud estándar
+     * @param array $params
+     * @param null $companyId
+     * @param $path
+     * @return mixed
+     */
+    protected static function send(array $params, $companyId = null, $path){
+        self::constructStatic();
+
+        return Anfix::sendRequest(self::$apiBaseUrl.$path,[
+            'applicationId' =>  self::$applicationId,
+            'companyId' => $companyId,
+            'inputBusinessData' => [
+                self::$Model => $params
+            ]
+        ]);
+    }
     
 }

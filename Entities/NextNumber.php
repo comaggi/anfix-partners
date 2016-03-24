@@ -31,18 +31,8 @@ class NextNumber extends StaticModel
 	 * @param string $companyId Id de empresa
 	 */
 	public static function compute($entityTypeId, $companyId){
-	
-		self::constructStatic();
-		
-	    $result = Anfix::sendRequest(self::$apiBaseUrl.'compute',[
-            'applicationId' =>  self::$applicationId,
-            'companyId' => $companyId,
-            'inputBusinessData' => [
-				self::$Model => [
-                    'EntityTypeId' => $entityTypeId
-                ]
-            ]
-        ]);
+
+		$result = self::send(['EntityTypeId' => $entityTypeId],$companyId,'compute');
 
         if(empty($result->outputData->{self::$Model}))
             return false;
