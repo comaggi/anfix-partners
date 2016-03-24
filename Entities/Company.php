@@ -24,4 +24,23 @@ class Company extends BaseModel
 {
     protected $applicationId = 1;
     protected $update = true;
+	
+    /**
+     * Busca una empresa filtrando por su usuario
+     * @param $userId Identificador del usuario
+	 * @param array $fields = [] Campos a devolver
+     * @throws Exceptions\AnfixException
+     * @throws Exceptions\AnfixResponseException
+     * @return mixed|null
+     */
+    public static function findByUser($userId,$fields = []){
+        $data =  self::where([
+            'UserId' => (string)$userId,
+        ])->get($fields,null,'searchbyuser');
+
+        if(empty($data))
+            return null;
+
+        return head($data);
+    }
 }
