@@ -20,9 +20,10 @@
 
 namespace Anfix;
 
-class BankAccount extends BaseModel
+class AccountingBankAccount extends BaseModel
 {
     protected $applicationId = '3';
+    protected $Model = 'BankAccount';
     protected $update = false;
     protected $create = false;
     protected $delete = false;
