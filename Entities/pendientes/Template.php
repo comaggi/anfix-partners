@@ -40,4 +40,27 @@ class Template extends BaseModel
         $result = self::send(['TemplateId' => $templateId, 'TemplateTypeId' => $templateTypeId],$companyId,'setdefault');
         return true;
 	}
+	
+   /*
+	* Agrega una plantilla previamente subida mediante Media::upload
+	* @param array $params AccountingPeriodYear, Media.UID, Media.Name, TemplateFile, TemplateName obligatorios
+	* @param $companyId Identificador de la empresa
+	* @return Object
+	*/
+	public static function upload($params,$companyId){
+		$obj = new static([],false,$companyId);
+        $result = self::send($params,$companyId,'upload');
+        return $result->outputData->{$obj->Model};
+	}
+
+
+   /*
+	* Descarga una plantilla
+	* @param string $uid Identificador del elemento
+	* @param $companyId Identificador de la empresa
+	* @return Object
+	*/
+	public static function download($uid,$companyId){
+        return Media::download(['namespace' => 'conta', 'uid' => $uid],$companyId,'upload');
+	}
 }
