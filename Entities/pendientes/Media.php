@@ -23,6 +23,7 @@ namespace Anfix;
 class Media extends StaticModel
 {
     protected static $applicationId = '1';
+	protected static $apiBaseUrl = 'http://apps.anfix.com/os/media/';
     
    /*
 	* Descarga un fichero
@@ -32,7 +33,26 @@ class Media extends StaticModel
 	* @return File
 	*/
 	public static function download(array $params,$companyId,$path){
-        return;
+        return self::download(array $params,$companyId,$path);
+	}
+	
+   /*
+	* Selección de datos de asientos predefinidos.
+	* @return Object
+	*/
+	public static function uploadprogress(){
+        $result = self::send([],null,'uploadprogress');
+        return $result->outputData->{self::$Model};
+	}
+	
+   /*
+	* Subida de un fichero
+    * @params string $path Ruta del fichero a enviar
+	* @return Object
+	*/
+	public static function upload($path){
+        $result = self::upload($path);
+		return $result->outputData->{self::$Model};
 	}
 
 }
