@@ -28,4 +28,16 @@ class Template extends BaseModel
     protected $create = false;
     protected $delete = true;
 
+   /*
+	* Establecer la plantilla por defecto.
+	* @param $templateId Identificador único de la plantilla a establecer como plantilla por defecto
+	* @param $templateTypeId Tipo de documento para el que se establecerá la plantilla por defecto
+	* @param $companyId Identificador de la empresa
+	* @return Object
+	*/
+	public static function setdefault($templateId,$templateTypeId,$companyId){
+		$obj = new static([],false,$companyId);
+        $result = self::send(['TemplateId' => $templateId, 'TemplateTypeId' => $templateTypeId],$companyId,'setdefault');
+        return true;
+	}
 }
