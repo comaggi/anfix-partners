@@ -424,5 +424,21 @@ class BaseModel
 
         throw new AnfixException("No se ha encontrado ningún objeto {$obj->Model} con los parámetros indicados");
     }
+    
+   /*
+	* Descarga un fichero
+	* @param array $params Parámetros para la descarga
+    * @params string $path Ruta donde se guardará el fichero descargado
+	* @params string $url Url punto acceso, por defecto {self::$apiBaseUrl}/download
+	* @return File
+	*/
+	public static function download(array $params,$path,$url = null){
+		$obj = static::first($params);
+        
+		if(empty($url))
+			$url = $obj->apiBaseUrl.'/download';
+			
+        return;
+	}
 
 }
