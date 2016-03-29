@@ -78,36 +78,36 @@ class StaticModel{
     }
     
     
-   /*
+   /**
 	* Descarga un fichero
 	* @param array $params Parámetros para la descarga
-    * @params string $path Ruta donde se guardará el fichero descargado
+	* @params string $path Ruta donde se guardará el fichero descargado
 	* @params string $url Url punto acceso, por defecto {self::$apiBaseUrl}/download
 	* @return File
 	*/
 	protected static function download(array $params,$path,$url = null){
 		self::constructStatic();
-        
+
 		if(empty($url))
 			$url = self::$apiBaseUrl.'/download';
-			
-        return BaseModel::download($params,$path,$url);	
+
+		return BaseModel::download($params,$path,$url);	
 	}
     
     
-   /*
+	/**
 	* Subida de un fichero
-    * @params string $path Ruta del fichero a enviar
-    * @params string $url Url punto acceso, por defecto {self::$apiBaseUrl}/upload
+	* @params string $path Ruta del fichero a enviar
+	* @params string $url Url punto acceso, por defecto {self::$apiBaseUrl}/upload
 	* @return Object
 	*/
 	public static function upload($path,$url = null){
 		self::constructStatic();
-        
+
 		if(empty($url))
 			$url = self::$apiBaseUrl.'/upload';
-            
-        return BaseModel::upload($path,$url);   
- 	}
+			
+		return BaseModel::upload($path,$url);   
+	}
     
 }
