@@ -25,33 +25,32 @@ class Media extends StaticModel
     protected static $applicationId = '1';
 	protected static $apiBaseUrl = 'http://apps.anfix.com/os/media/';
     
-   /*
+   /**
 	* Descarga un fichero
-	* @param array $params Parámetros para la descarga
+	* @param array $params namespace, show y show obligatorios
     * @params string $path Ruta donde se guardará el fichero descargado
 	* @return true
 	*/
-	public static function download(array $params,$path){
-        return self::download(array $params,$path);
+	public static function download(array $params, $path){
+        return self::_download($params,$path);
 	}
 	
-   /*
+   /**
 	* Selección de datos de asientos predefinidos.
 	* @return Object
 	*/
 	public static function uploadprogress(){
-        $result = self::send([],null,'uploadprogress');
+        $result = self::_send([],null,'uploadprogress');
         return $result->outputData->{self::$Model};
 	}
-	
-   /*
+
+   /**
 	* Subida de un fichero
-    * @params string $path Ruta del fichero a enviar
+	* @params string $path Ruta del fichero a enviar
 	* @return Object
 	*/
 	public static function upload($path){
-        $result = self::upload($path);
-		return $result->outputData->{self::$Model};
+		return parent::_upload($path);
 	}
 
 }

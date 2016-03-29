@@ -65,7 +65,7 @@ class StaticModel{
      * @param $path
      * @return mixed
      */
-    protected static function send(array $params, $companyId = null, $path){
+    protected static function _send(array $params, $companyId = null, $path){
         self::constructStatic();
 
         return Anfix::sendRequest(self::$apiBaseUrl.$path,[
@@ -83,15 +83,15 @@ class StaticModel{
 	* @param array $params Parámetros para la descarga
 	* @params string $path Ruta donde se guardará el fichero descargado
 	* @params string $url Url punto acceso, por defecto {self::$apiBaseUrl}/download
-	* @return File
+	* @return true
 	*/
-	protected static function download(array $params,$path,$url = null){
+	protected static function _download(array $params, $path, $url = null){
 		self::constructStatic();
 
 		if(empty($url))
 			$url = self::$apiBaseUrl.'/download';
 
-		return BaseModel::download($params,$path,$url);	
+		return BaseModel::_download($params,$path,$url);
 	}
     
     
@@ -101,13 +101,13 @@ class StaticModel{
 	* @params string $url Url punto acceso, por defecto {self::$apiBaseUrl}/upload
 	* @return Object
 	*/
-	public static function upload($path,$url = null){
+	protected static function _upload($path, $url = null){
 		self::constructStatic();
 
 		if(empty($url))
 			$url = self::$apiBaseUrl.'/upload';
 			
-		return BaseModel::upload($path,$url);   
+		return BaseModel::_upload($path,$url);
 	}
     
 }

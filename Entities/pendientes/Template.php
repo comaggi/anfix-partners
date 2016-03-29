@@ -28,40 +28,38 @@ class Template extends BaseModel
     protected $create = false;
     protected $delete = true;
 
-   /*
+   /**
 	* Establecer la plantilla por defecto.
-	* @param $templateId Identificador único de la plantilla a establecer como plantilla por defecto
-	* @param $templateTypeId Tipo de documento para el que se establecerá la plantilla por defecto
-	* @param $companyId Identificador de la empresa
+	* @param string $templateId Identificador único de la plantilla a establecer como plantilla por defecto
+	* @param string $templateTypeId Tipo de documento para el que se establecerá la plantilla por defecto
+	* @param string $companyId Identificador de la empresa
 	* @return Object
 	*/
 	public static function setdefault($templateId,$templateTypeId,$companyId){
-		$obj = new static([],false,$companyId);
-        $result = self::send(['TemplateId' => $templateId, 'TemplateTypeId' => $templateTypeId],$companyId,'setdefault');
+        self::_send(['TemplateId' => $templateId, 'TemplateTypeId' => $templateTypeId],$companyId,'setdefault');
         return true;
 	}
 	
-   /*
+   /**
 	* Agrega una plantilla previamente subida mediante Media::upload
 	* @param array $params AccountingPeriodYear, Media.UID, Media.Name, TemplateFile, TemplateName obligatorios
-	* @param $companyId Identificador de la empresa
+	* @param string $companyId Identificador de la empresa
 	* @return Object
 	*/
-	public static function upload($params,$companyId){
+	public static function upload($params, $companyId){
 		$obj = new static([],false,$companyId);
-        $result = self::send($params,$companyId,'upload');
+        $result = self::_send($params,$companyId,'upload');
         return $result->outputData->{$obj->Model};
 	}
 
 
-   /*
+   /**
 	* Descarga una plantilla
 	* @param string $uid Identificador del elemento
-	* @param $companyId Identificador de la empresa
 	* @param string $path Path donde se almacenará el fichero
-	* @return Object
+	* @return true
 	*/
-	public static function download($uid,$companyId,$path){
-        return Media::download(['namespace' => 'conta', 'uid' => $uid],$companyId,$path);
+	public static function download($uid, $path){
+        return Media::download(['namespace' => 'conta', 'uid' => $uid],$path);
 	}
 }

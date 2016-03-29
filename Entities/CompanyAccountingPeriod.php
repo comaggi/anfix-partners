@@ -36,7 +36,7 @@ class CompanyAccountingPeriod extends BaseModel
      */
     public static function lockunlock(array $params, $companyId){
         $obj = new static([],false,$companyId);
-        $result = self::send($params,$companyId,'lockunlock');
+        $result = self::_send($params,$companyId,'lockunlock');
 
         return $result->outputData->{$obj->Model}->rowcount;
     }
@@ -49,7 +49,7 @@ class CompanyAccountingPeriod extends BaseModel
      */
     public static function purge($accountingPeriodYear, $companyId){
         $obj = new static([],false,$companyId);
-        $result = self::send(['AccountingPeriodYear' => $accountingPeriodYear],$companyId,'purge');
+        $result = self::_send(['AccountingPeriodYear' => $accountingPeriodYear],$companyId,'purge');
 
         return $result->outputData->{$obj->Model}->rowcount;
     }
@@ -62,7 +62,7 @@ class CompanyAccountingPeriod extends BaseModel
      */
     public static function regeneratebalance($accountingPeriodYear, $companyId){
         $obj = new static([],false,$companyId);
-        $result = self::send(['AccountingPeriodYear' => $accountingPeriodYear],$companyId,'regeneratebalance');
+        $result = self::_send(['AccountingPeriodYear' => $accountingPeriodYear],$companyId,'regeneratebalance');
 
         return $result->outputData->{$obj->Model}->rowcount;
     }
@@ -75,7 +75,7 @@ class CompanyAccountingPeriod extends BaseModel
      */
     public static function close(array $params, $companyId){
         $obj = new static([],false,$companyId);
-        $result = self::send($params,$companyId,'close');
+        $result = self::_send($params,$companyId,'close');
 
         return $result->outputData->{$obj->Model}->rowcount;
     }
@@ -88,7 +88,7 @@ class CompanyAccountingPeriod extends BaseModel
      */
     public static function createwithplan(array $params, $companyId){
         $obj = new static([],false,$companyId);
-        $result = self::send($params,$companyId,'createwithplan');
+        $result = self::_send($params,$companyId,'createwithplan');
 
         return $result->outputData->{$obj->Model}->CompanyAccoutingPeriodCreationDate;
     }

@@ -32,7 +32,7 @@ class NextNumber extends StaticModel
 	 */
 	public static function compute($entityTypeId, $companyId){
 
-		$result = self::send(['EntityTypeId' => $entityTypeId],$companyId,'compute');
+		$result = self::_send(['EntityTypeId' => $entityTypeId],$companyId,'compute');
 
         if(empty($result->outputData->{self::$Model}))
             return false;

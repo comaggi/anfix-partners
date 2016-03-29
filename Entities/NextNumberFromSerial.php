@@ -32,7 +32,7 @@ class NextNumberFromSerial extends StaticModel
 	 */
 	public static function compute(array $params, $companyId){
 
-		$result = self::send($params,$companyId,'compute');
+		$result = self::_send($params,$companyId,'compute');
 
         if(empty($result->outputData->{self::$Model}))
             return false;

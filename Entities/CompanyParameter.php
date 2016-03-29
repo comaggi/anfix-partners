@@ -32,7 +32,7 @@ class CompanyParameter extends StaticModel
      * @return Object
      */
     public static function parameterinitialize(array $params, $companyId){
-        $result = self::send($params,$companyId,'initialize');
+        $result = self::_send($params,$companyId,'initialize');
 
         return $result->outputData->{self::$Model};
     }

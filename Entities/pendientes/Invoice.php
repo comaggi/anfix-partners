@@ -27,38 +27,38 @@ class Invoice extends BaseModel
     protected $create = true;
     protected $delete = true;
 	
-   /*
+   /**
 	* Renumera las facturas
-	* @param $accountingPeriodYear Año
-	* @param $invoiceType Tipo de factura a renumerar según doc anfix
-	* @param $companyId Identificador de la empresa
+	* @param string $accountingPeriodYear Año
+	* @param string $invoiceType Tipo de factura a renumerar según doc anfix
+	* @param string $companyId Identificador de la empresa
 	* @return int Número de facturas afectadas
 	*/
 	public static function renumerate($accountingPeriodYear,$invoiceType,$companyId){
 		$obj = new static([],false,$companyId);
-        $result = self::send(['AccountingPeriodYear' => $accountingPeriodYear, 'InvoiceType' => $invoiceType],$companyId,'renumerate');
+        $result = self::_send(['AccountingPeriodYear' => $accountingPeriodYear, 'InvoiceType' => $invoiceType],$companyId,'renumerate');
         return $result->outputData->{$obj->Model}->rowcount;
 	}
 	
-   /*
+   /**
 	* Informe de IVA repercutido
 	* @param array $params Parámetros para el reporte, AccountingPeriodYear es obligatorio
-	* @param $companyId Identificador de la empresa
+	* @param string $companyId Identificador de la empresa
 	*/
 	public static function reportIssued(array $params,$companyId){
 		$obj = new static([],false,$companyId);
-        $result = self::send($params,$companyId,'report/issuedinvoice');
+        $result = self::_send($params,$companyId,'report/issuedinvoice');
         return $result->outputData->{$obj->Model};
 	}
 	
-   /*
+   /**
 	* Informe de IVA soportado
 	* @param array $params Parámetros para el reporte, AccountingPeriodYear es obligatorio
-	* @param $companyId Identificador de la empresa
+	* @param string $companyId Identificador de la empresa
 	*/
 	public static function reportReceived($params,$companyId){
 		$obj = new static([],false,$companyId);
-        $result = self::send($params,$companyId,'report/receivedinvoice');
+        $result = self::_send($params,$companyId,'report/receivedinvoice');
         return $result->outputData->{$obj->Model};
 	}
 }

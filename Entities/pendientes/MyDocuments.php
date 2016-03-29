@@ -27,44 +27,47 @@ class MyDocuments extends BaseModel
     protected $create = false;
     protected $delete = false;
 	
-   /*
+   /**
 	* Descarga un fichero
 	* @param string $entryIds Identificador de los documentos a descargar, separados por +
     * @params string $path Ruta donde se guardará el/los fichero/s descargado/s
 	* @return true
 	*/
-	public static function download($entryIds,$path){
-        return self::download(['entryIds' => $entryIds],$path);
+	public static function download($entryIds, $path){
+        return self::_download(['entryIds' => $entryIds],$path);
 	}
 	
-   /*
+   /**
 	* Creación de un nuevo directorio en el servicio My Documents.
 	* @param array $params HumanReadableName, HumanReadablePath, OwnerId, OwnerTypeId obligatorios 
 	* @return string EntryId 
 	*/
 	public static function createdirectory(array $params){
-		$result = self::send($params,null,'createdirectory');
-		return $result->outputData->{self::$Model}->EntryId;
+		$obj = new static();
+		$result = parent::_send($params,null,'createdirectory');
+		return $result->outputData->{$obj->Model}->EntryId;
 	}
 	
-   /*
+   /**
 	* Creación en el servicio My Documents de un nuevo documento asociado a un archivo previamente transferido mediante Media::upload
 	* @param array $params HumanReadableName, HumanReadablePath, OwnerId, OwnerTypeId obligatorios 
 	* @return Object
 	*/
 	public static function createfile(array $params){
-		$result = self::send($params,null,'createfile');
-		return $result->outputData->{self::$Model};
+		$obj = new static();
+		$result = parent::_send($params,null,'createfile');
+		return $result->outputData->{$obj->Model};
 	}	
 	
-   /*
+   /**
 	* Envía uno o varios documentos por correo electrónico a uno o más destinatarios.
 	* @param array $params EntryIds, Email, EmailSubject, EmailText obligatorios
 	* @return Object
 	*/
 	public static function send(array $params){
-		$result = self::send($params,null,'send');
-		return $result->outputData->{self::$Model};
+		$obj = new static();
+		$result = parent::_send($params,null,'send');
+		return $result->outputData->{$obj->Model};
 	}	
 	
 }

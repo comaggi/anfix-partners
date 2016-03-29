@@ -36,7 +36,7 @@ class CompanyAccountingEntryReference extends BaseModel
      */
     public static function completepredefined(array $params, $companyId){
         $obj = new static([],false,$companyId);
-        $result = self::send($params,$companyId,'completepredefined');
+        $result = self::_send($params,$companyId,'completepredefined');
 
         return $result->outputData->{$obj->Model};
     }
@@ -48,7 +48,7 @@ class CompanyAccountingEntryReference extends BaseModel
      * @return true
      */
     public static function transfer(array $params, $companyId){
-        self::send($params,$companyId,'transfer');
+        self::_send($params,$companyId,'transfer');
 
         return true;
     }
@@ -62,7 +62,7 @@ class CompanyAccountingEntryReference extends BaseModel
     public static function select(array $params, $companyId){
         $obj = new static([],false,$companyId);
 
-        $result = self::send($params,$companyId,'select');
+        $result = self::_send($params,$companyId,'select');
 
         return $result->outputData->{$obj->Model};
     }

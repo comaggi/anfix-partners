@@ -21,6 +21,7 @@
 namespace Anfix;
 
 use Anfix\Exceptions\AnfixException;
+use Anfix\Exceptions\AnfixResponseException;
 
 /**
  * Class BaseModel
@@ -232,25 +233,6 @@ class BaseModel
     // ############################## STATIC FUNCTIONS ##############################
 
     /**
-     * Envia una solicitud estándar
-     * @param array $params
-     * @param null $companyId
-     * @param $path
-     * @return mixed
-     */
-    protected static function send(array $params, $companyId = null, $path){
-        $obj = new static([],false,$companyId);
-
-        return Anfix::sendRequest($obj->apiBaseUrl.$path,[
-            'applicationId' =>  $obj->applicationId,
-            'companyId' => $companyId,
-            'inputBusinessData' => [
-                $obj->Model => $params
-            ]
-        ]);
-    }
-
-    /**
      * Crea el objeto en la API
      * @param array $params
      * @param string $companyId Identificador de la compañia, sólo necesario en algunas entidades
@@ -264,7 +246,7 @@ class BaseModel
         if(!$obj->create)
             throw new AnfixException("El objeto {$obj->Model} no admite creación");
 
-        $result = self::send($params,$companyId,$path);
+        $result = self::_send($params,$companyId,$path);
 
         $received_params = array_filter(get_object_vars($result->outputData->{$obj->Model}),function($value){ return !is_array($value); });
         $received_params_arr = array_filter(get_object_vars($result->outputData->{$obj->Model}),function($value){ return is_array($value); });
@@ -298,7 +280,7 @@ class BaseModel
         if(!$obj->delete)
             throw new AnfixException("El objeto {$obj->Model} no admite eliminación");
 
-        $result = self::send([$obj->primaryKey => $id],$companyId,$path);
+        $result = self::_send([$obj->primaryKey => $id],$companyId,$path);
 
         if($result->result == 0)
             return true;
@@ -425,30 +407,32 @@ class BaseModel
         throw new AnfixException("No se ha encontrado ningún objeto {$obj->Model} con los parámetros indicados");
     }
     
-   /*
+   /**
 	* Descarga un fichero
 	* @param array $params Parámetros para la descarga
     * @params string $path Ruta donde se guardará el fichero descargado
 	* @params string $url Url punto acceso, por defecto {$apiBaseUrl}/download
-	* @return File
+	* @return true
 	*/
-	public static function download(array $params,$path,$url = null){
-		$obj = static::first($params);
+	public static function _download(array $params, $path, $url = null){
+		$obj = new static($params);
         
 		if(empty($url))
 			$url = $obj->apiBaseUrl.'/download';
-			
-        return;
+
+        return Anfix::getFile($url,$params,$path);
 	}
     
-   /*
+   /**
 	* Subida de un fichero (Necesita php 5.2.2 o posterior)
     * @params string $path Ruta absoluta del fichero a enviar
     * @params string $url Url punto acceso, por defecto {$apiBaseUrl}/upload
+    * @throws AnfixResponseException
+    * @throws AnfixException
 	* @return Object
 	*/
-	public static function upload($path,$url = null){
-		$obj = static::first($params);
+	public static function _upload($path, $url = null){
+		$obj = new static();
         
 		if(empty($url))
 			$url = $obj->apiBaseUrl.'/upload';
@@ -458,5 +442,24 @@ class BaseModel
         
         return Anfix::sendRequest($url,['upload' => '@'.$path], [], [], 'multipart/form-data');  
  	}
+
+   /**
+    * Envia una solicitud estándar
+    * @param array $params
+    * @param null $companyId
+    * @param $path
+    * @return mixed
+    */
+    protected static function _send(array $params, $companyId = null, $path){
+        $obj = new static([],false,$companyId);
+
+        return Anfix::sendRequest($obj->apiBaseUrl.$path,[
+            'applicationId' =>  $obj->applicationId,
+            'companyId' => $companyId,
+            'inputBusinessData' => [
+                $obj->Model => $params
+            ]
+        ]);
+    }
 
 }

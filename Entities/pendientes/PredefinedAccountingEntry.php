@@ -28,42 +28,42 @@ class PredefinedAccountingEntry extends BaseModel
     protected $create = true;
     protected $delete = true;
 	
-   /*
+   /**
 	* Duplicación de asientos predefinidos entre empresas.
 	* @param array $params Parámetros para el reporte, AccountingPeriodYear, Action, CompanyIdSource y PredefinedEntriesId obligatorios
-	* @param $companyId Identificador de la empresa
+	* @param string $companyId Identificador de la empresa
 	* @return Int Número de elementos afectados
 	*/
 	public static function copy(array $params,$companyId){
 		$obj = new static([],false,$companyId);
-        $result = self::send($params,$companyId,'copy');
+        $result = self::_send($params,$companyId,'copy');
         return $result->outputData->{$obj->Model}->rowcount;
 	}
 	
-   /*
+   /**
 	* Búsqueda de asientos predefinidos por tipo de asiento.
 	* Su utilización es similar a ->get, siempre después de ::where()
-	* @param $accountingPeriodYear 	Año del ejercicio contable en le que se realiza la búsqueda
+	* @param string $accountingPeriodYear Año del ejercicio contable en le que se realiza la búsqueda
 	* @param $includePredefined true o false indicando si se deben incluir en los resultados los asientos predefinidos estructurales o no, respectivamente
 	* @param array $fields = [] Campos a devolver
-	* @param $order Ordenación 	PredefinedAccountingEntryCode, PredefinedAccountingEntryTypeId
+	* @param string $order Ordenación PredefinedAccountingEntryCode, PredefinedAccountingEntryTypeId
 	* @return array BaseModel
 	*/
-	public function getbyentrytype($accountingPeriodYear, $includePredefined, array $fields = [], $order = 'PredefinedAccountingEntryCode'){
+	public function getByEntryType($accountingPeriodYear, $includePredefined, array $fields = [], $order = 'PredefinedAccountingEntryCode'){
         $params = ['AccountingPeriodYear' => $accountingPeriodYear, 'IncludeStructuralPredefinedAccountingEntries' => $includePredefined, 'Order' => $order];
 		return $this->get($fields,null,'searchbyentrytype',$params);
 	}
 	
-   /*
+   /**
 	* Selección de datos de asientos predefinidos.
-	* @param $accountingPeriodYear Año
-	* @param $predefinedEntryId Identificador del asiento predefinido a seleccionar.
-	* @param $companyId Identificador de la empresa
+	* @param string $accountingPeriodYear Año
+	* @param string $predefinedEntryId Identificador del asiento predefinido a seleccionar.
+	* @param string $companyId Identificador de la empresa
 	* @return Object
 	*/
-	public static function selectpredefined($accountingPeriodYear,$predefinedEntryId,$companyId){
+	public static function selectPredefined($accountingPeriodYear,$predefinedEntryId,$companyId){
 		$obj = new static([],false,$companyId);
-        $result = self::send(['AccountingPeriodYear' => $accountingPeriodYear, 'AccountingEntryPredefinedEntryId' => $predefinedEntryId],$companyId,'selectpredefined');
+        $result = self::_send(['AccountingPeriodYear' => $accountingPeriodYear, 'AccountingEntryPredefinedEntryId' => $predefinedEntryId],$companyId,'selectpredefined');
         return $result->outputData->{$obj->Model};
 	}
 	

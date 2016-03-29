@@ -22,30 +22,28 @@ namespace Anfix;
 
 class Sheet extends StaticModel
 {
-    private static $applicationId = '3';
+    protected static $applicationId = '3';
 	
-   /*
+   /**
 	* Generación del Balance de situación.
 	* @param array $params Parámetros
-	* @param $companyId Identificador de la empresa
+	* @param string $companyId Identificador de la empresa
 	* @return Object
 	*/
 	public static function balance(array $params,$companyId){
-		$obj = new static([],false,$companyId);
-        $result = self::send($params,$companyId,'balance');
-        return $result->outputData->{$obj->Model};
+        $result = self::_send($params,$companyId,'balance');
+        return $result->outputData->{self::$Model};
 	}
 	
-   /*
+   /**
 	* Generación de la cuenta de Pérdidas y ganancias.
 	* @param array $params Parámetros
-	* @param $companyId Identificador de la empresa
+	* @param string $companyId Identificador de la empresa
 	* @return Object
 	*/
 	public static function pyg(array $params,$companyId){
-		$obj = new static([],false,$companyId);
-        $result = self::send($params,$companyId,'pyg');
-        return $result->outputData->{$obj->Model};
+        $result = self::_send($params,$companyId,'pyg');
+        return $result->outputData->{self::$Model};
 	}
 
 }

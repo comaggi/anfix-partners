@@ -25,16 +25,15 @@ class Ledger extends StaticModel
     protected static $applicationId = '3';
     protected static $apiUrlSufix = 'report/';
 	
-   /*
+   /**
 	* Generación del libro Mayor.
 	* @param array $params Parámetros
-	* @param $companyId Identificador de la empresa
+	* @param string $companyId Identificador de la empresa
 	* @return Object
 	*/
 	public static function report(array $params,$companyId){
-		$obj = new static([],false,$companyId);
-        $result = self::send($params,$companyId,'ledger');
-        return $result->outputData->{$obj->Model};
+        $result = self::_send($params,$companyId,'ledger');
+        return $result->outputData->{self::$Model};
 	}
 
 }
