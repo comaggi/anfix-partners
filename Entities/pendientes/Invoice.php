@@ -35,8 +35,9 @@ class Invoice extends BaseModel
 	* @return int Número de facturas afectadas
 	*/
 	public static function renumerate($accountingPeriodYear,$invoiceType,$companyId){
-		//renumerate
-		return $response->rowcount;
+		$obj = new static([],false,$companyId);
+        $result = self::send(['AccountingPeriodYear' => $accountingPeriodYear, 'InvoiceType' => $invoiceType],$companyId,'renumerate');
+        return $result->outputData->{$obj->Model}->rowcount;
 	}
 	
    /*
@@ -45,7 +46,9 @@ class Invoice extends BaseModel
 	* @param $companyId Identificador de la empresa
 	*/
 	public static function reportIssued(array $params,$companyId){
-		//report/issuedinvoice
+		$obj = new static([],false,$companyId);
+        $result = self::send($params,$companyId,'report/issuedinvoice');
+        return $result->outputData->{$obj->Model};
 	}
 	
    /*
@@ -54,6 +57,8 @@ class Invoice extends BaseModel
 	* @param $companyId Identificador de la empresa
 	*/
 	public static function reportReceived($params,$companyId){
-		//report/issuedinvoice
+		$obj = new static([],false,$companyId);
+        $result = self::send($params,$companyId,'report/receivedinvoice');
+        return $result->outputData->{$obj->Model};
 	}
 }
