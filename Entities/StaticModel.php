@@ -72,7 +72,7 @@ class StaticModel{
             'applicationId' =>  self::$applicationId,
             'companyId' => $companyId,
             'inputBusinessData' => [
-                self::$Model => $params
+                self::$Model => !empty($params) ? $params : new \stdClass()
             ]
         ]);
     }
