@@ -91,7 +91,7 @@ class StaticModel{
 		if(empty($url))
 			$url = self::$apiBaseUrl.'/download';
 			
-        return;
+        return BaseModel::download($params,$path,$url);	
 	}
     
     
@@ -107,7 +107,7 @@ class StaticModel{
 		if(empty($url))
 			$url = self::$apiBaseUrl.'/upload';
             
-        return;    
+        return BaseModel::upload($path,$url);   
  	}
     
 }
