@@ -455,8 +455,10 @@ class BaseModel
         
         if(!file_exists($path))
             throw new AnfixException("El path {$path} no existe");
-            
-        return Anfix::sendRequest($url,['file' => '@'.$path], [], [], false);  
+        
+        $filename = 'Recibo01.pdf';
+        $headers = ["Content-Disposition: form-data;name=\"upload\";filename=\"$filename\""];
+        return Anfix::sendRequest($url,['file' => '@'.$path], [], [], 'multipart/form-data', $headers);  
  	}
 
 }
