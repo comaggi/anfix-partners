@@ -28,27 +28,29 @@ class CompanyAccountingAccount extends BaseModel
     protected $create = true;
     protected $delete = true;
 	
-	/*
-     * Impresión de cuentas del plan contable de la empresa.
-	 * @param array $params AccountingPeriodYear obligatorio
-     * @param $companyId Identificador de la empresa
-     * @return Object
-     */
-    public static function print(array $params, $companyId){
-        $obj = new static([],false,$companyId);
-        $result = self::send($params,$companyId,'print');
-
-        return $result->outputData->{$obj->Model};
-    }
+   /*
+	* Impresión de cuentas del plan contable de la empresa.
+	* Su utilización es similar a ->get, siempre después de ::where()
+	* @param array $params AccountingPeriodYear obligatorio
+	* @param array $fields = [] Campos a devolver
+	* @param $order Ordenación 	CompanyAccountingAccountDescription, CompanyAccountingAccountNumber
+	* @return array BaseModel
+	*/
+	public function print(array $params, array $fields = [], $order = 'CompanyAccountingAccountDescription'){
+        $params['Order'] = $order;
+		return $this->get($fields,null,'print',$params);
+	}
 	
 	/*
      * Selección de datos de subcuentas contables.
-	 * @param array $params  AccountingPeriodYear y CompanyAccountingAccountNumber obligatorios
+	 * @param $accountingPeriodYear Año
+	 * @param $companyAccountingAccountNumber Número de cuenta a seleccionar.
      * @param $companyId Identificador de la empresa
      * @return Object
      */
-    public static function print(array $params, $companyId){
+    public static function select($accountingPeriodYear, $companyAccountingAccountNumber, $companyId){
         $obj = new static([],false,$companyId);
+		$params = ['AccountingPeriodYear' => $accountingPeriodYear, 'CompanyAccountingAccountNumber' => $companyAccountingAccountNumber];
         $result = self::send($params,$companyId,'select');
 
         return $result->outputData->{$obj->Model};
