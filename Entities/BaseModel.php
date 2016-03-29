@@ -456,7 +456,7 @@ class BaseModel
         if(!file_exists($path))
             throw new AnfixException("El path {$path} no existe");
         
-        return Anfix::sendRequest($url,['file' => '@'.$path], [], [], 'multipart/form-data');  
+        return Anfix::sendRequest($url,['upload' => '@'.$path], [], [], 'multipart/form-data');  
  	}
 
 }
