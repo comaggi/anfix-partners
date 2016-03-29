@@ -452,8 +452,11 @@ class BaseModel
         
 		if(empty($url))
 			$url = $obj->apiBaseUrl.'/upload';
+        
+        if(!file_exists($path))
+            throw new AnfixException("El path {$path} no existe");
             
-        return;   
+        return Anfix::sendRequest($obj->apiBaseUrl.$path,['file' => '@'.$path], [], [], false);  
  	}
 
 }
