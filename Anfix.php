@@ -54,6 +54,7 @@ class Anfix {
      * @throws Exceptions\AnfixResponseException
      */
     public static function getHeaders($url, array $headers){
+        $headers[] = 'Content-Type: application/json';
         return self::send($url,$headers,[],true)['headers'];
     }
 
@@ -63,11 +64,12 @@ class Anfix {
      * @param array $data Parámetros de la petición
 	 * @param array $config Parámetros de configuración o config por defecto si vacío
 	 * @param array $token ['TOKEN','TOKEN_PASSWORD'] o default_token si vacío
-     * @param bool $asJson = true Send data as Json
+     * @param bool $contentType = 'application/json'
+     * @param array $extraHeaders = Parámetros extra para las cabeceras
      * @return mixed
      * @throws \Exception
      */
-    public static function sendRequest($url, array $data, array $config = [], array $token = [], $asJson = true){
+    public static function sendRequest($url, array $data, array $config = [], array $token = [], $contentType = 'application/json', array $extraHeaders = []){
 		if(empty($config))
 			$config = self::getEnv()['config'];
 	
@@ -80,10 +82,12 @@ class Anfix {
             oauth_token=\"{$token[0]}\",
             oauth_signature=\"{$config['oauth_signature']}&{$token[1]}\""];
 
-        if($asJson)
+        if($asJson){
             $data = json_encode($data);
-            
-        return self::send($url,$headers,$data,false)['response'];
+
+        $headers[] = "Content-Type: $contentType";
+        
+        return self::send($url,array_merge($headers,$extraHeaders),$data,false)['response'];
     }
 
     /**
@@ -99,9 +103,8 @@ class Anfix {
 
         if(empty(self::$curl))
             self::$curl = curl_init();
-
-        $headers[] = 'Content-Type: application/json';
-        $headers[] = 'Host: anfix.com';
+            
+        $headers[] = 'Host: anfix.com';     
 
         curl_setopt(self::$curl, CURLOPT_HTTPGET, false); //Post query
         curl_setopt(self::$curl, CURLOPT_POST, true); //Post query
