@@ -161,12 +161,13 @@ class BaseModel
      * @param array $fields = [] Campos a devolver
      * @param int $maxRows = null Máximo de filas a mostrar
      * @param string $path = 'search' Path de la función en anfix
+     * @param array $params = [] Parámetros especiales
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
      * @return array BaseModel
      */
-    public function get(array $fields = [], $maxRows = null, $path = 'search'){
-        $obj_data = [];
+    public function get(array $fields = [], $maxRows = null, $path = 'search', array $params = []){
+        $obj_data = $params;
         $return = [];
 
         if(!empty($fields))
