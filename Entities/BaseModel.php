@@ -442,8 +442,8 @@ class BaseModel
 	}
     
    /*
-	* Subida de un fichero
-    * @params string $path Ruta del fichero a enviar
+	* Subida de un fichero (Necesita php 5.2.2 o posterior)
+    * @params string $path Ruta absoluta del fichero a enviar
     * @params string $url Url punto acceso, por defecto {$apiBaseUrl}/upload
 	* @return Object
 	*/
