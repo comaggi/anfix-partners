@@ -28,12 +28,11 @@ class Media extends StaticModel
    /*
 	* Descarga un fichero
 	* @param array $params Parámetros para la descarga
-	* @param $companyId Identificador de la empresa
     * @params string $path Ruta donde se guardará el fichero descargado
 	* @return File
 	*/
-	public static function download(array $params,$companyId,$path){
-        return self::download(array $params,$companyId,$path);
+	public static function download(array $params,$path){
+        return self::download(array $params,$path);
 	}
 	
    /*
