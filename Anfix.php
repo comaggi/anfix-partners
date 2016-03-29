@@ -82,7 +82,7 @@ class Anfix {
             oauth_token=\"{$token[0]}\",
             oauth_signature=\"{$config['oauth_signature']}&{$token[1]}\""];
 
-        if($asJson){
+        if($contentType == 'application/json'){
             $data = json_encode($data);
 
         $headers[] = "Content-Type: $contentType";
