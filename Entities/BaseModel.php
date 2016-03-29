@@ -429,7 +429,7 @@ class BaseModel
 	* Descarga un fichero
 	* @param array $params Parámetros para la descarga
     * @params string $path Ruta donde se guardará el fichero descargado
-	* @params string $url Url punto acceso, por defecto {self::$apiBaseUrl}/download
+	* @params string $url Url punto acceso, por defecto {$apiBaseUrl}/download
 	* @return File
 	*/
 	public static function download(array $params,$path,$url = null){
@@ -440,5 +440,20 @@ class BaseModel
 			
         return;
 	}
+    
+   /*
+	* Subida de un fichero
+    * @params string $path Ruta del fichero a enviar
+    * @params string $url Url punto acceso, por defecto {$apiBaseUrl}/upload
+	* @return Object
+	*/
+	public static function upload($path,$url = null){
+		$obj = static::first($params);
+        
+		if(empty($url))
+			$url = $obj->apiBaseUrl.'/upload';
+            
+        return;   
+ 	}
 
 }
