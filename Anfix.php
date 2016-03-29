@@ -54,7 +54,6 @@ class Anfix {
      * @throws Exceptions\AnfixResponseException
      */
     public static function getHeaders($url, array $headers){
-        $headers[] = 'Content-Type: application/json';
         return self::send($url,$headers,[],true)['headers'];
     }
 
@@ -177,12 +176,13 @@ class Anfix {
         $oauth_signature = self::$config['oauth_signature'];
         $loginUrl = self::$config['loginUrl'];
 
-        $response = Anfix::getHeaders(self::$config['requestTokenUrl'],
+        $response = self::getHeaders(self::$config['requestTokenUrl'],
             ["Authorization: realm=\"{$realm}\",
             oauth_consumer_key=\"{$oauth_consumer_key}\",
             oauth_signature_method=\"PLAINTEXT\",
             oauth_callback=\"{$oauth_callback}\",
-            oauth_signature=\"{$oauth_signature}&\""]
+            oauth_signature=\"{$oauth_signature}&\"",
+            'Content-Type: application/json']
         );
 
         //Obtenemos el fichero temporal de tokens
@@ -222,13 +222,14 @@ class Anfix {
         $secret = $temp[$token]['secret'];
 		$identifier = $temp[$token]['identifier'];
 
-        $response = Anfix::getHeaders(self::$config['accessTokenUrl'],
+        $response = self::getHeaders(self::$config['accessTokenUrl'],
             ["Authorization: realm=\"{$realm}\",
             oauth_consumer_key=\"{$oauth_consumer_key}\",
             oauth_signature_method=\"PLAINTEXT\",
             oauth_token=\"$token\",
             oauth_verifier=\"$verifier\",
-            oauth_signature=\"{$oauth_signature}&$secret\""]
+            oauth_signature=\"{$oauth_signature}&$secret\"",
+            'Content-Type: application/json']
         );
 
         //Enviamos la respuesta al closure indicado
@@ -255,7 +256,8 @@ class Anfix {
             oauth_consumer_key=\"{$oauth_consumer_key}\",
             oauth_signature_method=\"PLAINTEXT\",
             oauth_token=\"{$token}\",
-            oauth_signature=\"{$oauth_signature}&{$secret}\""]
+            oauth_signature=\"{$oauth_signature}&{$secret}\"",
+            'Content-Type: application/json']
         );
 
         return true;
