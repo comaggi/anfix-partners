@@ -24,5 +24,17 @@ class Journal extends StaticModel
 {
     protected static $applicationId = '3';
     protected static $apiUrlSufix = 'report/';
+	
+   /*
+	* Generación del libro Diario.
+	* @param array $params Parámetros
+	* @param $companyId Identificador de la empresa
+	* @return Object
+	*/
+	public static function report(array $params,$companyId){
+		$obj = new static([],false,$companyId);
+        $result = self::send($params,$companyId,'journal');
+        return $result->outputData->{$obj->Model};
+	}
 
 }
