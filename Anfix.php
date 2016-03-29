@@ -63,10 +63,11 @@ class Anfix {
      * @param array $data Parámetros de la petición
 	 * @param array $config Parámetros de configuración o config por defecto si vacío
 	 * @param array $token ['TOKEN','TOKEN_PASSWORD'] o default_token si vacío
+     * @param bool $asJson = true Send data as Json
      * @return mixed
      * @throws \Exception
      */
-    public static function sendRequest($url, array $data, array $config = [], array $token = []){
+    public static function sendRequest($url, array $data, array $config = [], array $token = [], $asJson = true){
 		if(empty($config))
 			$config = self::getEnv()['config'];
 	
@@ -79,7 +80,10 @@ class Anfix {
             oauth_token=\"{$token[0]}\",
             oauth_signature=\"{$config['oauth_signature']}&{$token[1]}\""];
 
-        return self::send($url,$headers,json_encode($data),false)['response'];
+        if($asJson)
+            $data = json_encode($data);
+            
+        return self::send($url,$headers,$data,false)['response'];
     }
 
     /**
