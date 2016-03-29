@@ -58,9 +58,10 @@ class Template extends BaseModel
 	* Descarga una plantilla
 	* @param string $uid Identificador del elemento
 	* @param $companyId Identificador de la empresa
+	* @param string $path Path donde se almacenará el fichero
 	* @return Object
 	*/
-	public static function download($uid,$companyId){
-        return Media::download(['namespace' => 'conta', 'uid' => $uid],$companyId,'upload');
+	public static function download($uid,$companyId,$path){
+        return Media::download(['namespace' => 'conta', 'uid' => $uid],$companyId,$path);
 	}
 }
