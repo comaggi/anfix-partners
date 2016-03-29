@@ -77,4 +77,22 @@ class StaticModel{
         ]);
     }
     
+    
+   /*
+	* Descarga un fichero
+	* @param array $params Parámetros para la descarga
+	* @param $companyId Identificador de la empresa
+    * @params string $path Ruta donde se guardará el fichero descargado
+	* @params string $url Url punto acceso, por defecto {self::$baseUr}/download
+	* @return File
+	*/
+	protected static function download(array $params,$companyId,$path,$url = null){
+		self::constructStatic();
+        
+		if(empty($url))
+			$url = self::$apiBaseUrl.'/download';
+			
+        return;
+	}
+    
 }
