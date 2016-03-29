@@ -27,5 +27,31 @@ class CompanyAccountingAccount extends BaseModel
     protected $update = true;
     protected $create = true;
     protected $delete = true;
+	
+	/*
+     * Impresión de cuentas del plan contable de la empresa.
+	 * @param array $params AccountingPeriodYear obligatorio
+     * @param $companyId Identificador de la empresa
+     * @return Object
+     */
+    public static function print(array $params, $companyId){
+        $obj = new static([],false,$companyId);
+        $result = self::send($params,$companyId,'print');
+
+        return $result->outputData->{$obj->Model};
+    }
+	
+	/*
+     * Selección de datos de subcuentas contables.
+	 * @param array $params  AccountingPeriodYear y CompanyAccountingAccountNumber obligatorios
+     * @param $companyId Identificador de la empresa
+     * @return Object
+     */
+    public static function print(array $params, $companyId){
+        $obj = new static([],false,$companyId);
+        $result = self::send($params,$companyId,'select');
+
+        return $result->outputData->{$obj->Model};
+    }
 
 }
