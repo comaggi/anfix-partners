@@ -95,4 +95,20 @@ class StaticModel{
         return;
 	}
     
+    
+   /*
+	* Subida de un fichero
+    * @params string $path Ruta del fichero a enviar
+    * @params string $url Url punto acceso, por defecto {self::$baseUr}/upload
+	* @return Object
+	*/
+	public static function upload($path,$url = null){
+		self::constructStatic();
+        
+		if(empty($url))
+			$url = self::$apiBaseUrl.'/upload';
+            
+        return;    
+ 	}
+    
 }
