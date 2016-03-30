@@ -54,19 +54,19 @@ class Anfix {
      * @throws Exceptions\AnfixResponseException
      */
     public static function getHeaders($url, array $headers){
-        return self::send($url,$headers,[],true)['headers'];
+        return self::sendPost($url,$headers,[],true)['headers'];
     }
 
     /**
-     * Devuelve el retorno de una petición
+     * Devuelve el retorno de una petición post
      * @param $url
      * @param array $data Parámetros de la petición
 	 * @param array $config Parámetros de configuración o config por defecto si vacío
 	 * @param array $token ['TOKEN','TOKEN_PASSWORD'] o default_token si vacío
-     * @param bool $contentType = 'application/json'
+     * @param string $contentType = 'application/json'
      * @param array $extraHeaders = Parámetros extra para las cabeceras
+     * @throws Exceptions\AnfixResponseException
      * @return mixed
-     * @throws \Exception
      */
     public static function sendRequest($url, array $data, array $config = [], array $token = [], $contentType = 'application/json', array $extraHeaders = []){
 		if(empty($config))
@@ -81,16 +81,46 @@ class Anfix {
             oauth_token=\"{$token[0]}\",
             oauth_signature=\"{$config['oauth_signature']}&{$token[1]}\""];
 
-        if($contentType == 'application/json'){
+        if($contentType == 'application/json')
             $data = json_encode($data);
 
         $headers[] = "Content-Type: $contentType";
-        
-        return self::send($url,array_merge($headers,$extraHeaders),$data,false)['response'];
+
+        return self::sendPost($url,array_merge($headers,$extraHeaders),$data,false)['response'];
+
     }
 
+
     /**
-     * Hace una llamada con las cabeceras indicadas
+     * Hace una llamada GET  y almacena un fichero retornado en el path indicado
+     * @param $url
+     * @param array $data Parámetros de la petición
+     * @param string $path Path absoluto al fichero a guardar
+     * @param array $config Parámetros de configuración o config por defecto si vacío
+     * @param array $token ['TOKEN','TOKEN_PASSWORD'] o default_token si vacío
+     * @return true
+     */
+    public static function getFile($url, array $data, $path, array $config = [], array $token = []){
+        if(empty($config))
+            $config = self::getEnv()['config'];
+
+        if(empty($token))
+            $token = self::getEnv()['token'];
+
+        $headers = ["Authorization: realm=\"{$config['realm']}\",
+            oauth_consumer_key=\"{$config['oauth_consumer_key']}\",
+            oauth_signature_method=\"PLAINTEXT\",
+            oauth_token=\"{$token[0]}\",
+            oauth_signature=\"{$config['oauth_signature']}&{$token[1]}\""];
+
+        $headers[] = "Content-Type: text/html";
+
+        return self::_getFile($url,$headers,$data,$path);
+    }
+
+
+    /**
+     * Hace una llamada POST con las cabeceras indicadas y devuelve un objeto json
      * @param string $url Url a acceder
      * @param array $headers array de arrays sin índices
      * @param string $data Datos a enviar
@@ -98,7 +128,7 @@ class Anfix {
      * @throws Exceptions\AnfixResponseException
      * @return array(body,headers)
      */
-    private static function send($url, array $headers, $data = '', $returnHeaders = false){
+    private static function sendPost($url, array $headers, $data = '', $returnHeaders = false){
 
         if(empty(self::$curl))
             self::$curl = curl_init();
@@ -150,10 +180,63 @@ class Anfix {
         if($response->result != 0)
             throw new AnfixResponseException("Se esperaba result = 1 en la llamada a $url con los datos:".print_r($data,true).' pero la respuesta fue:'.print_r($response,true));
 
+        curl_close (self::$curl);
+
         return ['response' => $response, 'headers' => $response_headers];
     }
-	
-	// ############################## OEPRACIONES CON TOKEN ##############################
+
+
+    /**
+     * Hace una llamada GET con las cabeceras indicadas y almacena un fichero retornado en el path indicado
+     * @param string $url Url a acceder
+     * @param array $headers array de arrays sin índices
+     * @param array $data Datos a enviar por GET
+     * @param string $path Path absoluto al fichero a guardar
+     * @throws Exceptions\AnfixResponseException
+     * @return true
+     */
+    private static function _getFile($url, array $headers, array $data, $path){
+
+        if(empty(self::$curl))
+            self::$curl = curl_init();
+
+        $headers[] = 'Host: anfix.com';
+
+        $params = '';
+        foreach($data as $k => $v){
+            $params .= empty($params) ? '?' : '&';
+            $params .= urlencode($k).'='.urlencode($v);
+        }
+
+        curl_setopt(self::$curl, CURLOPT_HTTPGET, true); //Get query
+        curl_setopt(self::$curl, CURLOPT_POST, false); //Get query
+        curl_setopt(self::$curl, CURLOPT_URL, $url.$params); //Set complete url with params
+        curl_setopt(self::$curl, CURLOPT_HTTPHEADER, $headers);
+
+        curl_setopt(self::$curl, CURLOPT_HEADER, false);
+        curl_setopt(self::$curl, CURLOPT_RETURNTRANSFER, true);  // Return transfer as string
+
+        curl_setopt(self::$curl, CURLOPT_CONNECTTIMEOUT, 60); //One minute download max
+
+        $fp = fopen($path, 'w+');
+
+        if($fp == false)
+            throw new AnfixResponseException("Ocurrió un error abriendo el fichero $path para escritura");
+
+        curl_setopt(self::$curl, CURLOPT_FILE, $fp); //Say curl to write into this file
+
+        $curl_response = curl_exec(self::$curl);
+
+        if(!$curl_response)
+            throw new AnfixResponseException('La solicitud curl falló devolviendo el siguiente error: '.curl_error(self::$curl));
+
+        curl_close (self::$curl);
+        fclose($fp);
+
+        return true;
+    }
+
+	// ############################## OPERACIONES CON TOKEN ##############################
 	
 	/**
      * Inicio de la generación de un token anfix
@@ -251,7 +334,7 @@ class Anfix {
         $oauth_consumer_key = self::$config['oauth_consumer_key'];
         $oauth_signature = self::$config['oauth_signature'];
 
-        $response = Anfix::getHeaders(self::$config['invalidateTokenUrl'],
+        Anfix::getHeaders(self::$config['invalidateTokenUrl'],
             ["Authorization: realm=\"{$realm}\",
             oauth_consumer_key=\"{$oauth_consumer_key}\",
             oauth_signature_method=\"PLAINTEXT\",

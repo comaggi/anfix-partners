@@ -26,11 +26,11 @@
  */
   
 //Ejemplo de obtención de todas las empresas disponibles para la cuenta por defecto:
-    $myEnterprises = Anfix\Enterprises::all();
+    $myEnterprises = Anfix\Company::all();
 	print_result('Lista de empresas disponibles',$myEnterprises);
 
 //Obtención del identificador de la primera empresa disponible o error
-	$companyId = Anfix\Enterprises::firstOrFail()->CompanyId;
+	$companyId = Anfix\Company::firstOrFail([])->CompanyId;
 	print_result('CompanyId de la primera empresa disponible',$companyId);
 	
 //Ejemplo de obtencion del primer cliente con nombre Anfix o creación del mismo si no existe y modificación del mismo
