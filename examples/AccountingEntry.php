@@ -25,6 +25,8 @@
   
 include 'example_utils.php';  
 
+$companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)
+
 //Completar asiento contable a partir de asiento predefinido.
 Anfix\CompanyAccountingEntryReference::completepredefined(array $params, $companyId);
 
