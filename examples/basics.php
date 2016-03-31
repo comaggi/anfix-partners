@@ -25,6 +25,8 @@
  * Puede ejecutar este fichero como un test general
  */
   
+include 'print_result.php';  
+  
 //Ejemplo de obtención de todas las empresas disponibles para la cuenta por defecto:
     $myEnterprises = Anfix\Company::all();
 	print_result('Lista de empresas disponibles',$myEnterprises);
@@ -50,12 +52,3 @@
 //Borrado del cliente
 	$customer = Anfix\Customer::firstOrFail(['CustomerName' => 'Anfix'],$companyId);
     $customer->delete();
-  
-  
-  
-  
-//Función auxiliar para imprimir contenido en la pantalla
-function print_result($title,$value){
-	echo "<div style='color: #6d6d6d; background-color: #eee; font-family: Arial; padding: 5px 0 5px 10px; margin: 5px 0 15px;'>
-	<b style='color:#007acc;'>$title</b><pre>".print_r($value,true).'</pre></div>';
-}  
