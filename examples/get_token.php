@@ -5,6 +5,7 @@
  */
 
 require '../Anfix.php'; //Este fichero debe incluirse siempre
+include 'print_result.php';  
 
 $self_url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; //Url a la que anfix llamará para entregar las claves
 
@@ -29,6 +30,6 @@ else //Si se recibe oauth_token estaremos en la segunda parte (llamada desde anf
         /**
          * Ejemplo de mostrado de los datos en pantalla
          */
-        echo "Token generado con exito.<br/> Identifier: $identifier <br/> Token: $token <br/> Secret: $secret";
+         print_result('Resultado de la generación de un nuevo token',$tokenData);
     });
 
