@@ -113,11 +113,11 @@
 		
 #Ejemplos de uso
 	Ejemplo de obtención de todas las empresas disponibles para la cuenta por defecto:
-		$myEnterprises = Anfix\Enterprises::all();
+		$myEnterprises = Anfix\Company::all();
 		
 	Ejemplo de obtención de todas las empresas disponibles para una cuenta determinada:
 		Anfix\Anfix::env(['otro_token','clave_otro_token']); //Selección de entorno
-		$myEnterprises = Anfix\Enterprises::all();	
+		$myEnterprises = Anfix\Company::all();	
 
 	Ejemplo de obtención y modificación de una factura:
 		$myInvoice = Anfix\SuppliedInvoice::first(['id' => 'invoice_id'],'enterprise_id'); //Obtención de la factura con id invoice_id
