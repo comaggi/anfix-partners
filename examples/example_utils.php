@@ -7,7 +7,7 @@ function print_result($title,$value){
 }  
 
 //Devuelve el compoanyId de la primera empresa disponible
-function companyId(){
+function firstCompanyId(){
 	static $companyId = Anfix\Company::firstOrFail([])->CompanyId;
 	return $companyId;
 }
