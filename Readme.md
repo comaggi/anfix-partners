@@ -39,6 +39,7 @@
 	cuenta que dicho script deberá ser accesible publicamente desde internet, si este se encuentra en una red privada o protegido por contraseña no 
 	será posible finalizar el proceso con éxito, cuando Anfix realice dicha llamada a su url le entregará el token definitivo para la cuenta del 
 	usuario que se logueó en el paso 1, la función closure indicada en onGeneratedToken recibirá el token y deberá almacenarlo para su uso posterior
+	El tiempo máximo para la validación de un token (entre el paso 1 y 2) es de una hora
 
 ###Invalidación de un token
     Si desea invalidar un token utilice la funcion Anfix\Anfix::invalidateToken(token,secret)
@@ -128,11 +129,11 @@
 		$myInvoice = Anfix\SuppliedInvoice::destroy('invoice_id' ,'enterprise_id'); //Eliminación de la factura con id invoice_id
 		
 	Ejemplo de obtención y borrado de una factura:
-		$myInvoice = Anfix\SuppliedInvoice::first(['id' => 'invoice_id'],'enterprise_id'); //Obtención de la factura con id invoice_id
+		$myInvoice = Anfix\SuppliedInvoice::first(['SuppliedInvoiceId' => 'invoice_id'],'enterprise_id'); //Obtención de la factura con id invoice_id
 		$myInvoice->delete(); //Eliminación de la factura obtenida
 		
 	Ejemplo de obtención de búsqueda de clientes:
-		$customers = Anfix\Customer::where(['name' => 'Pedro'])->get();
+		$customers = Anfix\Customer::where(['CustomerName' => 'Pedro'])->get();
 		
 	Ejemplo de obtención de búsqueda de hasta 10 clientes:
-		$customers = Anfix\Customer::where(['name' => 'Pedro'])->get([],10);
+		$customers = Anfix\Customer::where(['CustomerName' => 'Pedro'])->get([],10);
