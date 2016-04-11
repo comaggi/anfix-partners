@@ -49,7 +49,7 @@
 		
 #Operaciones con entidades
 	El sistema trabaja con todas las entidades que se encuentran dentro del directorio /Entities
-	Todas estas entidades disponen de los siguientes métodos:
+	La mayoría de estas entidades disponen de los siguientes métodos comunes:
 	
 	###Creación de entidades:
 	Para crear nuevas entidades utilizaremos el método estático ::create(array $params [, $companyId = null] [, $path = 'create'])
@@ -74,12 +74,15 @@
 		params: Array con los datos a buscar, Ejemplo: ['province' => 'Madrid', 'telephone' => '91123456']
 		companyId: Identificador de la empresa con la que trabajar, obligatorio en algunas entidades (aquellas que guardan una relacción con una empresa determinada
                 en anfix)
-	Método no estático get():
-	El método ->get([array $fields = Array()] [, $maxRows = null] [, $path = 'search']) genera una búsqueda de entidades, combinado con where podremos definir unos filtros
+	####El método no estático get():
+	El método ->get([array $fields = Array()] [, $maxRows = null] [, $minRowNumber = null] [, array $order = Array()] [, $orderTypes = 'ASC'] [, $path = 'search']) genera una búsqueda de entidades, combinado con where podremos definir unos filtros
         y después ejecutar la búsqueda
 		[Parámetros]:
 		fields: Array que contendrá los campos que deseamos obtener, todos si se indica un array vacío
 		maxRows: Número máximo de resultados a retornar
+		minRowNumber: Primera entrada a devolver como resultado del conjunto total de entradas devueltas.
+		order: Lista con los campos por los que se quiere ordenar los resultados
+        orderTypes: Tipo de ordenación ”ASC” o ”DESC”
 		path: Método anfix al que llamar remotamente (última parte del punto de acceso anfix), por defecto suele ser search pero puede especificarse otro
 		
 	###Operaciones con entidades	
@@ -87,8 +90,7 @@
         entidades
 	->save() Guarda la entidad en anfix, el sistema sabrá si debe crear o actualizar en cada momento en función de si existe o no un id para la entidad
 	->delete() Borra una entidad en anfix
-	->update(array $params [, $path = 'update']) Actualiza la entidad con los datos indicados indicados en params, permite especificar un punto de acceso diferente a
-          update. (Se recomienda utilizar save() en lugar de update())
+	->update(array $params [, $path = 'update']) Actualiza la entidad con los datos indicados indicados en params. (Se recomienda utilizar save() en lugar de update())
 	El método estático ::destroy($id [, $companyId = null] [, $path = 'delete']) permite destruir una entidad de la que conocemos su id
 		[Parámetros]:
 		id: Identificador de la entidad a destruir
@@ -97,20 +99,8 @@
 		path: Método anfix al que llamar remotamente (última parte del punto de acceso anfix), por defecto suele ser delete pero puede especificarse otro
 		
 ##Otras utilidades
-    Anfix\NextNumberFromSerial::compute(array $params, $companyId) Esta función nos permite obtener el siguiente número libre dentro de una serie para   facturas y presupuestos
-	    [Parámetros]:
-	    params: Array que debe contener obligatoriamente DocumentDate,DocumentTypeId y SerialNum
-	    companyId: Identificador de la empresa sobre la que obtener los datos
-	
-    Anfix\NextNumber::compute($entityTypeId, $companyId) Esta función nos permite obtener el siguiente código para cliente/proveedor.
-	    [Parámetros]:
-	    entityTypeId: Tipo de entidad: 1 Clientes, 2 Proveedores/Acreedores
-	    companyId: Identificador de la empresa sobre la que obtener los datos
-	
-    Anfix\TreasuryDataGraph::compute(array $params, $companyId) Esta función nos permite obtener información agregada de tesorería.
-	    [Parámetros]:
-	    params: Array que debe contener obligatoriamente CheckExpenses, CheckRevenues, CheckTreasury
-	    companyId: Identificador de la empresa sobre la que obtener los datos	
+    Algunas entidades disponen de métodos extra, consulte la documentación para conocer dichos métodos y su uso
+    También existen entidades que no implementan ninguno de los métodos básicos, consulte la documentación para conocerlas
 		
 #Ejemplos de uso
 	Ejemplo de obtención de todas las empresas disponibles para la cuenta por defecto:

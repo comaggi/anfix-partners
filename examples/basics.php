@@ -25,8 +25,9 @@
  * Puede ejecutar este fichero como un test general
  */
   
-include 'example_utils.php';  
-  
+include 'example_utils.php';
+
+
 //Ejemplo de obtención de todas las empresas disponibles para la cuenta por defecto:
     $myEnterprises = Anfix\Company::all();
 	print_result('Lista de empresas disponibles',$myEnterprises);

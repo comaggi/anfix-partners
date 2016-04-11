@@ -45,8 +45,10 @@ class StaticModel{
         if(empty(self::$applicationId))
             throw new AnfixException('Debe indicar un applicationId en el modelo para poder utilizar la API');
             
-        if(empty(self::$Model))
-            self::$Model = end(explode('\\',get_called_class()));
+        if(empty(self::$Model)) {
+            $class = explode('\\', get_called_class());
+            self::$Model = end($class);
+        }
             
         if(empty(self::$apiUrlSufix))
             self::$apiUrlSufix = strtolower(self::$Model).'/';

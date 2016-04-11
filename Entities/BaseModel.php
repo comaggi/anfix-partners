@@ -55,8 +55,10 @@ class BaseModel
         if(empty($this->applicationId))
             throw new AnfixException('Debe indicar un applicationId en el modelo para poder utilizar la API');
 
-        if(!$this->Model)
-            $this->Model = end(explode('\\',get_called_class()));
+        if(!$this->Model) {
+            $class = explode('\\', get_called_class());
+            $this->Model = end($class);
+        }
 
         $this->config = Anfix::getEnv()['config'];
         $this->token = Anfix::getEnv()['token'];
