@@ -27,7 +27,7 @@ class Company extends BaseModel
 	
     /**
      * Busca una empresa filtrando por su usuario
-     * @param $userId Identificador del usuario
+     * @param string $userId Identificador del usuario
 	 * @param array $fields = [] Campos a devolver
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
@@ -36,11 +36,11 @@ class Company extends BaseModel
     public static function findByUser($userId,$fields = []){
         $data =  self::where([
             'UserId' => (string)$userId,
-        ])->get($fields,null,'searchbyuser');
+        ])->get($fields, null, null, [], 'ASC', 'searchbyuser');
 
         if(empty($data))
             return null;
 
-        return head($data);
+        return reset($data);
     }
 }

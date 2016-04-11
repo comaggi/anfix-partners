@@ -42,13 +42,13 @@ class BaseModel
     protected $create = false; //Por defecto no se permite la creación
     protected $delete = false; //Por defecto no se permite el borrado
 
+    protected $config;
+    protected $token;
+    protected $companyId = null;
     private $draft = [];
     private $attributes = [];
     private $wherecond = [];
-    private $config;
-    private $token;
-    protected $companyId = null;
-    private $applicationsIdCompanyMandatory = ['E']; //ApplicationsId que requieren definición de la compañia
+    private $applicationsIdCompanyMandatory = ['E','3']; //ApplicationsId que requieren definición de la compañia
 
     public function __construct(array $params = [], $emptyDraft = false, $companyId = null){
 
@@ -160,14 +160,15 @@ class BaseModel
     /**
      * Devuelve un array de objetos desde la API
      * @param array $fields = [] Campos a devolver
-     * @param int $maxRows = null Máximo de filas a mostrar
+     * @param int $maxRows = null Máximo de filas a mostrar, si no se indica se devolverán 50
+     * @param null $minRowNumber Primera entrada a devolver como resultado del conjunto total de entradas devueltas por la operación
+     * @param array $order Lista con los campos por los que se quiere ordenar los resultados
+     * @param string $orderTypes ”ASC” o ”DESC”
      * @param string $path = 'search' Path de la función en anfix
-     * @param array $params = [] Parámetros especiales
-     * @throws Exceptions\AnfixException
-     * @throws Exceptions\AnfixResponseException
-     * @return array BaseModel
+     * @param array $params = [] Parámetros especiales a añadir en la solicitud
+     * @return array
      */
-    public function get(array $fields = [], $maxRows = null, $path = 'search', array $params = []){
+    public function get(array $fields = [], $maxRows = null, $minRowNumber = null, array $order = [], $orderTypes = 'ASC', $path = 'search', array $params = []){
         $obj_data = $params;
         $return = [];
 
@@ -180,13 +181,17 @@ class BaseModel
         if(!empty($maxRows))
             $obj_data['MaxRows'] = $maxRows;
 
-        $result = Anfix::sendRequest($this->apiBaseUrl.$path,[
-            'applicationId' =>  $this->applicationId,
-            'companyId' => $this->companyId,
-            'inputBusinessData' => [
-                $this->Model => !empty($obj_data) ? $obj_data : new \stdClass()
-            ]
-        ] ,$this->config, $this->token);
+        if(!empty($minRowNumber))
+            $obj_data['MinRowNumber'] = $minRowNumber;
+
+        if(!empty($order)) {
+            $obj_data['Order'] = $order;
+            $obj_data['OrderTypes'] = $orderTypes;
+        }
+
+        $result = self::_send($obj_data,$this->companyId,$path,$this->config,$this->token);
+
+
         if($result->outputData->TotalRowNumber == 0)
             return [];
 
@@ -214,13 +219,7 @@ class BaseModel
 
         $params[$this->primaryKey] = $this->attributes[$this->primaryKey];
 
-        $result = Anfix::sendRequest($this->apiBaseUrl.$path,[
-            'applicationId' =>  $this->applicationId,
-            'companyId' => $this->companyId,
-            'inputBusinessData' => [
-                $this->Model => $params
-            ]
-        ] ,$this->config, $this->token);
+        $result = self::_send($params,$this->companyId,$path,$this->config,$this->token);
 
         if($result->result == 0) {
             $this->fill($params);
@@ -352,7 +351,7 @@ class BaseModel
      * @return BaseModel
      */
     public static function first(array $params, $companyId = null){
-        $data = static::where($params, $companyId)->get([],1);
+        $data = static::where($params, $companyId)->get([], 1, [], ASC);
         if(empty($data))
             return null;
 
@@ -447,19 +446,21 @@ class BaseModel
     * Envia una solicitud estándar
     * @param array $params
     * @param null $companyId
-    * @param $path
+    * @param string $path Path endpoint
+    * @param array $config Parámetros de configuración o config por defecto si vacío
+    * @param array $token ['TOKEN','TOKEN_PASSWORD'] o default_token si vacío
     * @return mixed
     */
-    protected static function _send(array $params, $companyId = null, $path){
+    protected static function _send(array $params, $companyId = null, $path, array $config = [], array $token = []){
         $obj = new static([],false,$companyId);
 
         return Anfix::sendRequest($obj->apiBaseUrl.$path,[
             'applicationId' =>  $obj->applicationId,
             'companyId' => $companyId,
             'inputBusinessData' => [
-                $obj->Model => $params
+                $obj->Model => !empty($params) ? $params : new \stdClass()
             ]
-        ]);
+        ],$config,$token);
     }
 
 }

@@ -20,12 +20,20 @@
 
 namespace Anfix;
 
-class RecurringInvoice extends BaseModel
+class Journal extends StaticModel
 {
-    protected $applicationId = 'E';
-    protected $apiUrlSufix = 'recurringissuedin-voice/';
-    protected $update = true;
-    protected $create = true;
-    protected $delete = true;
+    protected static $applicationId = '3';
+    protected static $apiUrlSufix = 'report/';
+	
+   /**
+	* Generación del libro Diario.
+	* @param array $params Parámetros
+	* @param string $companyId Identificador de la empresa
+	* @return Object
+	*/
+	public static function report(array $params,$companyId){
+        $result = self::_send($params,$companyId,'journal');
+        return $result->outputData->{self::$Model};
+	}
 
 }

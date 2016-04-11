@@ -23,8 +23,9 @@ namespace Anfix;
 class ReceivedInvoiceLine extends BaseModel
 {
     protected $applicationId = 'E';
-    protected $update = true;
-    protected $create = true;
-    protected $delete = true;
+    protected $apiUrlSufix = 'receivedinvoice/line/';
+    protected $update = false;
+    protected $create = false;
+    protected $delete = false;
 
 }

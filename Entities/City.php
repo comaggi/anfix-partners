@@ -36,12 +36,12 @@ class City extends BaseModel
         $data =  self::where([
             'CountryId' => (string)$countryId,
             'PostalCodeCode' => (string)$postalCode
-        ])->get([],1,'searchbypostalcode');
+        ])->get([], 1, null, [], 'ASC', 'searchbypostalcode');
 
         if(empty($data))
             return null;
 
-        return head($data);
+        return reset($data);
     }
 
 }

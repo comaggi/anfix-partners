@@ -23,8 +23,11 @@ namespace Anfix;
 class IssuedInvoiceLine extends BaseModel
 {
     protected $applicationId = 'E';
-    protected $update = true;
-    protected $create = true;
-    protected $delete = true;
+    protected $apiUrlSufix = 'issuedinvoice/line/';
+    protected $update = false;
+    protected $create = false;
+    protected $delete = false;
+
+
 
 }

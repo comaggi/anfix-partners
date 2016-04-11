@@ -27,4 +27,17 @@ class Charge extends BaseModel
     protected $create = true;
     protected $delete = true;
 
+    /**
+     * Consulta de cobros a clientes vinculados a facturas emitidas.
+     * Esta función se utiliza como get, normalmente después de ::where para establecer el filtrado
+     * @param array $fields ChargeCustomerCode, ChargeCustomerName, ChargeIdentificationNumber, ChargeSourceSerialNum, ChargeSourceNumber
+     * @param int $maxRows = null Máximo de filas a mostrar, si no se indica se devolverán 50
+     * @param null $minRowNumber Primera entrada a devolver como resultado del conjunto total de entradas devueltas por la operación
+     * @param array $order Lista con los campos por los que se quiere ordenar los resultados
+     * @param string $orderTypes ”ASC” o ”DESC”
+     * @return array
+     */
+    public function searchforissuedinvoice(array $fields = [],$maxRows = null, $minRowNumber = null, array $order = [], $orderTypes = 'ASC'){
+        return parent::get($fields, $maxRows, $minRowNumber, $order, $orderTypes, 'searchfor-issuedinvoice');
+    }
 }
