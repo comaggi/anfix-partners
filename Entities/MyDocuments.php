@@ -62,11 +62,12 @@ class MyDocuments extends BaseModel
    /**
 	* Envía uno o varios documentos por correo electrónico a uno o más destinatarios.
 	* @param array $params EntryIds, Email, EmailSubject, EmailText obligatorios
+	* @param string $companyId
 	* @return Object
 	*/
-	public static function send(array $params){
+	public static function send(array $params, $companyId){
 		$obj = new static();
-		$result = parent::_send($params,null,'send');
+		$result = parent::_send($params,$companyId,'send');
 		return $result->outputData->{$obj->Model};
 	}	
 	

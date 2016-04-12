@@ -41,14 +41,14 @@ class CustomerBudget extends BaseModel
 
     /**
      * Generación de documentos a partir de un presupuesto.
-     * @param $CustomerBudgetIds array con los ids de presupuestos a duplicar
-     * @param string $CustomerBudgetOutputType Tipo de documento que se quiere obtener, 3 para factura
+     * @param $CustomerBudgetIds array con los ids de presupuestos
+     * @param int $CustomerBudgetOutputType Tipo de documento que se quiere obtener, 3 para factura
      * @param $companyId
      * @return Object
      */
-    public static function generateDocuments($CustomerBudgetIds,$CustomerBudgetOutputType,$companyId){
+    public static function generateDocuments($CustomerBudgetIds,$CustomerBudgetOutputType = 3,$companyId){
         $obj = new static([],false,$companyId);
-        $result = self::_send(['CustomerBudgetIds' => $CustomerBudgetIds, 'CustomerBudgetOutputType' => $CustomerBudgetOutputType],$companyId,'ge-nerateDocuments');
+        $result = self::_send(['CustomerBudgetId' => $CustomerBudgetIds, 'CustomerBudgetOutputType' => $CustomerBudgetOutputType],$companyId,'generateDocuments');
         return $result->outputData->{$obj->Model};
     }
 

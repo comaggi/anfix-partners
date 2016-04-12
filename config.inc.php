@@ -14,7 +14,7 @@
     'invalidateTokenUrl' => 'http://apps.anfix.com/os/os/parc/partner/invalidate_token',
     'loginUrl' => 'http://anfix.com/login-partner',
     'default_token' => [ //Si no indica ningún token de acceso en sus conexiones se utilizarán estos valores por defecto (Monocuenta)
-        'F196EFEF702C3BE6ED1AE9B5471AB9D3', //Token para conexión a cuenta por defecto
-        '0BD4DAC4FDDE2B12E56B887B8AE4293E'  //Secret para conexión a cuenta por defecto
+        'C57B2223BEDB8D97559DA5C7C6DB7815', //Token para conexión a cuenta por defecto
+        '7240105D5093A26D029CA1F785F37F39'  //Secret para conexión a cuenta por defecto
     ]
 );

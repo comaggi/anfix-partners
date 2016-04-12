@@ -26,6 +26,5 @@ include 'example_utils.php';
 
 $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)
 
-
-$data = Anfix\Journal::report(['AccountingPeriodYear' => '2016'], $companyId);
+$data = Anfix\Journal::report(['AccountingPeriodYear' => 2016], $companyId);
 print_result('Generación del libro Diario.',$data);

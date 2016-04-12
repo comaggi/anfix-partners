@@ -42,22 +42,22 @@ class StaticModel{
      */
     protected static function constructStatic(){
     
-        if(empty(self::$applicationId))
+        if(empty(static::$applicationId))
             throw new AnfixException('Debe indicar un applicationId en el modelo para poder utilizar la API');
             
-        if(empty(self::$Model)) {
+        if(empty(static::$Model)) {
             $class = explode('\\', get_called_class());
-            self::$Model = end($class);
+            static::$Model = end($class);
         }
             
-        if(empty(self::$apiUrlSufix))
-            self::$apiUrlSufix = strtolower(self::$Model).'/';
+        if(empty(static::$apiUrlSufix))
+            static::$apiUrlSufix = strtolower(static::$Model).'/';
 
-        if(empty(self::$apiBaseUrl))
-            self::$apiBaseUrl = Anfix::getEnv()['config']['applicationIdUrl'][self::$applicationId].self::$apiUrlSufix;
+        if(empty(static::$apiBaseUrl))
+            static::$apiBaseUrl = Anfix::getEnv()['config']['applicationIdUrl'][static::$applicationId].static::$apiUrlSufix;
 
-        if(empty(self::$primaryKey))
-            self::$primaryKey = self::$Model.'Id';
+        if(empty(static::$primaryKey))
+            static::$primaryKey = static::$Model.'Id';
     }
 
     /**
@@ -68,13 +68,13 @@ class StaticModel{
      * @return mixed
      */
     protected static function _send(array $params, $companyId = null, $path){
-        self::constructStatic();
+        static::constructStatic();
 
-        return Anfix::sendRequest(self::$apiBaseUrl.$path,[
-            'applicationId' =>  self::$applicationId,
+        return Anfix::sendRequest(static::$apiBaseUrl.$path,[
+            'applicationId' =>  static::$applicationId,
             'companyId' => $companyId,
             'inputBusinessData' => [
-                self::$Model => !empty($params) ? $params : new \stdClass()
+                static::$Model => !empty($params) ? $params : new \stdClass()
             ]
         ]);
     }
@@ -84,14 +84,14 @@ class StaticModel{
 	* Descarga un fichero
 	* @param array $params Parámetros para la descarga
 	* @params string $path Ruta donde se guardará el fichero descargado
-	* @params string $url Url punto acceso, por defecto {self::$apiBaseUrl}/download
+	* @params string $url Url punto acceso, por defecto {static::$apiBaseUrl}/download
 	* @return true
 	*/
 	protected static function _download(array $params, $path, $url = null){
-		self::constructStatic();
+		static::constructStatic();
 
 		if(empty($url))
-			$url = self::$apiBaseUrl.'/download';
+			$url = static::$apiBaseUrl.'/download';
 
 		return BaseModel::_download($params,$path,$url);
 	}
@@ -100,14 +100,14 @@ class StaticModel{
 	/**
 	* Subida de un fichero
 	* @params string $path Ruta del fichero a enviar
-	* @params string $url Url punto acceso, por defecto {self::$apiBaseUrl}/upload
+	* @params string $url Url punto acceso, por defecto {static::$apiBaseUrl}/upload
 	* @return Object
 	*/
 	protected static function _upload($path, $url = null){
-		self::constructStatic();
+		static::constructStatic();
 
 		if(empty($url))
-			$url = self::$apiBaseUrl.'/upload';
+			$url = static::$apiBaseUrl.'/upload';
 			
 		return BaseModel::_upload($path,$url);
 	}

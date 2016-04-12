@@ -25,7 +25,7 @@ class CompanyParameter extends StaticModel
     protected static $applicationId = '3';
 	protected static $apiUrlSufix = 'company/parameter/';
 
-    /*
+    /**
      * Obtención de parametrización por defecto para una empresa.
      * @param array $params SourceAccountingPlanId y SourceCompanyId obligatorios
      * @param $companyId Identificador de la empresa

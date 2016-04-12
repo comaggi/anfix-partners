@@ -9,11 +9,13 @@ class Anfix {
     private static $curl;
 	private static $config;
     private static $token;
+
+    public static $debug = false;
 	
     //Traducción de los errores más comunes
     private static $errorsCodes = [
         'ERR000050000' => 'Es posible que companyId no sea válido',
-        'ERR000020001' => 'Debe indicar un oauth_consumer_key y oauth_signature en el fichero de configuración'
+        'ERR000020001' => 'Esto puede deberse a que no ha indicado un oauth_consumer_key y oauth_signature en el fichero de configuración'
     ];
 
     /**
@@ -146,6 +148,9 @@ class Anfix {
 
         $curl_response = curl_exec(self::$curl);
 
+        if(self::$debug && !$curl_response)
+            print_result('Debug de datos curl',['Url' => $url, 'Headers' => $headers, 'Data' => $data]);
+
         if(!$curl_response)
             throw new AnfixResponseException('La solicitud curl falló devolviendo el siguiente error: '.curl_error(self::$curl));
 
@@ -174,13 +179,12 @@ class Anfix {
 
         if($response->result != 0 && !empty($response->errorList[0]->text)) {
             $err_message = $response->errorList[0]->text . (!empty(self::$errorsCodes[$response->errorList[0]->code]) ? ' ('.self::$errorsCodes[$response->errorList[0]->code].')' : '');
+            if(self::$debug) print_result('Debug de datos curl',['Url' => $url, 'Headers' => $headers, 'Data' => $data, 'Response' => $response]);
             throw new AnfixResponseException($response->errorList[0]->code . ': ' . $err_message);
         }
 
         if($response->result != 0)
             throw new AnfixResponseException("Se esperaba result = 1 en la llamada a $url con los datos:".print_r($data,true).' pero la respuesta fue:'.print_r($response,true));
-
-        curl_close (self::$curl);
 
         return ['response' => $response, 'headers' => $response_headers];
     }

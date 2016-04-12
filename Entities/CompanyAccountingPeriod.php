@@ -28,11 +28,11 @@ class CompanyAccountingPeriod extends BaseModel
     protected $create = false;
     protected $delete = true;
 
-    /*
+    /**
      * Bloquear/Desbloquear ejercicio contable.
      * @param array $params AccountingPeriodYear y CompanyAccountingPeriodLocked obligatorios
-     * @param $companyId Identificador de la empresa
-     * @return Número de ejercicios afectados por la operación.
+     * @param string $companyId Identificador de la empresa
+     * @return int Número de ejercicios afectados por la operación.
      */
     public static function lockunlock(array $params, $companyId){
         $obj = new static([],false,$companyId);
@@ -41,11 +41,11 @@ class CompanyAccountingPeriod extends BaseModel
         return $result->outputData->{$obj->Model}->rowcount;
     }
 
-    /*
+    /**
      * Borrar ejercicio contable y datos asociados.
-     * @param $accountingPeriodYear Año del ejercicio contable a borrar
-     * @param $companyId Identificador de la empresa
-     * @return Número de ejercicios afectados por la operación.
+     * @param int $accountingPeriodYear Año del ejercicio contable a borrar
+     * @param string $companyId Identificador de la empresa
+     * @return int Número de ejercicios afectados por la operación.
      */
     public static function purge($accountingPeriodYear, $companyId){
         $obj = new static([],false,$companyId);
@@ -54,7 +54,7 @@ class CompanyAccountingPeriod extends BaseModel
         return $result->outputData->{$obj->Model}->rowcount;
     }
 
-    /*
+    /**
      * Actualizar saldos de ejercicio contable.
      * @param $accountingPeriodYear Año del ejercicio contable cuyos saldos se quieren actualizar
      * @param $companyId Identificador de la empresa

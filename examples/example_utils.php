@@ -1,6 +1,7 @@
 <?php
 
 include_once '../Anfix.php';
+\Anfix\Anfix::$debug = true;
 
 //Función auxiliar para imprimir contenido en la pantalla
 function print_result($title,$value,$die = false){

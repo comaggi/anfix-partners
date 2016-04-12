@@ -103,6 +103,14 @@ class BaseModel
     }
 
     /**
+     * Devuelve todas las propiedades del objeto en forma de array
+     * @return array
+     */
+    public function getArray(){
+        return $this->attributes;
+    }
+
+    /**
      * Rellena el objeto con los parámetros dados
      * @param array $params
      * @return BaseModel
@@ -353,7 +361,7 @@ class BaseModel
      * @return BaseModel
      */
     public static function first(array $params, $companyId = null){
-        $data = static::where($params, $companyId)->get([], 1, [], ASC);
+        $data = static::where($params, $companyId)->get([], 1, null, [], 'ASC');
         if(empty($data))
             return null;
 

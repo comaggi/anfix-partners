@@ -29,7 +29,7 @@ class Invoice extends BaseModel
 	
    /**
 	* Renumera las facturas
-	* @param string $accountingPeriodYear Año
+	* @param int $accountingPeriodYear Año
 	* @param string $invoiceType Tipo de factura a renumerar según doc anfix
 	* @param string $companyId Identificador de la empresa
 	* @return int Número de facturas afectadas

@@ -35,18 +35,18 @@ class CompanyAccountingAccount extends BaseModel
 	* @param array $fields = [] Campos a devolver
 	* @param int $maxRows = null Máximo de filas a mostrar, si no se indica se devolverán 50
 	* @param null $minRowNumber Primera entrada a devolver como resultado del conjunto total de entradas devueltas por la operación
-	* @param string $order Ordenación 	CompanyAccountingAccountDescription, CompanyAccountingAccountNumber
+	* @param array $order Ordenación 	CompanyAccountingAccountDescription, CompanyAccountingAccountNumber
 	* @param string $orderTypes ”ASC” o ”DESC”
 	* @return array
 	*/
-	public function accountPrint(array $params, array $fields = [], $maxRows = null, $minRowNumber = null, $order = 'CompanyAccountingAccountDescription', $orderTypes = 'ASC'){
+	public function accountPrint(array $params, array $fields = [], $maxRows = null, $minRowNumber = null, $order = ['CompanyAccountingAccountDescription'], $orderTypes = 'ASC'){
 		return $this->get($fields, $maxRows, $minRowNumber, $order, $orderTypes, 'print', $params);
 	}
 	
 	/**
      * Selección de datos de subcuentas contables.
-	 * @param string $accountingPeriodYear Año
-	 * @param string $companyAccountingAccountNumber Número de cuenta a seleccionar.
+	 * @param int $accountingPeriodYear Año
+	 * @param int $companyAccountingAccountNumber Número de cuenta a seleccionar.
      * @param string $companyId Identificador de la empresa
      * @return Object
      */

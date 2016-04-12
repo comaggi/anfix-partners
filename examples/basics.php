@@ -27,7 +27,6 @@
   
 include 'example_utils.php';
 
-
 //Ejemplo de obtención de todas las empresas disponibles para la cuenta por defecto:
     $myEnterprises = Anfix\Company::all();
 	print_result('Lista de empresas disponibles',$myEnterprises);
@@ -38,17 +37,17 @@ include 'example_utils.php';
 	
 //Ejemplo de obtencion del primer cliente con nombre Anfix o creación del mismo si no existe y modificación del mismo
 	$customer = Anfix\Customer::firstOrNew(['CustomerName' => 'Anfix'],$companyId);
-	$customer->CustomerCode = '2222';
+	$customer->CustomerCode = 2222;
 	$customer->CustomerIdentificationTypeId = '6';
 	$customer->CustomerIdentificationNumber = '123456789N';
     $customer->save(); //Guardado del cliente
-	print_result('Creación del cliente Anfix',$customer);
+	print_result('Creación del cliente Anfix',$customer->getArray());
 	
 //Modificación del cliente
 	$customer = Anfix\Customer::firstOrFail(['CustomerName' => 'Anfix'],$companyId);
 	$customer->CustomerIdentificationNumber = '987654321N';	
     $customer->save(); //Guardado del cliente
-	print_result('Actualización del nif cliente Anfix',$customer);
+	print_result('Actualización del nif cliente Anfix',$customer->getArray());
 	
 //Borrado del cliente
 	$customer = Anfix\Customer::firstOrFail(['CustomerName' => 'Anfix'],$companyId);

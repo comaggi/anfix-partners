@@ -28,10 +28,10 @@ class CompanyAccountingEntryReference extends BaseModel
     protected $create = true;
     protected $delete = true;
 
-    /*
+    /**
      * Completar asiento contable a partir de asiento predefinido.
 	 * @param array $params AccountingPeriodYear, AccountingEntryPredefinedEntryId y CompanyAccountingAccountNumber obligatorios
-     * @param $companyId Identificador de la empresa
+     * @param string $companyId Identificador de la empresa
      * @return Object
      */
     public static function completepredefined(array $params, $companyId){
@@ -41,10 +41,10 @@ class CompanyAccountingEntryReference extends BaseModel
         return $result->outputData->{$obj->Model};
     }
 
-    /*
+    /**
      * Traslado de asientos contables entre cuentas.
      * @param array $params AccountingPeriodYear, DestinationCompanyAccountingAccountNumber, SourceCompanyAccountingAccountNumber y CompanyAccountingEntryNote obligatorios
-     * @param $companyId Identificador de la empresa
+     * @param string $companyId Identificador de la empresa
      * @return true
      */
     public static function transfer(array $params, $companyId){
@@ -53,10 +53,10 @@ class CompanyAccountingEntryReference extends BaseModel
         return true;
     }
 
-    /*
+    /**
      * Selección de datos de asientos
      * @param array $params AccountingPeriodYear y AccountingEntryId obligatorios
-     * @param $companyId Identificador de la empresa
+     * @param string $companyId Identificador de la empresa
      * @return Object
      */
     public static function select(array $params, $companyId){
