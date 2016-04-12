@@ -257,8 +257,8 @@ class BaseModel
 
         $result = self::_send($params,$companyId,$path);
 
-        $received_params = array_filter(get_object_vars($result->outputData->{$obj->Model}),function($value){ return !is_array($value); });
-        $received_params_arr = array_filter(get_object_vars($result->outputData->{$obj->Model}),function($value){ return is_array($value); });
+        $received_params = array_filter(get_object_vars($result->outputData->{$obj->Model}),function($value){ return !is_array($value); }); //Parametros no array
+        $received_params_arr = array_filter(get_object_vars($result->outputData->{$obj->Model}),function($value){ return is_array($value); }); //Parámetros de tipo array
 
         //Mezclamos aquellos valores que no son de tipo array
         $params = array_merge($params,$received_params);
@@ -266,8 +266,14 @@ class BaseModel
         //Mezclamos los valores de tipo array manualmente
         foreach($received_params_arr as $k => $arr){
             foreach($arr as $pos => $o){
-                if(!empty($params[$k][$pos]) && is_array($params[$k][$pos]) && is_object($o))
-                    $params[$k][$pos] = array_merge_recursive($params[$k][$pos], get_object_vars($o));
+                if(!empty($params[$k][$pos])){
+                    if(is_array($params[$k][$pos]) && is_object($o)) //If origin is an array and dest an object
+                        $params[$k][$pos] = array_replace_recursive($params[$k][$pos], get_object_vars($o));
+                    else if (is_object($params[$k][$pos]) && is_object($o)) //If origin and dest are objects
+                        $params[$k][$pos] = (object)array_replace_recursive(get_object_vars($params[$k][$pos]), get_object_vars($o));
+                }
+                else //If origin doesn't exists
+                    $params[$k][$pos] = $o;
             }
         }
 
