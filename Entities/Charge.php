@@ -38,6 +38,6 @@ class Charge extends BaseModel
      * @return array
      */
     public function searchforissuedinvoice(array $fields = [],$maxRows = null, $minRowNumber = null, array $order = [], $orderTypes = 'ASC'){
-        return parent::get($fields, $maxRows, $minRowNumber, $order, $orderTypes, 'searchfor-issuedinvoice');
+        return parent::get($fields, $maxRows, $minRowNumber, $order, $orderTypes, 'searchforissuedinvoice');
     }
 }
