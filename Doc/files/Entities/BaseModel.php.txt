@@ -311,7 +311,7 @@ class BaseModel
 
     /**
      * Destruye un objeto por su id
-     * @param $id
+     * @param string $id
      * @param string $companyId Identificador de la compañia, sólo necesario en algunas entidades
      * @param string $path = 'delete' Path de la función en anfix
      * @throws Exceptions\AnfixException

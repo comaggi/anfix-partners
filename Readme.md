@@ -6,6 +6,7 @@
       * Una vez haya finalizado este paso podrá visualizar las claves de acceso a su cuenta (token) en pantalla, además se habrán almacenado en el fichero examples/tokens.php
     4 - Copie dichas claves en el apartado default_token del fichero config.inc.php que debe quedar de la siguiente forma: default_token => ['token_obtenido','secret_obtenido']
     Ya puede acceder a su cuenta anfix como se indica en el apartado Operaciones con entidades, recuerde que dispone de muchos más ejemplos en el directorio examples
+    5 - SIEMPRE deberá incluir el fichero Anfix.php antes de cualquier llamada a la librería
 
 ##Selección de entorno
 	Antes de realizar cualquier uso de la librería podrá asignar un entorno de trabajo, (cuenta a la que desea conectarse y fichero de configuración).
@@ -49,6 +50,7 @@
 		
 #Operaciones con entidades
 	El sistema trabaja con todas las entidades que se encuentran dentro del directorio /Entities
+	SIEMPRE deberá incluir el fichero Anfix.php antes de cualquier llamada a la librería
 	La mayoría de estas entidades disponen de los siguientes métodos comunes:
 	
 	###Creación de entidades:
@@ -103,6 +105,8 @@
     También existen entidades que no implementan ninguno de los métodos básicos, consulte la documentación para conocerlas
 		
 #Ejemplos de uso
+    SIEMPRE deberá incluir el fichero Anfix.php antes de cualquier llamada a la librería
+    
 	Ejemplo de obtención de todas las empresas disponibles para la cuenta por defecto:
 		$myEnterprises = Anfix\Company::all();
 		
@@ -111,15 +115,15 @@
 		$myEnterprises = Anfix\Company::all();	
 
 	Ejemplo de obtención y modificación de una factura:
-		$myInvoice = Anfix\SuppliedInvoice::first(['id' => 'invoice_id'],'enterprise_id'); //Obtención de la factura con id invoice_id
-		$myInvoice->name = 'new_name'; //Modificación del nombre
+		$myInvoice = Anfix\ReceivedInvoice::first(['ReceivedInvoiceId' => 'invoice_id'],'enterprise_id'); //Obtención de la factura con id invoice_id
+		$myInvoice->ContactPersonName = 'new_name'; //Modificación del nombre
 		$myInvoice->save(); //Actualización de la factura
 
 	Ejemplo de borrado de una factura:
-		$myInvoice = Anfix\SuppliedInvoice::destroy('invoice_id' ,'enterprise_id'); //Eliminación de la factura con id invoice_id
+		$myInvoice = Anfix\ReceivedInvoice::destroy('invoice_id' ,'enterprise_id'); //Eliminación de la factura con id invoice_id
 		
 	Ejemplo de obtención y borrado de una factura:
-		$myInvoice = Anfix\SuppliedInvoice::first(['SuppliedInvoiceId' => 'invoice_id'],'enterprise_id'); //Obtención de la factura con id invoice_id
+		$myInvoice = Anfix\ReceivedInvoice::first(['ReceivedInvoiceId' => 'invoice_id'],'enterprise_id'); //Obtención de la factura con id invoice_id
 		$myInvoice->delete(); //Eliminación de la factura obtenida
 		
 	Ejemplo de obtención de búsqueda de clientes:
@@ -127,3 +131,6 @@
 		
 	Ejemplo de obtención de búsqueda de hasta 10 clientes:
 		$customers = Anfix\Customer::where(['CustomerName' => 'Pedro'])->get([],10);
+		
+	Ejemplo de obtención de búsqueda con paginación, obtener la segunda página de 10 clientes (entre el 11 y el 20):
+    	$customers = Anfix\Customer::where(['CustomerName' => 'Pedro'])->get([],10,11);	

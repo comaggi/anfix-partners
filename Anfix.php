@@ -4,6 +4,12 @@ namespace Anfix;
 
 use Anfix\Exceptions\AnfixResponseException;
 
+/**
+ * Class Anfix
+ * Esta clase contiene los métodos base que utiliza la librería
+ * Debe incluir Anfix.php siempre antes de cada llamada
+ * @package Anfix
+ */
 class Anfix {
 
     /** @var  object Curl */
