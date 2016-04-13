@@ -113,7 +113,7 @@ class BaseModel
     /**
      * Rellena el objeto con los parámetros dados
      * @param array $params
-     * @return BaseModel
+     * @return static
      */
     public function fill(array $params){
         foreach($params as $k => $value) {
@@ -136,7 +136,7 @@ class BaseModel
      * Crea o actualiza el objeto Anfix
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
-     * @return BaseModel
+     * @return static
      */
     public function save(){
         if(empty($this->draft))
@@ -218,7 +218,7 @@ class BaseModel
      * @param string $path = 'update' Path de la función en anfix
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
-     * @response BaseModel
+     * @return static
      */
     public function update(array $params, $path = 'update'){
         if(!$this->update)
@@ -248,7 +248,7 @@ class BaseModel
      * @param string $path = 'create' Path de la función en anfix
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
-     * @return BaseModel
+     * @return static
      */
     public static function create(array $params, $companyId = null, $path = 'create'){
         $obj = new static([],false,$companyId);
@@ -307,7 +307,7 @@ class BaseModel
      * Inserta una condición where para la obtención de datos
      * @param array $conditions
      * @param string $companyId Identificador de la compañia, sólo necesario en algunas entidades
-     * @return BaseModel
+     * @return static
      */
     public static function where(array $conditions, $companyId = null){
         $wherecond = [];
@@ -323,7 +323,7 @@ class BaseModel
      * @param string $companyId Identificador de la compañia, sólo necesario en algunas entidades
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
-     * @return BaseModel
+     * @return static
      */
     public static function find($id, $companyId = null){
         $obj = new static([],false,$companyId);
@@ -334,7 +334,7 @@ class BaseModel
      * Devuelve un objeto por su id o una excepción si no existe
      * @param $id
      * @param string $companyId Identificador de la compañia, sólo necesario en algunas entidades
-     * @return BaseModel
+     * @return static
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
      */
@@ -351,7 +351,7 @@ class BaseModel
      * @param string $companyId Identificador de la compañia, sólo necesario en algunas entidades
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
-     * @return array BaseModel
+     * @return array static
      */
     public static function all($companyId = null){
         $obj = new static([], false, $companyId);
@@ -364,7 +364,7 @@ class BaseModel
      * @param string $companyId Identificador de la compañia, sólo necesario en algunas entidades
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
-     * @return BaseModel
+     * @return static
      */
     public static function first(array $params, $companyId = null){
         $data = static::where($params, $companyId)->get([], 1, null, [], 'ASC');
@@ -380,7 +380,7 @@ class BaseModel
      * @param string $companyId Identificador de la compañia, sólo necesario en algunas entidades
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
-     * @return BaseModel
+     * @return static
      */
     public static function firstOrNew(array $params, $companyId = null){
         $obj = static::first($params, $companyId);
@@ -396,7 +396,7 @@ class BaseModel
      * @param string $companyId Identificador de la compañia, sólo necesario en algunas entidades
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
-     * @return BaseModel
+     * @return static
      */
     public static function firstOrCreate(array $params, $companyId = null){
         $obj = static::first($params, $companyId);
@@ -412,7 +412,7 @@ class BaseModel
      * @param string $companyId Identificador de la compañia, sólo necesario en algunas entidades
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
-     * @return BaseModel
+     * @return static
      */
     public static function firstOrFail(array $params, $companyId = null){
         $obj = static::first($params, $companyId);
