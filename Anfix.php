@@ -6,13 +6,16 @@ use Anfix\Exceptions\AnfixResponseException;
 
 class Anfix {
 
+    /** @var  object Curl */
     private static $curl;
+    /** @var  array Configuración */
 	private static $config;
+    /** @var  array Token y secret */
     private static $token;
-
+    /** @var bool Establece el modo de depuración, muestra los datos enviados y recibidos por curl */
     public static $debug = false;
 	
-    //Traducción de los errores más comunes
+    /** @var array Traducciones de los errores más comunes */
     private static $errorsCodes = [
         'ERR000050000' => 'Es posible que companyId no sea válido',
         'ERR000020001' => 'Esto puede deberse a que no ha indicado un oauth_consumer_key y oauth_signature en el fichero de configuración'

@@ -31,11 +31,16 @@ use Anfix\Exceptions\AnfixException;
  */
 class StaticModel{
 
-    protected static $applicationId; //Obligatorio, Identificador de la App Anfix, este identificador asocia la Url base por defecto conforme a config/anfix.php
-    protected static $Model; //Opcional, Nombre de la entidad en Anfix, por defecto será el nombre de la clase
-    protected static $primaryKey; //Opcional, Nombre de la clave primaria en Anfix, por defecto {$Model}Id
-    protected static $apiBaseUrl; //Opcional, Url de la API a la que conectar, por defecto se obtiene de config/anfix en función del applicationId
-    protected static $apiUrlSufix; //Opcional, Sufijo que se añade a la url de la API, por defecto nombre de la entidad, si se indica apiBaseUrl no se tendrá en cuenta este parámetro
+    /** @var  @var string Obligatorio, Identificador de la App Anfix, este identificador asocia la Url base por defecto conforme a config/anfix.php */
+    protected static $applicationId;
+    /**  @var string Opcional, Nombre de la entidad en Anfix, por defecto será el nombre de la clase */
+    protected static $Model;
+    /**  @var string Opcional, Nombre de la clave primaria en Anfix, por defecto {$Model}Id */
+    protected static $primaryKey;
+    /**  @var string Opcional, Url de la API a la que conectar, por defecto se obtiene de config/anfix en función del applicationId */
+    protected static $apiBaseUrl;
+    /**  @var string Opcional, Sufijo que se añade a la url de la API, por defecto nombre de la entidad, si se indica apiBaseUrl no se tendrá en cuenta este parámetro */
+    protected static $apiUrlSufix;
     
     /**
      * Construye la configuración estática
@@ -83,8 +88,8 @@ class StaticModel{
    /**
 	* Descarga un fichero
 	* @param array $params Parámetros para la descarga
-	* @params string $path Ruta donde se guardará el fichero descargado
-	* @params string $url Url punto acceso, por defecto {static::$apiBaseUrl}/download
+	* @param string $path Ruta donde se guardará el fichero descargado
+	* @param string $url Url punto acceso, por defecto {static::$apiBaseUrl}/download
 	* @return true
 	*/
 	protected static function _download(array $params, $path, $url = null){
@@ -99,8 +104,8 @@ class StaticModel{
     
 	/**
 	* Subida de un fichero
-	* @params string $path Ruta del fichero a enviar
-	* @params string $url Url punto acceso, por defecto {static::$apiBaseUrl}/upload
+	* @param string $path Ruta del fichero a enviar
+	* @param string $url Url punto acceso, por defecto {static::$apiBaseUrl}/upload
 	* @return Object
 	*/
 	protected static function _upload($path, $url = null){

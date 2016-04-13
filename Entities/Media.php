@@ -28,7 +28,7 @@ class Media extends StaticModel
    /**
 	* Descarga un fichero
 	* @param array $params namespace y show obligatorios
-    * @params string $path Ruta donde se guardará el fichero descargado
+    * @param string $path Ruta donde se guardará el fichero descargado
 	* @return true
 	*/
 	public static function download(array $params, $path){
@@ -46,7 +46,7 @@ class Media extends StaticModel
 
    /**
 	* Subida de un fichero
-	* @params string $path Ruta del fichero a enviar
+	* @param string $path Ruta del fichero a enviar
 	* @return Object
 	*/
 	public static function upload($path){

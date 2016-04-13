@@ -34,22 +34,43 @@ class BaseModel
 {
  protected $applicationId; //Obligatorio, Identificador de la App Anfix, este identificador asocia la Url base por defecto conforme a config/anfix.php
 
-    protected $Model; //Opcional, Nombre de la entidad en Anfix, por defecto será el nombre de la clase
-    protected $primaryKey; //Opcional, Nombre de la clave primaria en Anfix, por defecto {$Model}Id
-    protected $apiBaseUrl; //Opcional, Url de la API a la que conectar, por defecto se obtiene de config/anfix en función del applicationId
-    protected $apiUrlSufix; //Opcional, Sufijo que se añade a la url de la API, por defecto nombre de la entidad, si se indica apiBaseUrl no se tendrá en cuenta este parámetro
-    protected $update = true; //Por defecto se permite la actualización
-    protected $create = false; //Por defecto no se permite la creación
-    protected $delete = false; //Por defecto no se permite el borrado
+    /**  @var string Opcional, Nombre de la entidad en Anfix, por defecto será el nombre de la clase */
+    protected $Model;
+    /**  @var string Opcional, Nombre de la clave primaria en Anfix, por defecto {$Model}Id */
+    protected $primaryKey;
+    /**  @var string Opcional, Url de la API a la que conectar, por defecto se obtiene de config/anfix en función del applicationId */
+    protected $apiBaseUrl;
+    /**  @var string Opcional, Sufijo que se añade a la url de la API, por defecto nombre de la entidad, si se indica apiBaseUrl no se tendrá en cuenta este parámetro */
+    protected $apiUrlSufix;
+    /**  @var bool Por defecto se permite la actualización */
+    protected $update = true;
+    /**  @var bool Por defecto no se permite la creación */
+    protected $create = false;
+    /**  @var bool Por defecto no se permite el borrado */
+    protected $delete = false;
 
+    /** @var  array Configuración */
     protected $config;
+    /** @var  array Token y Secret */
     protected $token;
+    /** @var string Identificador empresa */
     protected $companyId = null;
+    /** @var array Borrados de datos que se enviarán */
     private $draft = [];
+    /** @var array Contiene las propiedades anfix del objeto */
     private $attributes = [];
+    /** @var array Condiciones de filtrado para el siguiente search */
     private $wherecond = [];
-    private $applicationsIdCompanyMandatory = ['E','3']; //ApplicationsId que requieren definición de la compañia
+    /** @var array ApplicationsId que requieren definición de la compañia para trabajar */
+    private $applicationsIdCompanyMandatory = ['E','3'];
 
+    /**
+     * BaseModel constructor.
+     * @param array $params
+     * @param bool $emptyDraft
+     * @param null $companyId
+     * @throws AnfixException
+     */
     public function __construct(array $params = [], $emptyDraft = false, $companyId = null){
 
         if(empty($this->applicationId))
@@ -89,6 +110,10 @@ class BaseModel
         return $this;
     }
 
+    /**
+     * @param $name
+     * @param $value
+     */
     public function __set($name, $value)
     {
         $this->attributes[$name] = $value;
@@ -98,6 +123,10 @@ class BaseModel
             unset($this->draft[$name]);
     }
 
+    /**
+     * @param $name
+     * @return null
+     */
     public function __get($name){
         return isset($this->attributes[$name]) ? $this->attributes[$name] : null;
     }

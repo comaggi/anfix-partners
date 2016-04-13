@@ -74,4 +74,39 @@ class ReceivedInvoice extends BaseModel
             'PaymentIsRefund' => $amount < 0
         ], $this->companyId);
     }
+
+    /**
+     * Exporta una serie de facturas a contabilidad
+     *
+     * @param int $AccountingPeriodYear
+     * @param int $IssuedInvoiceInitNumber
+     * @param int $IssuedInvoiceEndNumber
+     * @param string $IssuedInvoiceSerialNum
+     * @param bool $ExportPayment
+     * @param string $companyId
+     * @return object
+     */
+    public static function exportMultiple($AccountingPeriodYear, $IssuedInvoiceInitNumber, $IssuedInvoiceEndNumber, $IssuedInvoiceSerialNum, $ExportPayment, $companyId){
+        $obj = new static([],false,$companyId);
+
+        $result =  parent::_send([
+            'AccountingPeriodYear' => $AccountingPeriodYear,
+            'IssuedInvoiceInitNumber' => $IssuedInvoiceInitNumber,
+            'IssuedInvoiceEndNumber' => $IssuedInvoiceEndNumber,
+            'IssuedInvoiceSerialNum' => $IssuedInvoiceSerialNum,
+            'ExportPayment' => $ExportPayment
+        ], $companyId,'synchronization/export');
+
+        return $result->outputData->{$obj->Model};
+    }
+
+    /**
+     * Exporta la factura a contabilidad
+     * @param int $AccountingPeriodYear
+     * @param bool $ExportPayment
+     * @return object
+     */
+    public function export($AccountingPeriodYear,$ExportPayment){
+        return self::exportMultiple($AccountingPeriodYear,$this->IssuedInvoiceNumber,$this->IssuedInvoiceNumber,$this->IssuedInvoiceSerialNum,$ExportPayment,$this->companyId);
+    }
 }

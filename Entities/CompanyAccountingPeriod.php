@@ -56,9 +56,9 @@ class CompanyAccountingPeriod extends BaseModel
 
     /**
      * Actualizar saldos de ejercicio contable.
-     * @param $accountingPeriodYear Año del ejercicio contable cuyos saldos se quieren actualizar
-     * @param $companyId Identificador de la empresa
-     * @return Número de ejercicios afectados por la operación.
+     * @param int $accountingPeriodYear Año del ejercicio contable cuyos saldos se quieren actualizar
+     * @param string $companyId Identificador de la empresa
+     * @return int Número de ejercicios afectados por la operación.
      */
     public static function regeneratebalance($accountingPeriodYear, $companyId){
         $obj = new static([],false,$companyId);
@@ -67,11 +67,11 @@ class CompanyAccountingPeriod extends BaseModel
         return $result->outputData->{$obj->Model}->rowcount;
     }
 
-    /*
+    /**
      * Cierre del ejercicio contable.
      * @param array $params Según documentación anfix: AccountingPeriodYear y AccountingPeriodYear obligatorios
-     * @param $companyId Identificador de la empresa
-     * @return Int Número de ejercicios afectados
+     * @param string $companyId Identificador de la empresa
+     * @return int Número de ejercicios afectados
      */
     public static function close(array $params, $companyId){
         $obj = new static([],false,$companyId);
@@ -80,11 +80,11 @@ class CompanyAccountingPeriod extends BaseModel
         return $result->outputData->{$obj->Model}->rowcount;
     }
 
-    /*
+    /**
      * Creación de nuevo ejercicio contable.
      * @param array $params AccountingPeriodYear, CompanyAccountingPeriodEndDate, CompanyAccountingPlanId obligatorios
-     * @param $companyId Identificador de la empresa
-     * @return Fecha de creación del ejercicio contable.
+     * @param string $companyId Identificador de la empresa
+     * @return string Fecha de creación del ejercicio contable.
      */
     public static function createwithplan(array $params, $companyId){
         $obj = new static([],false,$companyId);
