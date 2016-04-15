@@ -50,7 +50,8 @@ class Media extends StaticModel
 	* @return Object
 	*/
 	public static function upload($path){
-		return parent::_upload($path);
+		$result = parent::_upload($path);
+		return $result->outputData->{self::$Model};
 	}
 
 }
