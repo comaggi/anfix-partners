@@ -149,7 +149,7 @@ class Anfix {
 
 
     /**
-     * Hace una llamada POST con las cabeceras indicadas y devuelve un objeto json
+     * Hace una llamada POST con las cabeceras indicadas y devuelve un array con la respuesta
      * @param string $url Url a acceder
      * @param array $headers array de arrays sin índices
      * @param string $data Datos a enviar
