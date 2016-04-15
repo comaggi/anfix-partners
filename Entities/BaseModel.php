@@ -471,11 +471,13 @@ class BaseModel
 	* Subida de un fichero (Necesita php 5.2.2 o posterior)
     * @params string $path Ruta absoluta del fichero a enviar
     * @params string $url Url punto acceso, por defecto {$apiBaseUrl}/upload
+    * @param array $config Parámetros de configuración o config por defecto si vacío
+    * @param array $token ['TOKEN','TOKEN_PASSWORD'] o default_token si vacío
     * @throws AnfixResponseException
     * @throws AnfixException
 	* @return Object
 	*/
-	public static function _upload($path, $url = null){
+	public static function _upload($path, $url = null, array $config = [], array $token = []){
 		$obj = new static();
         
 		if(empty($url))
@@ -484,7 +486,7 @@ class BaseModel
         if(!file_exists($path))
             throw new AnfixException("El path {$path} no existe");
         
-        return Anfix::sendRequest($url,['upload' => '@'.$path], [], [], 'multipart/form-data');  
+        return Anfix::sendRequest($url,['upload' => '@'.$path], $config, $token, 'multipart/form-data');  
  	}
 
    /**
