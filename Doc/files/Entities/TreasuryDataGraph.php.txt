@@ -23,8 +23,14 @@ namespace Anfix;
 class TreasuryDataGraph extends StaticModel
 {
     protected static $applicationId = 'E';
-	protected static $apiBaseUrl = 'http://apps.anfix.com/facturapro-simple/gestiona/simple/treasury/';
-	
+	protected static $apiUrlSufix = 'treasury/';
+
+
+	protected static function constructStatic(){
+		parent::constructStatic();
+		static::$apiBaseUrl = str_replace('servicios/','simple/',static::$apiBaseUrl);
+	}
+
 	/**
 	 * Obtiene información agregada de tesorería.
 	 * @param array $params Debe contener CheckExpenses, CheckRevenues, CheckTreasury obligatoriamente

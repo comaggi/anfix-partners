@@ -210,8 +210,10 @@ class Anfix {
             throw new AnfixResponseException($response->errorList[0]->code . ': ' . $err_message);
         }
 
-        if($response->result != 0)
-            throw new AnfixResponseException("Se esperaba result = 1 en la llamada a $url con los datos:".print_r($data,true).' pero la respuesta fue:'.print_r($response,true));
+        if($response->result != 0){
+            if(self::$debug) print_result('Debug de datos curl',['Url' => $url, 'Headers' => $headers, 'Data' => $data, 'Response' => $response]);
+            throw new AnfixResponseException("Se esperaba result = 0 en la llamada a $url con los datos:".print_r($data,true).' pero la respuesta fue:'.print_r($response,true));
+        }
 
         return ['response' => $response, 'headers' => $response_headers];
     }

@@ -70,10 +70,14 @@ class StaticModel{
      * @param array $params
      * @param null $companyId
      * @param $path
+     * @param string $baseUrl = null Indica una url base diferente a la del modelo para casos especiales
      * @return mixed
      */
-    protected static function _send(array $params, $companyId = null, $path){
+    protected static function _send(array $params, $companyId = null, $path, $baseUrl = null){
         static::constructStatic();
+
+        if(empty($baseUrl))
+            $baseUrl = static::$apiBaseUrl;
 
         return Anfix::sendRequest(static::$apiBaseUrl.$path,[
             'applicationId' =>  static::$applicationId,
@@ -96,25 +100,35 @@ class StaticModel{
 		static::constructStatic();
 
 		if(empty($url))
-			$url = static::$apiBaseUrl.'/download';
+			$url = static::$apiBaseUrl.'download';
 
-		return BaseModel::_download($params,$path,$url);
-	}
+        return Anfix::getFile($url,$params,$path);
+    }
     
     
-	/**
-	* Subida de un fichero
-	* @param string $path Ruta del fichero a enviar
-	* @param string $url Url punto acceso, por defecto {static::$apiBaseUrl}/upload
-	* @return Object
+    /**
+    * Subida de un fichero (Necesita php 5.2.2 o posterior)
+    * @param string $path Ruta del fichero a enviar
+    * @param string $url Url punto acceso, por defecto {static::$apiBaseUrl}/upload
+    * @return Object
+    * @throws AnfixException
 	*/
 	protected static function _upload($path, $url = null){
 		static::constructStatic();
 
 		if(empty($url))
-			$url = static::$apiBaseUrl.'/upload';
-			
-		return BaseModel::_upload($path,$url);
-	}
+			$url = static::$apiBaseUrl.'upload';
+
+        $path = realpath ($path);
+
+        if(!file_exists($path))
+            throw new AnfixException("El path {$path} no existe");
+
+        return Anfix::sendRequest($url,[
+            'file_contents' => '@'.$path
+            ], [], [], 'multipart/form-data',[
+            'Content-Disposition: form-data;name="upload";filename="'.basename($path).'"'
+        ]);
+    }
     
 }

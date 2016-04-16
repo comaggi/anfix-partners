@@ -24,17 +24,5 @@
   
 include 'example_utils.php';  
 
-$companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)
-
-
-
-$data = Anfix\Journal::report([
-      'AccountingPeriodYear' => 2016,
-      'MaxRows' => 300,
-      'JournalTypeId' => '1',
-      'AccountingEntryInitDate' => '01/01/2016',
-      'AccountingEntryEndDate' => '31/12/2016',
-      'FlagIncludeAccountDescription' => true,
-      'MinRowNumber' => 1
-], $companyId);
-print_result('Generación del libro Diario.',$data);
+$data = \Anfix\Media::upload(__DIR__.'/../Download/invoice.pdf');
+print_result('Subida de un fichero',$data);

@@ -64,7 +64,5 @@ $budget = Anfix\CustomerBudget::create([
           ]
     ],$companyId);
 
-
-print_result('Creación de un nuevo presupuesto',$budget);
 print_result('Creación de un nuevo presupuesto',$budget->getArray());
 

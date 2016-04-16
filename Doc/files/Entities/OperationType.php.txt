@@ -23,7 +23,7 @@ namespace Anfix;
 class OperationType extends BaseModel
 {
     protected $applicationId = '3';
-    protected $apiBaseUrl = 'http://apps.anfix.com/contapro/conta/common/structuraldata/accountentryoperationtype/';
+    protected $apiUrlSufix = 'common/structuraldata/accountentryoperationtype/';
     protected $update = false;
     protected $create = false;
     protected $delete = false;

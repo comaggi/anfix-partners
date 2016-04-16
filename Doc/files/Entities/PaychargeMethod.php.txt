@@ -23,5 +23,10 @@ namespace Anfix;
 class PayChargeMethod extends BaseModel
 {
     protected $applicationId = 'E';
-    protected $apiBaseUrl = 'http://apps.anfix.com/facturapro-simple/gestiona/simple/paychargemethod/';
+
+    public function __construct(array $params, $emptyDraft, $companyId)
+    {
+        parent::__construct($params, $emptyDraft, $companyId);
+        $this->apiBaseUrl = str_replace('servicios/','simple/',$this->apiBaseUrl);
+    }
 }

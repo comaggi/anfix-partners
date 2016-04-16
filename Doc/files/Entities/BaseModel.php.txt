@@ -32,8 +32,8 @@ use Anfix\Exceptions\AnfixResponseException;
  */
 class BaseModel
 {
- protected $applicationId; //Obligatorio, Identificador de la App Anfix, este identificador asocia la Url base por defecto conforme a config/anfix.php
-
+    /** @var  string Obligatorio, Identificador de la App Anfix, este identificador asocia la Url base por defecto conforme a config/anfix.php */
+    protected $applicationId;
     /**  @var string Opcional, Nombre de la entidad en Anfix, por defecto será el nombre de la clase */
     protected $Model;
     /**  @var string Opcional, Nombre de la clave primaria en Anfix, por defecto {$Model}Id */
@@ -462,32 +462,10 @@ class BaseModel
 		$obj = new static($params);
         
 		if(empty($url))
-			$url = $obj->apiBaseUrl.'/download';
+			$url = $obj->apiBaseUrl.'download';
 
         return Anfix::getFile($url,$params,$path);
 	}
-    
-   /**
-	* Subida de un fichero (Necesita php 5.2.2 o posterior)
-    * @params string $path Ruta absoluta del fichero a enviar
-    * @params string $url Url punto acceso, por defecto {$apiBaseUrl}/upload
-    * @param array $config Parámetros de configuración o config por defecto si vacío
-    * @param array $token ['TOKEN','TOKEN_PASSWORD'] o default_token si vacío
-    * @throws AnfixResponseException
-    * @throws AnfixException
-	* @return Object
-	*/
-	public static function _upload($path, $url = null, array $config = [], array $token = []){
-		$obj = new static();
-        
-		if(empty($url))
-			$url = $obj->apiBaseUrl.'/upload';
-        
-        if(!file_exists($path))
-            throw new AnfixException("El path {$path} no existe");
-        
-        return Anfix::sendRequest($url,['upload' => '@'.$path], $config, $token, 'multipart/form-data');  
- 	}
 
    /**
     * Envia una solicitud estándar
@@ -496,12 +474,16 @@ class BaseModel
     * @param string $path Path endpoint
     * @param array $config Parámetros de configuración o config por defecto si vacío
     * @param array $token ['TOKEN','TOKEN_PASSWORD'] o default_token si vacío
+    * @param string $baseUrl = null Indica una url base diferente a la del modelo para casos especiales
     * @return mixed
     */
-    protected static function _send(array $params, $companyId = null, $path, array $config = [], array $token = []){
+    protected static function _send(array $params, $companyId = null, $path, array $config = [], array $token = [], $baseUrl = null){
         $obj = new static([],false,$companyId);
 
-        return Anfix::sendRequest($obj->apiBaseUrl.$path,[
+        if(empty($baseUrl))
+            $baseUrl = $obj->apiBaseUrl;
+
+        return Anfix::sendRequest($baseUrl.$path,[
             'applicationId' =>  $obj->applicationId,
             'companyId' => $companyId,
             'inputBusinessData' => [

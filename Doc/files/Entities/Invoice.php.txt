@@ -44,21 +44,31 @@ class Invoice extends BaseModel
 	* Informe de IVA repercutido
 	* @param array $params Parámetros para el reporte, AccountingPeriodYear es obligatorio
 	* @param string $companyId Identificador de la empresa
+	* @return Object
 	*/
 	public static function reportIssued(array $params,$companyId){
 		$obj = new static([],false,$companyId);
-        $result = self::_send($params,$companyId,'report/issuedinvoice');
-        return $result->outputData->{$obj->Model};
+		$urlBase = str_replace('/invoice/','/',$obj->apiBaseUrl);
+        $result = self::_send($params,$companyId,'report/issuedinvoice',[],[],$urlBase);
+		if(!empty($result->outputData->{$obj->Model}))
+			return $result->outputData->{$obj->Model};
+
+        return $result->outputData;
 	}
 	
    /**
 	* Informe de IVA soportado
 	* @param array $params Parámetros para el reporte, AccountingPeriodYear es obligatorio
 	* @param string $companyId Identificador de la empresa
+	* @return Object
 	*/
 	public static function reportReceived($params,$companyId){
 		$obj = new static([],false,$companyId);
-        $result = self::_send($params,$companyId,'report/receivedinvoice');
-        return $result->outputData->{$obj->Model};
+		$urlBase = str_replace('/invoice/','/',$obj->apiBaseUrl);
+        $result = self::_send($params,$companyId,'report/receivedinvoice',[],[],$urlBase);
+		if(!empty($result->outputData->{$obj->Model}))
+			return $result->outputData->{$obj->Model};
+
+        return $result->outputData;
 	}
 }

@@ -23,7 +23,11 @@ namespace Anfix;
 class Media extends StaticModel
 {
     protected static $applicationId = '1';
-	protected static $apiBaseUrl = 'http://apps.anfix.com/os/media/';
+
+	protected static function constructStatic(){
+		parent::constructStatic();
+		static::$apiBaseUrl = str_replace('/os/parc/','/',static::$apiBaseUrl);
+	}
     
    /**
 	* Descarga un fichero

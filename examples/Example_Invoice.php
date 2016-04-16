@@ -32,7 +32,10 @@ $data = Anfix\Invoice::renumerate(2016, 'R', $companyId);
 print_result('Renumera las facturas',$data);
 
 
-$data = Anfix\Invoice::reportIssued(['AccountingPeriodYear' => 2016], $companyId);
+$data = Anfix\Invoice::reportIssued([
+    'AccountingPeriodYear' => 2016,
+    'ReportFormat' => 'PDF'
+    ], $companyId);
 print_result('Informe de IVA repercutido',$data);
 
 
