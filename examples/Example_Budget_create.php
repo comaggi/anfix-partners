@@ -13,7 +13,7 @@
 * DISCLAIMER
 *
 *  Date =>  9/2/16 18 => 57
-*  @author Networkkings <info@lucidnetworks.es>
+*  @author Lucid Networks <info@lucidnetworks.es>
 *  @copyright  2006-2015 Lucid Networks
 *  @license    http => //opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 */
