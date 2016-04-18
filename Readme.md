@@ -133,6 +133,6 @@
 		$customers = Anfix\Customer::where(['CustomerName' => 'Pedro'])->get([],10);
 		
 	Ejemplo de obtención de búsqueda con paginación, obtener la segunda página de 10 clientes (entre el 11 y el 20):
-		```php
-	    	$customers = Anfix\Customer::where(['CustomerName' => 'Pedro'])->get([],10,11);	
-	    	```
+```php
+$customers = Anfix\Customer::where(['CustomerName' => 'Pedro'])->get([],10,11);	
+```
