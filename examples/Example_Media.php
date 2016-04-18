@@ -22,7 +22,19 @@
  * Métodos especiales de la entidad
  */
   
-include 'example_utils.php';  
+include 'example_utils.php';
+
+$companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)
+
 
 $data = \Anfix\Media::upload(__DIR__.'/../Download/invoice.pdf');
 print_result('Subida de un fichero',$data);
+
+
+$data = \Anfix\Media::uploadAndCreateMedia(__DIR__.'/../Download/invoice.pdf',[
+    'HumanReadableName' =>  'Prueba Subida fichero.pdf',
+    'OwnerTypeId' =>  '2',
+    'OwnerId' =>  $companyId,
+    'HumanReadablePath' =>  '/'
+]);
+print_result('Subida de un fichero y creación del enlace MyDocuments',$data);

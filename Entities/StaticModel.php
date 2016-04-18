@@ -124,10 +124,13 @@ class StaticModel{
         if(!file_exists($path))
             throw new AnfixException("El path {$path} no existe");
 
-        return Anfix::sendRequest($url,[
-            'file_contents' => '@'.$path
-            ], [], [], 'multipart/form-data',[
-            'Content-Disposition: form-data;name="upload";filename="'.basename($path).'"'
+        $mime = mime_content_type($path);
+
+        $cfile = curl_file_create($path,$mime,basename($path));
+
+        return Anfix::sendRequest($url,['upload' => $cfile], [], [], 'multipart/form-data',[
+            'Content-Disposition: form-data;name="upload";filename="'.basename($path).'"',
+            'Content-Type:'.$mime
         ]);
     }
     

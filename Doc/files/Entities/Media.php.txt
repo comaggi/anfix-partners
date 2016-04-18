@@ -58,4 +58,16 @@ class Media extends StaticModel
 		return $result->outputData->{self::$Model};
 	}
 
+	/**
+	 * Sube un fichero y crea el fichero en MyDocuments
+	 * @param $path
+	 * @param array $params Parámetros HumanReadableName, HumanReadablePath, OwnerId, OwnerTypeId obligatorios, FileUID se asignará automáticamente
+	 * @return Object
+	 */
+	public static function uploadAndCreateMedia($path,array $params){
+		$response = self::upload($path);
+		$params['FileUID'] = $response[0]->UID;
+		return MyDocuments::createfile($params);
+	}
+
 }
