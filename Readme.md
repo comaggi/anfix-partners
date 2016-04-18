@@ -1,4 +1,4 @@
-#QuickStart
+# QuickStart
     1 - Copie la librería a su servidor php
     2 - Edite el fichero config.inc.php y añada sus credenciales para la conexión a Anfix como partner, dichas credenciales le serán enviadas por Anfix
       * Asegúrese que dispone de permiso de escritura en el fichero tokens_temp.php y examples/tokens.php
@@ -8,7 +8,7 @@
     Ya puede acceder a su cuenta anfix como se indica en el apartado Operaciones con entidades, recuerde que dispone de muchos más ejemplos en el directorio examples
     5 - SIEMPRE deberá incluir el fichero Anfix.php antes de cualquier llamada a la librería
 
-##Selección de entorno
+## Selección de entorno
 	Antes de realizar cualquier uso de la librería podrá asignar un entorno de trabajo, (cuenta a la que desea conectarse y fichero de configuración).
 	Esta selección se realiza mediante la función Anfix\Anfix::env([array $token] [, string $config_file]);
 		[Parámetros]:
@@ -21,7 +21,7 @@
 	anteriormente generados. Es decir, todos aquellos Modelos que hayan sido generados con la configuración A seguirán utilizando la configuración A aunque la 
 	hayamos modificado. Logicamente las llamadas a métodos estáticos aplicarán la nueva configuración
         	
-##Obtención de un token
+## Obtención de un token
 	El primer paso para poder conectar a una cuenta de Anfix será obtener un token de acceso, para esto puede observar el fichero /examples/new_token.php
 	donde se indica como realizar una solicitud y registro de un token. La solicitud se basa en dos pasos bien diferenciados (Oauth1)
 	El primer paso será realizar una llamada a Anfix::generateToken(string $identifier, string $returnUrl); que redirigirá a la página de login Anfix
@@ -42,13 +42,13 @@
 	usuario que se logueó en el paso 1, la función closure indicada en onGeneratedToken recibirá el token y deberá almacenarlo para su uso posterior
 	El tiempo máximo para la validación de un token (entre el paso 1 y 2) es de una hora
 
-###Invalidación de un token
+### Invalidación de un token
     Si desea invalidar un token utilice la funcion Anfix\Anfix::invalidateToken(token,secret)
         [Parámetros]:
         token: Token a invalidar
         secret: Clave del token a invalidar	
 		
-#Operaciones con entidades
+# Operaciones con entidades
 	El sistema trabaja con todas las entidades que se encuentran dentro del directorio /Entities
 	SIEMPRE deberá incluir el fichero Anfix.php antes de cualquier llamada a la librería
 	La mayoría de estas entidades disponen de los siguientes métodos comunes:
@@ -62,7 +62,7 @@
 		path: Método anfix al que llamar remotamente (última parte del punto de acceso anfix), por defecto suele ser create pero puede especificarse otro
 	Si no estamos seguros de si la entidad existe deberemos utilizar el método firstOrCreate descrito más adelante	
 	
-	###Búsquedas:
+	### Búsquedas:
 	Estos son los métodos estáticos para realizar búsquedas simples:
 	::first(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o null
 	::firstOrCreate(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o lo crea en anfix
@@ -76,7 +76,7 @@
 		params: Array con los datos a buscar, Ejemplo: ['province' => 'Madrid', 'telephone' => '91123456']
 		companyId: Identificador de la empresa con la que trabajar, obligatorio en algunas entidades (aquellas que guardan una relacción con una empresa determinada
                 en anfix)
-	####El método no estático get():
+	#### El método no estático get():
 	El método ->get([array $fields = Array()] [, $maxRows = null] [, $minRowNumber = null] [, array $order = Array()] [, $orderTypes = 'ASC'] [, $path = 'search']) genera una búsqueda de entidades, combinado con where podremos definir unos filtros
         y después ejecutar la búsqueda
 		[Parámetros]:
@@ -87,7 +87,7 @@
         orderTypes: Tipo de ordenación ”ASC” o ”DESC”
 		path: Método anfix al que llamar remotamente (última parte del punto de acceso anfix), por defecto suele ser search pero puede especificarse otro
 		
-	###Operaciones con entidades	
+	### Operaciones con entidades	
 	Todos los métodos de búsquedas devolverán un array de entidades o una entidad, a continuación se describen las operaciones que podemos realizar con cada una de estas
         entidades
 	->save() Guarda la entidad en anfix, el sistema sabrá si debe crear o actualizar en cada momento en función de si existe o no un id para la entidad
@@ -100,11 +100,11 @@
                 en anfix)
 		path: Método anfix al que llamar remotamente (última parte del punto de acceso anfix), por defecto suele ser delete pero puede especificarse otro
 		
-##Otras utilidades
+## Otras utilidades
     Algunas entidades disponen de métodos extra, consulte la documentación para conocer dichos métodos y su uso
     También existen entidades que no implementan ninguno de los métodos básicos, consulte la documentación para conocerlas
 		
-#Ejemplos de uso
+# Ejemplos de uso
     SIEMPRE deberá incluir el fichero Anfix.php antes de cualquier llamada a la librería
     
 	Ejemplo de obtención de todas las empresas disponibles para la cuenta por defecto:
@@ -133,4 +133,6 @@
 		$customers = Anfix\Customer::where(['CustomerName' => 'Pedro'])->get([],10);
 		
 	Ejemplo de obtención de búsqueda con paginación, obtener la segunda página de 10 clientes (entre el 11 y el 20):
-    	$customers = Anfix\Customer::where(['CustomerName' => 'Pedro'])->get([],10,11);	
+		```php
+	    	$customers = Anfix\Customer::where(['CustomerName' => 'Pedro'])->get([],10,11);	
+	    	```
