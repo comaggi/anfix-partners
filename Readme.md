@@ -30,6 +30,7 @@ Para esto crearemos un script que contendrá una llamada a ```Anfix::onGenerated
 * function(identifier,token,secret): Closure que se ejecutará cuando se reciba un token válido, recibe los datos del token y se utiliza para almacenar el token una vez el usuario le haya autorizado el acceso a su cuenta. Recibe el identificador indicado en el paso anterior, el token y la clave del mismo
 
 **Nota importante: Tenga en cuenta que la solicitud de token se realiza en dos pasos, el primero es lanzar la solicitud generateToken que llevará al usuario a la página de anfix para loguearse. En cambio la segunda parte será una llamada desde anfix al script indicado en $returnUrl, tenga en cuenta que dicho script deberá ser accesible publicamente desde internet, si este se encuentra en una red privada o protegido por contraseña no será posible finalizar el proceso con éxito, cuando Anfix realice dicha llamada a su url le entregará el token definitivo para la cuenta del  usuario que se logueó en el paso 1, la función closure indicada en onGeneratedToken recibirá el token y deberá almacenarlo para su uso posterior**
+
 El tiempo máximo para la validación de un token (entre el paso 1 y 2) es de una hora
 
 ### Invalidación de un token
@@ -58,14 +59,15 @@ Estos son los métodos estáticos para realizar búsquedas simples:
 * ```::firstOrCreate(array $params [,$companyId = null])``` Devuelve el primer elemento coincidente con params o lo crea en anfix
 * ```::firstOrNew(array $params [,$companyId = null])``` Devuelve el primer elemento coincidente con params o devuelve un modelo con los datos, pero no lo crea en anfix (podremos guardarlo manualmente si lo deseamos)
 * ```::firstOrFail(array $params [,$companyId = null])``` Devuelve el primer elemento coincidente con params o genera una excepción Anfix\Exceptions\AnfixException
-* ```::all([$companyId = null]) Devuelve todas las entidades
-* ```::where(array $params, [,$companyId = null])``` Realiza una búsqueda de todas las entidades que cumplan los [Parámetros] indicados, debe llamarse a ->get() para obtener el resultado
+* ```::all([$companyId = null])```Devuelve todas las entidades
+* ```::where(array $params, [,$companyId = null])``` Realiza una búsqueda de todas las entidades que cumplan los [Parámetros] indicados, debe llamarse a ```->get()```para obtener el resultado. 
 #####[Parámetros]:
 * params: Array con los datos a buscar, Ejemplo: ['province' => 'Madrid', 'telephone' => '91123456']
 * companyId: Identificador de la empresa con la que trabajar, obligatorio en algunas entidades (aquellas que guardan una relacción con una empresa determinada en anfix)
 
 #### El método no estático get():
 El método ```->get([array $fields = Array()] [, $maxRows = null] [, $minRowNumber = null] [, array $order = Array()] [, $orderTypes = 'ASC'] [, $path = 'search'])``` genera una búsqueda de entidades, combinado con where podremos definir unos filtros y después ejecutar la búsqueda
+
 #####[Parámetros]:
 * fields: Array que contendrá los campos que deseamos obtener, todos si se indica un array vacío
 * maxRows: Número máximo de resultados a retornar
@@ -123,7 +125,7 @@ $myInvoice = Anfix\ReceivedInvoice::destroy('invoice_id' ,'enterprise_id');
 Ejemplo de obtención y borrado de una factura:
 ```php
 //Obtención de la factura con id invoice_id
-$myInvoice = Anfix\ReceivedInvoice::first(['ReceivedInvoiceId' => 'invoice_id'],'enterprise_id'); 
+$myInvoice = Anfix\ReceivedInvoice::findOrFail('invoice_id','enterprise_id'); 
 $myInvoice->delete(); //Eliminación de la factura obtenida
 ```
 		
