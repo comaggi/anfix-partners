@@ -60,14 +60,13 @@ Estos son los métodos estáticos para realizar búsquedas simples:
 * ::firstOrFail(array $params [,$companyId = null]) Devuelve el primer elemento coincidente con params o genera una excepción Anfix\Exceptions\AnfixException
 * ::all([$companyId = null]) Devuelve todas las entidades
 * ::where(array $params, [,$companyId = null]) Realiza una búsqueda de todas las entidades que cumplan los [Parámetros] indicados, debe llamarse a ->get() para obtener el resultado
-* 
 #####[Parámetros]:
 * params: Array con los datos a buscar, Ejemplo: ['province' => 'Madrid', 'telephone' => '91123456']
 * companyId: Identificador de la empresa con la que trabajar, obligatorio en algunas entidades (aquellas que guardan una relacción con una empresa determinada en anfix)
+
 #### El método no estático get():
 El método ->get([array $fields = Array()] [, $maxRows = null] [, $minRowNumber = null] [, array $order = Array()] [, $orderTypes = 'ASC'] [, $path = 'search']) genera una búsqueda de entidades, combinado con where podremos definir unos filtros
 y después ejecutar la búsqueda
-
 #####[Parámetros]:
 * fields: Array que contendrá los campos que deseamos obtener, todos si se indica un array vacío
 * maxRows: Número máximo de resultados a retornar
@@ -103,25 +102,29 @@ $myEnterprises = Anfix\Company::all
 		
 Ejemplo de obtención de todas las empresas disponibles para una cuenta determinada:
 ```php
-Anfix\Anfix::env(['otro_token','clave_otro_token']); //Selección de entorno
+//Selección de entorno
+Anfix\Anfix::env(['otro_token','clave_otro_token']);
 $myEnterprises = Anfix\Company::all();	
 ```
 
 Ejemplo de obtención y modificación de una factura:
 ```php
-$myInvoice = Anfix\ReceivedInvoice::first(['ReceivedInvoiceId' => 'invoice_id'],'enterprise_id'); //Obtención de la factura con id invoice_id
+//Obtención de la factura con id invoice_id
+$myInvoice = Anfix\ReceivedInvoice::first(['ReceivedInvoiceId' => 'invoice_id'],'enterprise_id'); 
 $myInvoice->ContactPersonName = 'new_name'; //Modificación del nombre
 $myInvoice->save(); //Actualización de la factura
 ```
 
 Ejemplo de borrado de una factura:
 ```php
-$myInvoice = Anfix\ReceivedInvoice::destroy('invoice_id' ,'enterprise_id'); //Eliminación de la factura con id invoice_id
+//Eliminación de la factura con id invoice_id
+$myInvoice = Anfix\ReceivedInvoice::destroy('invoice_id' ,'enterprise_id');
 ```
 		
 Ejemplo de obtención y borrado de una factura:
 ```php
-$myInvoice = Anfix\ReceivedInvoice::first(['ReceivedInvoiceId' => 'invoice_id'],'enterprise_id'); //Obtención de la factura con id invoice_id
+//Obtención de la factura con id invoice_id
+$myInvoice = Anfix\ReceivedInvoice::first(['ReceivedInvoiceId' => 'invoice_id'],'enterprise_id'); 
 $myInvoice->delete(); //Eliminación de la factura obtenida
 ```
 		
