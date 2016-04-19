@@ -59,6 +59,8 @@ Estos son los métodos estáticos para realizar búsquedas simples:
 * ```::firstOrCreate(array $params [,$companyId = null])``` Devuelve el primer elemento coincidente con params o lo crea en anfix
 * ```::firstOrNew(array $params [,$companyId = null])``` Devuelve el primer elemento coincidente con params o devuelve un modelo con los datos, pero no lo crea en anfix (podremos guardarlo manualmente si lo deseamos)
 * ```::firstOrFail(array $params [,$companyId = null])``` Devuelve el primer elemento coincidente con params o genera una excepción Anfix\Exceptions\AnfixException
+* ```::find(string $id [,$companyId = null])``` Devuelve el primer elemento con el id indicado o null
+* ```::findOrFail(string $id [,$companyId = null])``` Devuelve el primer elemento con el id indicado o genera una excepción Anfix\Exceptions\AnfixException
 * ```::all([$companyId = null])```Devuelve todas las entidades
 * ```::where(array $params, [,$companyId = null])``` Realiza una búsqueda de todas las entidades que cumplan los [Parámetros] indicados, debe llamarse a ```->get()```para obtener el resultado. 
 #####[Parámetros]:
