@@ -100,7 +100,7 @@ SIEMPRE deberá incluir el fichero Anfix.php antes de cualquier llamada a la lib
     
 Ejemplo de obtención de todas las empresas disponibles para la cuenta por defecto:
 ```php
-$myEnterprises = Anfix\Company::all
+$myEnterprises = Anfix\Company::all();
 ```
 		
 Ejemplo de obtención de todas las empresas disponibles para una cuenta determinada:
@@ -114,7 +114,7 @@ Ejemplo de obtención y modificación de una factura:
 ```php
 //Obtención de la factura con id invoice_id
 $myInvoice = Anfix\ReceivedInvoice::first(['ReceivedInvoiceId' => 'invoice_id'],'enterprise_id'); 
-$myInvoice->ContactPersonName = 'new_name'; //Modificación del nombre
+$myInvoice->ContactPersonName = 'new_name'; //Modificación del nombre de contacto
 $myInvoice->save(); //Actualización de la factura
 ```
 
