@@ -1,3 +1,9 @@
+#### Requerimientos mínimos
+* php > 5.2.2
+* curl
+* curl openssl (Si desea conectar por ssl)
+* Permiso de escritura en los ficheros tokens_temp.php y examples/tokens.php
+
 # QuickStart
 1. Copie la librería a su servidor php
 2. Edite el fichero config.inc.php y añada sus credenciales para la conexión a Anfix como partner, dichas credenciales le serán enviadas por Anfix **Asegúrese que dispone de permiso de escritura en el fichero tokens_temp.php y examples/tokens.php**
@@ -31,7 +37,7 @@ Para esto crearemos un script que contendrá una llamada a ```Anfix::onGenerated
 
 **Nota importante: Tenga en cuenta que la solicitud de token se realiza en dos pasos, el primero es lanzar la solicitud generateToken que llevará al usuario a la página de anfix para loguearse. En cambio la segunda parte será una llamada desde anfix al script indicado en $returnUrl, tenga en cuenta que dicho script deberá ser accesible publicamente desde internet, si este se encuentra en una red privada o protegido por contraseña no será posible finalizar el proceso con éxito, cuando Anfix realice dicha llamada a su url le entregará el token definitivo para la cuenta del  usuario que se logueó en el paso 1, la función closure indicada en onGeneratedToken recibirá el token y deberá almacenarlo para su uso posterior**
 
-El tiempo máximo para la validación de un token (entre el paso 1 y 2) es de una hora
+**El tiempo máximo para la validación de un token (entre el paso 1 y 2) es de una hora**
 
 ### Invalidación de un token
 Si desea invalidar un token utilice la funcion ```Anfix\Anfix::invalidateToken(token,secret)```
