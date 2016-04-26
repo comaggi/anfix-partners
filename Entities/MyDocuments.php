@@ -23,6 +23,7 @@ namespace Anfix;
 class MyDocuments extends BaseModel
 {
     protected $applicationId = '5';
+	protected $primaryKey = 'EntryId';
     protected $update = false;
     protected $create = false;
     protected $delete = false;
