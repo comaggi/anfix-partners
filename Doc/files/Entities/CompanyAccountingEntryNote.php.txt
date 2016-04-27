@@ -24,6 +24,7 @@ class CompanyAccountingEntryNote extends BaseModel
 {
     protected $applicationId = '3';
 	protected $apiUrlSufix = 'company/accountingentryreference/note/';
+    protected $primaryKey = 'AccountingEntryNoteId';
     protected $update = false;
     protected $create = false;
     protected $delete = false;

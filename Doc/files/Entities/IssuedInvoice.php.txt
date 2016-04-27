@@ -29,6 +29,12 @@ class IssuedInvoice extends BaseModel
     protected $create = true;
     protected $delete = true;
 
+    public function __construct(array $params, $emptyDraft, $companyId)
+    {
+        parent::__construct($params, $emptyDraft, $companyId);
+        $this->apiBaseUrl = str_replace('servicios/','simple/',$this->apiBaseUrl);
+    }
+
     /**
      * Duplicación de una factura emitida.
      * @param string $issuedInvoiceId Identificador único de la factura emitida a duplicar

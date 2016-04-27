@@ -205,9 +205,10 @@ class BaseModel
      * @param string $orderTypes ”ASC” o ”DESC”
      * @param string $path = 'search' Path de la función en anfix
      * @param array $params = [] Parámetros especiales a añadir en la solicitud
+     * @param string $apiUrl = null Indica una url base diferente a la del modelo para casos especiales
      * @return array
      */
-    public function get(array $fields = [], $maxRows = null, $minRowNumber = null, array $order = [], $orderTypes = 'ASC', $path = 'search', array $params = []){
+    public function get(array $fields = [], $maxRows = null, $minRowNumber = null, array $order = [], $orderTypes = 'ASC', $path = 'search', array $params = [], $apiUrl = null){
         $obj_data = $params;
         $return = [];
 
@@ -228,7 +229,7 @@ class BaseModel
             $obj_data['OrderTypes'] = $orderTypes;
         }
 
-        $result = self::_send($obj_data,$this->companyId,$path,$this->config,$this->token);
+        $result = self::_send($obj_data,$this->companyId,$path,$this->config,$this->token,$apiUrl);
 
 
         if($result->outputData->TotalRowNumber == 0)

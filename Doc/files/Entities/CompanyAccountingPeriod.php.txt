@@ -24,6 +24,7 @@ class CompanyAccountingPeriod extends BaseModel
 {
     protected $applicationId = '3';
     protected $apiUrlSufix = 'company/accountingperiod/';
+    protected $primaryKey = 'AccountingPeriodYear';
     protected $update = true;
     protected $create = false;
     protected $delete = true;

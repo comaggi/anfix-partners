@@ -51,7 +51,7 @@ class ReceivedInvoice extends BaseModel
      * @return array
      */
     public function searchForPayment(array $fields = [],$maxRows = null, $minRowNumber = null, array $order = [], $orderTypes = 'ASC'){
-        return parent::get($fields, $maxRows, $minRowNumber, $order, $orderTypes, 'search-ForPayment');
+        return parent::get($fields, $maxRows, $minRowNumber, $order, $orderTypes, 'searchForPayment', [], str_replace('servicios/','simple/',$this->apiBaseUrl));
     }
 
     /**

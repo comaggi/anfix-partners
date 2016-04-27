@@ -24,6 +24,7 @@ class CompanyAccountingEntryReference extends BaseModel
 {
     protected $applicationId = '3';
     protected $apiUrlSufix = 'company/accountingentryreference/';
+    protected $primaryKey = 'AccountingEntryId';
     protected $update = true;
     protected $create = true;
     protected $delete = true;

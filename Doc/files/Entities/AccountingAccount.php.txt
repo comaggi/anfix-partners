@@ -29,17 +29,19 @@ class AccountingAccount extends BaseModel
 
     /**
      * Devuelve un array de objetos desde la API
-     * Esta función se utiliza como get, normalmente después de ::where para establecer el filtrado
      * @param array $fields = [] Campos a devolver
-     * @param bool $hierarchyFlag = true para ordenar las cuentas por jerarquía o false para ordenarlas por niveles
      * @param int $maxRows = null Máximo de filas a mostrar, si no se indica se devolverán 50
      * @param null $minRowNumber Primera entrada a devolver como resultado del conjunto total de entradas devueltas por la operación
      * @param array $order Lista con los campos por los que se quiere ordenar los resultados
      * @param string $orderTypes ”ASC” o ”DESC”
+     * @param string $path = 'search' Path de la función en anfix
+     * @param array $params = [] HierarchyFlag y otros parámetros especiales a añadir en la solicitud
+     * @param string $apiUrl = null Indica una url base diferente a la del modelo para casos especiales
      * @return array
      */
-    public function get(array $fields = [], $hierarchyFlag = true, $maxRows = null, $minRowNumber = null, array $order = [], $orderTypes = 'ASC'){
-        return parent::get($fields, $maxRows, $minRowNumber, $order, $orderTypes, 'searchByAccPlanId',['HierarchyFlag' => $hierarchyFlag]);
+    public function get(array $fields = [], $maxRows = null, $minRowNumber = null, array $order = [], $orderTypes = 'ASC', $path = 'searchByAccPlanId', array $params = [], $apiUrl = null){
+        return parent::get($fields, $maxRows, $minRowNumber, $order, $orderTypes, $path, $params,$apiUrl);
     }
+
 
 }

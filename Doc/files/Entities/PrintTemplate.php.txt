@@ -24,6 +24,7 @@ class PrintTemplate extends BaseModel
 {
     protected $applicationId = 1;
 	protected $Model = 'Template';
+	protected $apiUrlSufix = 'report/template/';
     protected $update = false;
 	protected $create = false;
 	protected $delete = false;
