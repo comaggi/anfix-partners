@@ -37,20 +37,20 @@ class IssuedInvoice extends BaseModel
 
     /**
      * Duplicación de una factura emitida.
-     * @param string $issuedInvoiceId Identificador único de la factura emitida a duplicar
+     * @param string $issuedInvoiceIds Identificadores únicos de las facturas emitidas a duplicar
      * @param string $companyId
      * @return Object
      */
-    public static function duplicate($issuedInvoiceId,$companyId){
+    public static function duplicate($issuedInvoiceIds,$companyId){
         $obj = new static([],false,$companyId);
-        $result = self::_send(['IssuedInvoiceId' => $issuedInvoiceId],$companyId,'duplicate');
+        $result = self::_send(['IssuedInvoiceIds' => $issuedInvoiceIds],$companyId,'duplicate');
         return $result->outputData->{$obj->Model};
     }
 
 
     /**
      * Vista previa de una factura emitida.
-     * @param $params array con los datos de la factura, IssuedInvoiceTemplateId y IssuedInvoiceLanguageId obligatorios
+     * @param $params array con los datos de la factura, IssuedInvoiceTemplateId y IssuedInvoiceTemplateLanguage obligatorios
      * @param string $companyId
      * @return Object
      */

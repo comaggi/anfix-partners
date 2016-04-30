@@ -27,6 +27,11 @@
   
 include 'example_utils.php';
 
+$companyId = firstCompanyId();
+$journal = Anfix\Journal::report(['AccountingEntryInitDate' => '01/01/2016', 'AccountingEntryEndDate' => '31/12/2016', 'AccountingPeriodYear' => 2016, 'FlagIncludeAccountDescription' => true, 'JournalTypeId' => 1], $companyId);
+print_result('Cargos',$journal);
+
+die;
 //Ejemplo de obtención de todas las empresas disponibles para la cuenta por defecto:
     $myEnterprises = Anfix\Company::all();
 	print_result('Lista de empresas disponibles',$myEnterprises);

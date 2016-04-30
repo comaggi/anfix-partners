@@ -231,6 +231,8 @@ class BaseModel
 
         $result = self::_send($obj_data,$this->companyId,$path,$this->config,$this->token,$apiUrl);
 
+        if(!isset($result->outputData->TotalRowNumber) && is_object($result->outputData->{$this->Model}))
+            return new $this(get_object_vars($result->outputData->{$this->Model}), true, $this->companyId);
 
         if($result->outputData->TotalRowNumber == 0)
             return [];

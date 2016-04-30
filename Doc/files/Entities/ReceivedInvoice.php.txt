@@ -29,13 +29,13 @@ class ReceivedInvoice extends BaseModel
 
     /**
      * Duplicación de una factura recibida.
-     * @param string $receivedInvoiceId Identificador único de la factura recibida a duplicar
+     * @param string $receivedInvoiceIds Identificadores únicos de las facturas recibidas a duplicar
      * @param string $companyId
      * @return Object
      */
-    public static function duplicate($receivedInvoiceId,$companyId){
+    public static function duplicate($receivedInvoiceIds,$companyId){
         $obj = new static([],false,$companyId);
-        $result = self::_send(['ReceivedInvoiceId' => $receivedInvoiceId],$companyId,'duplicate');
+        $result = self::_send(['ReceivedInvoiceIds' => $receivedInvoiceIds],$companyId,'duplicate');
         return $result->outputData->{$obj->Model};
     }
 

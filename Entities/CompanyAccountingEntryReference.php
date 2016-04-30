@@ -67,4 +67,18 @@ class CompanyAccountingEntryReference extends BaseModel
 
         return $result->outputData->{$obj->Model};
     }
+
+    /**
+     * Selección de datos de asientos predefinidos.
+     * @param int $accountingPeriodYear Año
+     * @param string $predefinedEntryId Identificador del asiento predefinido a seleccionar.
+     * @param string $companyId Identificador de la empresa
+     * @return Object
+     */
+    public static function selectPredefined($accountingPeriodYear,$predefinedEntryId,$companyId){
+        //accountingentryreference
+        $obj = new static([],false,$companyId);
+        $result = self::_send(['AccountingPeriodYear' => $accountingPeriodYear, 'AccountingEntryPredefinedEntryId' => $predefinedEntryId],$companyId,'selectpredefined');
+        return $result->outputData;
+    }
 }

@@ -31,10 +31,11 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     $budgets = Anfix\CustomerBudget::all($companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
     print_result('Listado de id de presupuestos',array_map(function($e){ return $e->CustomerBudgetId; },$budgets));
 
+    //Obtención de un presupuesto con id L,iBgPqlc
+    //$budget = Anfix\CustomerBudget::findOrFail('L,iBgPqlc',$companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
 
-    //Obtención de un presupuesto
-    $budget = Anfix\CustomerBudget::findOrFail('LQYZihdUg',$companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
-
+    //Obtención dl primer presupuesto
+    $budget = Anfix\CustomerBudget::first([],$companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
 
     //Reporte del presupuesto
     $report = \Anfix\DocumentReport::customerBudget([
@@ -47,23 +48,23 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Reporte del presupuesto',$report);
 
 
-//    //Conversión del presupuesto en factura
-//    $invoice = $budget->generateDocuments([$budget->CustomerBudgetId],3,$companyId);
-//    print_result('Conversión de presupuesto en factura',$invoice);
-//
-//
-//    //Envío del presupuesto por email
-//    $mydoc = \Anfix\MyDocuments::send([
-//          "Email" => ["ozonosp@gmail.com"],
-//          "EmailSubject" => "Patosa te ha enviado el presupuesto",
-//          "EmailText" => "Presupuesto",
-//          "EntryIds" => [$report->MyDocuments->EntryId]
-//    ],$companyId);
-//    print_result('Envío del presupuesto por email',$mydoc);
-//
-//
-//    //Almacenamiento del presupuesto en local
-//    \Anfix\MyDocuments::download($report->MyDocuments->EntryId,'../download/budget.pdf');
+    //Conversión del presupuesto en factura
+    $invoice = $budget->generateDocuments([$budget->CustomerBudgetId],3,$companyId);
+    print_result('Conversión de presupuesto en factura',$invoice);
+
+
+    //Envío del presupuesto por email
+    $mydoc = \Anfix\MyDocuments::send([
+          "Email" => ["patricia.ganan@anfix.com"],
+          "EmailSubject" => "Patosa te ha enviado el presupuesto",
+          "EmailText" => "Presupuesto",
+          "EntryIds" => [$report->MyDocuments->EntryId]
+    ],$companyId);
+    print_result('Envío del presupuesto por email',$mydoc);
+
+
+    //Almacenamiento del presupuesto en local
+    \Anfix\MyDocuments::download($report->MyDocuments->EntryId,'../download/budget.pdf');
 
 
 

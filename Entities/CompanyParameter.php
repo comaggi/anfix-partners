@@ -27,8 +27,8 @@ class CompanyParameter extends StaticModel
 
     /**
      * Obtención de parametrización por defecto para una empresa.
-     * @param array $params SourceAccountingPlanId y SourceCompanyId obligatorios
-     * @param $companyId Identificador de la empresa
+     * @param array $params Debe indicar SourceAccountingPlanId o SourceCompanyId obligatoriamente
+     * @param string $companyId Identificador de la empresa
      * @return Object
      */
     public static function parameterinitialize(array $params, $companyId){

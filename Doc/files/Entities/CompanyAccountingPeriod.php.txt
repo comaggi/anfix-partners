@@ -91,6 +91,6 @@ class CompanyAccountingPeriod extends BaseModel
         $obj = new static([],false,$companyId);
         $result = self::_send($params,$companyId,'createwithplan');
 
-        return $result->outputData->{$obj->Model}->CompanyAccoutingPeriodCreationDate;
+        return $result->outputData->{$obj->Model}->CompanyAccountingPeriodCreationDate;
     }
 }

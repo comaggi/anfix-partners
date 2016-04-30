@@ -37,6 +37,9 @@ class PredefinedAccountingEntry extends BaseModel
 	public static function copy(array $params,$companyId){
 		$obj = new static([],false,$companyId);
         $result = self::_send($params,$companyId,'copy');
+		if(empty($result->outputData->{$obj->Model}))
+			return 0;
+
         return $result->outputData->{$obj->Model}->rowcount;
 	}
 	
@@ -52,19 +55,6 @@ class PredefinedAccountingEntry extends BaseModel
 	public function getByEntryType($accountingPeriodYear, $includePredefined, array $fields = [], $order = 'PredefinedAccountingEntryCode'){
         $params = ['AccountingPeriodYear' => $accountingPeriodYear, 'IncludeStructuralPredefinedAccountingEntries' => $includePredefined, 'Order' => $order];
 		return $this->get($fields, null, null, [], 'ASC', 'searchbyentrytype', $params);
-	}
-	
-   /**
-	* Selección de datos de asientos predefinidos.
-	* @param string $accountingPeriodYear Año
-	* @param string $predefinedEntryId Identificador del asiento predefinido a seleccionar.
-	* @param string $companyId Identificador de la empresa
-	* @return Object
-	*/
-	public static function selectPredefined($accountingPeriodYear,$predefinedEntryId,$companyId){
-		$obj = new static([],false,$companyId);
-        $result = self::_send(['AccountingPeriodYear' => $accountingPeriodYear, 'AccountingEntryPredefinedEntryId' => $predefinedEntryId],$companyId,'selectpredefined');
-        return $result->outputData->{$obj->Model};
 	}
 	
 }

@@ -22,7 +22,7 @@ namespace Anfix;
 
 class TaxValue extends BaseModel
 {
-    protected $applicationId = '3';
+    protected $applicationId = 'E';
     protected $Model = 'Vat';
     protected $apiUrlSufix = 'common/structuraldata/tax/value/';
     protected $update = true;

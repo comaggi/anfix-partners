@@ -23,7 +23,7 @@ namespace Anfix;
 class CompanyAccountingAccount extends BaseModel
 {
     protected $applicationId = '3';
-    protected $apiUrlSufix = 'company/accountingplan/accountingaccountmanager/';
+    protected $apiUrlSufix = 'company/accountingplan/accountingaccount/';
     protected $update = true;
     protected $create = true;
     protected $delete = true;

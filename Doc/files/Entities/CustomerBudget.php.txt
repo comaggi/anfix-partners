@@ -54,7 +54,7 @@ class CustomerBudget extends BaseModel
 
     /**
      * Vista previa de presupuesto.
-     * @param $params array con los datos para el presupuesto, CustomerBudgetSerialNum, CustomerBudgetTemplateId y CustomerBudgetLanguageId obligatorios
+     * @param $params array con los datos para el presupuesto, CustomerBudgetSerialNum, CustomerBudgetTemplateId y CustomerBudgetTemplateLanguage obligatorios
      * @param $companyId
      * @return Object
      */
