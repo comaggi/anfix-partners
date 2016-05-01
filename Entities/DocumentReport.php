@@ -22,8 +22,16 @@ namespace Anfix;
 
 class DocumentReport extends StaticModel
 {
-    protected static $applicationId = 'E';
-    protected static $apiUrlSufix = 'report/';
+	/** @var  @var string Obligatorio, Identificador de la App Anfix, este identificador asocia la Url base por defecto conforme a config/anfix.php */
+	protected static $applicationId = 'E';
+	/**  @var string Opcional, Nombre de la entidad en Anfix, por defecto será el nombre de la clase */
+	protected static $Model;
+	/**  @var string Opcional, Nombre de la clave primaria en Anfix, por defecto {$Model}Id */
+	protected static $primaryKey;
+	/**  @var string Opcional, Url de la API a la que conectar, por defecto se obtiene de config/anfix en función del applicationId */
+	protected static $apiBaseUrl;
+	/**  @var string Opcional, Sufijo que se añade a la url de la API, por defecto nombre de la entidad, si se indica apiBaseUrl no se tendrá en cuenta este parámetro */
+	protected static $apiUrlSufix = 'report/';
 	
    /**
 	* Exportación de presupuestos a diferentes formatos.

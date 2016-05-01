@@ -31,6 +31,8 @@ use Anfix\Exceptions\AnfixException;
  */
 class StaticModel{
 
+    // Al tratarse de variables estáticas estas deben declararse en cada modelo para eitar que se mantengan entre diferentes modelos
+
     /** @var  @var string Obligatorio, Identificador de la App Anfix, este identificador asocia la Url base por defecto conforme a config/anfix.php */
     protected static $applicationId;
     /**  @var string Opcional, Nombre de la entidad en Anfix, por defecto será el nombre de la clase */
