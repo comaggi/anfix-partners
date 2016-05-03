@@ -27,64 +27,61 @@
   
 include 'example_utils.php';
 
-$companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)	
+$companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)    
 
 //1) Generación de un preview de un presupuesto
-    //$preview = Anfix\CustomerBudget::preview(['CustomerBudgetSerialNum' => 'P2016', 'CustomerBudgetTemplateId' => '65', 'CustomerBudgetTemplateLanguage' => 1],$companyId);
-	//print_result('Documento temporal creado',$preview);
+//TO-DO: está usando una url que no es correcta
+    $preview = Anfix\CustomerBudget::preview(['CustomerBudgetSerialNum' => 'P2016', 'CustomerBudgetTemplateId' => '65', 'CustomerBudgetTemplateLanguage' => 1],$companyId);
+    print_result('Documento temporal creado',$preview);
 
 //2) Generación de un preview de una factura emitida
-    //$preview = Anfix\IssuedInvoice::preview(['IssuedInvoiceSerialNum' => 'F2016', 'IssuedInvoiceTemplateId' => '5Y', 'IssuedInvoiceTemplateLanguage' => 1],$companyId);
-    //print_result('Documento temporal creado', $preview);
+//TO-DO: está usando una url que no es correcta
+    $preview = Anfix\IssuedInvoice::preview(['IssuedInvoiceSerialNum' => 'F2016', 'IssuedInvoiceTemplateId' => '5Y', 'IssuedInvoiceTemplateLanguage' => 1],$companyId);
+    print_result('Documento temporal creado', $preview);
 
-//3) Listado del Plan Contable    
-//TO-DO: da un error por la url
-    //$accountingAccountPlan = Anfix\CompanyAccountingAccount::where(['CompanyAccountingAccountLevelInclude' => [1, 2, 3, 4, 5, 6]], $companyId)->accountPrint(['AccountingPeriodYear' => 2016, 'HierarchyLevel' => true, 'ReportFormat' => 'PDF', 'ShowAccountsWithoutEntries' => true, 'ShowBalance' =>true], [],null ,null ,['CompanyAccountingAccountNumber'],'ASC');
-    //print_result('Documento temporal creado', $accountingAccountPlan);	
+//3) Listado del Plan Contable
+    $accountingAccountPlan = Anfix\CompanyAccountingAccount::where(['CompanyAccountingAccountLevelInclude' => [1, 2, 3, 4, 5, 6]], $companyId)->accountPrint(['AccountingPeriodYear' => 2016, 'HierarchyLevel' => true, 'ReportFormat' => 'PDF', 'ShowAccountsWithoutEntries' => true, 'ShowBalance' =>true], [],null ,null ,['CompanyAccountingAccountNumber'],['ASC']);
+    print_result('Plan Contable', $accountingAccountPlan);  
 
 //4) Libro Mayor
-	//$ledger = Anfix\Ledger::report(['AccountingEntryInitDate' => '01/01/2016', 'AccountingEntryEndDate' => '31/12/2016', 'AccountingPeriodYear' => 2016, 'CompanyAccountingInitNumber' => 1000000, 'CompanyAccountingEndNumber' => 9999999, 'FlagDisplayNullItems' => false, 'FlagIncludeAccountWithNoActivity' => false, 'FlagIncludeAccumulatedBalance' => false, 'FlagIncludeClosureEntries' => true, 'FlagIncludeDottedEntries' => true, 'FlagIncludeInternalEntryNumber' => true, 'FlagIncludeNotDottedEntries' => true, 'FlagIncludeOpeningEntries' => false, 'FlagIncludePageBreak' => false], $companyId);
-    //print_result('Libro mayor', $ledger);
-
-	$ledger = Anfix\Ledger::report(['LedgerFormat' => 'PDF', 'AccountingEntryInitDate' => '01/01/2016', 'AccountingEntryEndDate' => '31/12/2016', 'AccountingPeriodYear' => 2016, 'CompanyAccountingInitNumber' => 1000000, 'CompanyAccountingEndNumber' => 9999999, 'FlagDisplayNullItems' => false, 'FlagIncludeAccountWithNoActivity' => false, 'FlagIncludeAccumulatedBalance' => false, 'FlagIncludeClosureEntries' => true, 'FlagIncludeDottedEntries' => true, 'FlagIncludeInternalEntryNumber' => true, 'FlagIncludeNotDottedEntries' => true, 'FlagIncludeOpeningEntries' => false, 'FlagIncludePageBreak' => false], $companyId);
+    $ledger = Anfix\Ledger::report(['AccountingEntryInitDate' => '01/01/2016', 'AccountingEntryEndDate' => '31/12/2016', 'AccountingPeriodYear' => 2016, 'CompanyAccountingInitNumber' => 1000000, 'CompanyAccountingEndNumber' => 9999999, 'FlagDisplayNullItems' => false, 'FlagIncludeAccountWithNoActivity' => false, 'FlagIncludeAccumulatedBalance' => false, 'FlagIncludeClosureEntries' => true, 'FlagIncludeDottedEntries' => true, 'FlagIncludeInternalEntryNumber' => true, 'FlagIncludeNotDottedEntries' => true, 'FlagIncludeOpeningEntries' => false, 'FlagIncludePageBreak' => false], $companyId);
     print_result('Libro mayor', $ledger);
 
-//5) Libro Diario    
-//TO-DO: da un error
-	$journal = Anfix\Journal::report(['AccountingEntryInitDate' => '01/01/2016', 'AccountingEntryEndDate' => '31/12/2016', 'AccountingPeriodYear' => 2016, 'FlagIncludeAccountDescription' => true, 'JournalTypeId' => '1'], $companyId);
+    $ledger = Anfix\Ledger::report(['LedgerFormat' => 'PDF', 'AccountingEntryInitDate' => '01/01/2016', 'AccountingEntryEndDate' => '31/12/2016', 'AccountingPeriodYear' => 2016, 'CompanyAccountingInitNumber' => 1000000, 'CompanyAccountingEndNumber' => 9999999, 'FlagDisplayNullItems' => false, 'FlagIncludeAccountWithNoActivity' => false, 'FlagIncludeAccumulatedBalance' => false, 'FlagIncludeClosureEntries' => true, 'FlagIncludeDottedEntries' => true, 'FlagIncludeInternalEntryNumber' => true, 'FlagIncludeNotDottedEntries' => true, 'FlagIncludeOpeningEntries' => false, 'FlagIncludePageBreak' => false], $companyId);
+    print_result('Libro mayor', $ledger);
+
+//5) Libro Diario
+    $journal = Anfix\Journal::report(['AccountingEntryInitDate' => '01/01/2016', 'AccountingEntryEndDate' => '31/12/2016', 'AccountingPeriodYear' => 2016, 'FlagIncludeAccountDescription' => true, 'JournalTypeId' => '1'], $companyId);
     print_result('Libro diario', $journal);
-	
-	//$journal = Anfix\Journal::report(['JournalFormat' => 'PDF', 'AccountingEntryInitDate' => '01/01/2016', 'AccountingEntryEndDate' => '31/12/2016', 'AccountingPeriodYear' => 2016, 'FlagIncludeAccountDescription' => true, 'JournalTypeId' => '1'], $companyId);
-    //print_result('Libro diario', $journal);
+    
+    $journal = Anfix\Journal::report(['JournalFormat' => 'PDF', 'AccountingEntryInitDate' => '01/01/2016', 'AccountingEntryEndDate' => '31/12/2016', 'AccountingPeriodYear' => 2016, 'FlagIncludeAccountDescription' => true, 'JournalTypeId' => '1'], $companyId);
+    print_result('Libro diario', $journal);
 
 //6) Sumas y Saldos
-    //TO-DO: da un error
-	//$trialBalance = Anfix\TrialBalance::report(['AccountingEntryInitDate' => '01/01/2016', 'AccountingEntryEndDate' => '31/12/2016', 'AccountingPeriodYear' => 2016, 'CompanyAccountingInitNumber' => 1000000, 'CompanyAccountingEndNumber' => 9999999, 'FlagDisplayNullItems' => false, 'FlagIncludeClosureEntries' => false, 'FlagIncludeOpeningEntries' => true, 'HierarchyLevel' => true, 'CompanyAccountingAccountLevelInclude' => ['1', '2', '3', '4', '5', '6']], $companyId);
-    //print_result('Sumas y Saldos', $trialBalance);
+    $trialBalance = Anfix\TrialBalance::report(['AccountingEntryInitDate' => '01/01/2016', 'AccountingEntryEndDate' => '31/12/2016', 'AccountingPeriodYear' => 2016, 'CompanyAccountingInitNumber' => 1000000, 'CompanyAccountingEndNumber' => 9999999, 'FlagDisplayNullItems' => false, 'FlagIncludeClosureEntries' => false, 'FlagIncludeOpeningEntries' => true, 'HierarchyLevel' => true, 'CompanyAccountingAccountLevelInclude' => ['1', '2', '3', '4', '5', '6']], $companyId);
+    print_result('Sumas y Saldos', $trialBalance);
 
-	//$trialBalance = Anfix\TrialBalance::report(['TrialBalanceFormat' => 'PDF','AccountingEntryInitDate' => '01/01/2016', 'AccountingEntryEndDate' => '31/12/2016', 'AccountingPeriodYear' => 2016, 'CompanyAccountingInitNumber' => 1000000, 'CompanyAccountingEndNumber' => 9999999, 'FlagDisplayNullItems' => false, 'FlagIncludeClosureEntries' => false, 'FlagIncludeOpeningEntries' => true, 'HierarchyLevel' => true, 'CompanyAccountingAccountLevelInclude' => ['1', '2', '3', '4', '5', '6']], $companyId);
-    //print_result('Sumas y Saldos', $trialBalance);
+    $trialBalance = Anfix\TrialBalance::report(['TrialBalanceFormat' => 'PDF','AccountingEntryInitDate' => '01/01/2016', 'AccountingEntryEndDate' => '31/12/2016', 'AccountingPeriodYear' => 2016, 'CompanyAccountingInitNumber' => 1000000, 'CompanyAccountingEndNumber' => 9999999, 'FlagDisplayNullItems' => false, 'FlagIncludeClosureEntries' => false, 'FlagIncludeOpeningEntries' => true, 'HierarchyLevel' => true, 'CompanyAccountingAccountLevelInclude' => ['1', '2', '3', '4', '5', '6']], $companyId);
+    print_result('Sumas y Saldos', $trialBalance);
 
 //7) Balance
-//TO-DO: Error
-	//$balance = Anfix\Sheet::balance(['AccountingEntryInitMonth' => 1, 'AccountingEntryEndMonth' => 12, 'AccountingPeriodYear' => 2016, 'FlagDisplayNullItems' => false, 'SheetFormat' => 'SHEET_PDF', 'TemplateId' => '8'], $companyId);
-    //print_result('Sumas y Saldos', $balance);
+    $balance = Anfix\Sheet::balance(['AccountingEntryInitMonth' => 1, 'AccountingEntryEndMonth' => 12, 'AccountingPeriodYear' => 2016, 'FlagDisplayNullItems' => false, 'SheetFormat' => 'SHEET_PDF', 'TemplateId' => '8'], $companyId);
+    print_result('Balance', $balance);
 
 //8) PyG
-//TO-DO: Error
-	//$profitLost = Anfix\Sheet::balance(['AccountingEntryInitMonth' => 1, 'AccountingEntryEndMonth' => 12, 'AccountingPeriodYear' => 2016, 'FlagDisplayNullItems' => false, 'SheetFormat' => 'SHEET_PDF', 'TemplateId' => 'n'], $companyId);
-    //print_result('Sumas y Saldos', $profitLost); 
+    $profitLost = Anfix\Sheet::balance(['AccountingEntryInitMonth' => 1, 'AccountingEntryEndMonth' => 12, 'AccountingPeriodYear' => 2016, 'FlagDisplayNullItems' => false, 'SheetFormat' => 'SHEET_PDF', 'TemplateId' => 'n'], $companyId);
+    print_result('PyG', $profitLost); 
 
 //9) Listado de IVA Repercutido
-    //$issuedInvoiceReport = Anfix\Invoice::reportIssued(['IsVatListIssuedInvoice' => true, 'AccountingPeriodYear' => 2016], $companyId);
-    //print_result('Listado de IVA Repercutido', $issuedInvoiceReport);
+    $issuedInvoiceReport = Anfix\Invoice::reportIssued(['IsVatListIssuedInvoice' => true, 'AccountingPeriodYear' => 2016], $companyId);
+    print_result('Listado de IVA Repercutido', $issuedInvoiceReport);
 
-    //$issuedInvoiceReport = Anfix\Invoice::reportIssued(['IsVatListIssuedInvoice' => true, 'AccountingPeriodYear' => 2016, 'ReportFormat' => 'PDF'], $companyId);
-    //print_result('Listado de IVA Repercutido', $issuedInvoiceReport);    
+    $issuedInvoiceReport = Anfix\Invoice::reportIssued(['IsVatListIssuedInvoice' => true, 'AccountingPeriodYear' => 2016, 'ReportFormat' => 'PDF'], $companyId);
+    print_result('Listado de IVA Repercutido', $issuedInvoiceReport);    
 
 //10) Listado de IVA Soportado
-    //$receivedInvoiceReport = Anfix\Invoice::reportReceived(['InvoiceIncludeCapitalAssets' => 1, 'AccountingPeriodYear' => 2016], $companyId);
-    //print_result('Listado de IVA Soportado', $receivedInvoiceReport); 
+    $receivedInvoiceReport = Anfix\Invoice::reportReceived(['InvoiceIncludeCapitalAssets' => 1, 'AccountingPeriodYear' => 2016], $companyId);
+    print_result('Listado de IVA Soportado', $receivedInvoiceReport); 
 
-    //$receivedInvoiceReport = Anfix\Invoice::reportReceived(['InvoiceIncludeCapitalAssets' => 1, 'AccountingPeriodYear' => 2016, 'ReportFormat' => 'PDF'], $companyId);
-    //print_result('Listado de IVA Soportado', $receivedInvoiceReport);   
+    $receivedInvoiceReport = Anfix\Invoice::reportReceived(['InvoiceIncludeCapitalAssets' => 1, 'AccountingPeriodYear' => 2016, 'ReportFormat' => 'PDF'], $companyId);
+    print_result('Listado de IVA Soportado', $receivedInvoiceReport);   
