@@ -30,12 +30,10 @@ include 'example_utils.php';
 $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)    
 
 //1) Generación de un preview de un presupuesto
-//TO-DO: está usando una url que no es correcta
     $preview = Anfix\CustomerBudget::preview(['CustomerBudgetSerialNum' => 'P2016', 'CustomerBudgetTemplateId' => '65', 'CustomerBudgetTemplateLanguage' => 1],$companyId);
     print_result('Documento temporal creado',$preview);
 
 //2) Generación de un preview de una factura emitida
-//TO-DO: está usando una url que no es correcta
     $preview = Anfix\IssuedInvoice::preview(['IssuedInvoiceSerialNum' => 'F2016', 'IssuedInvoiceTemplateId' => '5Y', 'IssuedInvoiceTemplateLanguage' => 1],$companyId);
     print_result('Documento temporal creado', $preview);
 

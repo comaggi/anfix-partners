@@ -59,7 +59,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
 //7) Cerrar ejercicio
     $accountingPeriodYearClosed = Anfix\CompanyAccountingPeriod::close(['AccountingPeriodYear' => 2019, 'CompanyAccountingPeriodRegularizationEntryDate' => '31/12/2017', 'CompanyAccountingPeriodOpenEntryDate' => '01/01/2018', 'CompanyAccountingPeriodRegularizationEntryDate' => '31/12/2017'], $companyId);
-    print_result('Ejercicio cerrado',$accountingPeriodYearClosed); 
+    print_result('Ejercicio cerrado',$accountingPeriodYearClosed);
 
 //8) Crear un ejercicio fiscal a partir de un plan contable determinado
 	//$accountingPeriodYear = Anfix\CompanyAccountingPeriod::createwithplan(['AccountingPeriodYear' => 2011,'CompanyAccountingPeriodInitDate' => '01/01/2019', 'CompanyAccountingPeriodEndDate' => '31/12/2019', 'CompanyAccountingPlanId' => '1'], $companyId);

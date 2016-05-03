@@ -24,6 +24,7 @@ class CompanyAccountingAccount extends BaseModel
 {
     protected $applicationId = '3';
     protected $apiUrlSufix = 'company/accountingplan/accountingaccount/';
+	protected $primaryKey = 'CompanyAccountingAccountNumber';
     protected $update = true;
     protected $create = true;
     protected $delete = true;

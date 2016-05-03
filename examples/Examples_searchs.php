@@ -197,20 +197,20 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 
 //20) Ejemplo de obtención de las facturas emitidas de una empresa
 	//TO-DO: Error con la última versión de la librería 03/05/2016
-	/*$issuedInvoices = Anfix\IssuedInvoice::all($companyId);
+	$issuedInvoices = Anfix\IssuedInvoice::all($companyId);
 	print_result('Lista de facturas emitidas de una empresa',array_map(function($e){ return array(
 	    "IssuedInvoiceSerialNum" => $e->IssuedInvoiceSerialNum,
 	    "IssuedInvoiceNumber" => $e->IssuedInvoiceNumber,	    
 	    "IssuedInvoiceDate" => $e->IssuedInvoiceDate,
 	    "IssuedInvoiceTotalValue" => $e->IssuedInvoiceTotalValue	    
-	); },$issuedInvoices));*/
+	); },$issuedInvoices));
 
 //21) Ejemplo de obtención de las líneas de las facturas emitidas de una empresa
 	//TO-DO: da error el servicio pero es porque esa búsqueda no está permitida? comprobar
 	/*$issuedInvoiceLines = Anfix\IssuedInvoiceLine::all($companyId);
 	print_result('Lista de las líneas de las facturas emitidas de una empresa',array_map(function($e){ return array(
 	    "IssuedInvoiceLineItemRef" => $e->IssuedInvoiceLineItemRef    
-	); },$issuedInvoiceLines));	*/
+	); },$issuedInvoiceLines));
 
 //Ejemplo de obtención de cobros pendientes
 	$charges = Anfix\IssuedInvoice::where(['IssuedInvoiceStateIdDistinct'=>'3'],$companyId)->searchForCharge();
