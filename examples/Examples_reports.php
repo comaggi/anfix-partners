@@ -85,3 +85,8 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
     $receivedInvoiceReport = Anfix\Invoice::reportReceived(['InvoiceIncludeCapitalAssets' => 1, 'AccountingPeriodYear' => 2016, 'ReportFormat' => 'PDF'], $companyId);
     print_result('Listado de IVA Soportado', $receivedInvoiceReport);   
+
+//11) efactura
+    //TO-DO: cómo lo genero?
+    //$eInvoice = Anfix\IssuedInvoice::generateEInvoice();
+    //print_result('Documento temporal creado', $eInvoice);
