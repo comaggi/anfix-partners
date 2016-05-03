@@ -40,8 +40,6 @@ include 'example_utils.php';
 
 $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)	
 
-//TO-DO: añadir el otro parche
-
 //2) Ejemplo de obtención de la dirección de una empresa
     $companyAddress = Anfix\Address::all($companyId);
 	print_result('Lista de direcciones de la empresa',array_map(function($e){ return array(
@@ -82,12 +80,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
 //6) Ejemplo de obtención de datos de ciudad a partir del CP
     $citysByPostalCode = Anfix\City::findByPostalCode('47140', '1');
-	print_result('Datos de ciudad a partir del CP',$citysByPostalCode);    //TO-DO: devolver un objet no un array
-	/*print_result('Datos de ciudad a partir del CP',array_map(function($e){ return array(
-	    "CityName" => $e->CityName,	    	    
-	    "ProvinceName" => $e->ProvinceName,	    	    	    
-	    "CountryName" => $e->CountryName
-	); },$citysByPostalCode));*/
+	print_result('Datos de ciudad a partir del CP',$citysByPostalCode);    
 
 //7) findByUser TO-DO
     /*$cnaeList = Anfix\Cnae::all($companyId);
@@ -152,14 +145,12 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 	); },$myDocuments));
 
 //14) Ejemplo de obtención de las plantillas de un presupuesto
-	//TO-DO: está cascando porque la url no es la correcta 
-	//$customerBudgetTemplates = Anfix\PrintTemplate::where(['TemplateTypeId' => '5Z'],$companyId)->get([],null,null,[],ASC,'search',['ContextApplicationId'=>'E']);
-	//print_result('CompanyId de la primera empresa disponible',$customerBudgetTemplates);	
-	/*print_result('Lista de documentos de la empresa',array_map(function($e){ return array(
+	$customerBudgetTemplates = Anfix\PrintTemplate::where(['TemplateTypeId' => '5Z'],$companyId)->get([],null,null,[],'ASC','search',['ContextApplicationId'=>'E']);
+	print_result('Lista de tipos de plantillas de presupuestos de la empresa',array_map(function($e){ return array(
 	    "TemplateName" => $e->TemplateName,
 	    "CreationDate" => $e->CreationDate,
 	    "Size" => $e->Size    
-	); },$customerBudgetTemplates));	*/
+	); },$customerBudgetTemplates));
 
 //Módulo de Facturación
 
@@ -196,7 +187,6 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 	); },$customerBudgets));
 
 //19) Ejemplo de obtención de vencimientos de facturas emitidas
-	//TO-DO: ver cómo añadir un array en un filtro del where
 	$issuedInvoiceExpirations = Anfix\Expiration::where(['IsInRemittance'=> false],$companyId)->searchforissuedinvoice();
 	print_result('Lista de vencimientos no remesados',array_map(function($e){ return array(
 	    "ExpirationSerialNum" => $e->ExpirationSerialNum,
@@ -206,13 +196,14 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 	); },$issuedInvoiceExpirations));	
 
 //20) Ejemplo de obtención de las facturas emitidas de una empresa
-	$issuedInvoices = Anfix\IssuedInvoice::all($companyId);
+	//TO-DO: Error con la última versión de la librería 03/05/2016
+	/*$issuedInvoices = Anfix\IssuedInvoice::all($companyId);
 	print_result('Lista de facturas emitidas de una empresa',array_map(function($e){ return array(
 	    "IssuedInvoiceSerialNum" => $e->IssuedInvoiceSerialNum,
 	    "IssuedInvoiceNumber" => $e->IssuedInvoiceNumber,	    
 	    "IssuedInvoiceDate" => $e->IssuedInvoiceDate,
 	    "IssuedInvoiceTotalValue" => $e->IssuedInvoiceTotalValue	    
-	); },$issuedInvoices));
+	); },$issuedInvoices));*/
 
 //21) Ejemplo de obtención de las líneas de las facturas emitidas de una empresa
 	//TO-DO: da error el servicio pero es porque esa búsqueda no está permitida? comprobar
@@ -222,14 +213,13 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 	); },$issuedInvoiceLines));	*/
 
 //Ejemplo de obtención de cobros pendientes
-//21) TO-DO: da un error interno por la url usada
-	/*$charges = Anfix\IssuedInvoice::where(['IssuedInvoiceStateIdDistinct'=>'3'],$companyId)->searchForCharge();
+	$charges = Anfix\IssuedInvoice::where(['IssuedInvoiceStateIdDistinct'=>'3'],$companyId)->searchForCharge();
 	print_result('Lista de cobros de una factura emitida',array_map(function($e){ return array(
 	    "IssuedInvoiceNumber" => $e->IssuedInvoiceNumber,
 	    "IssuedInvoiceDate" => $e->IssuedInvoiceDate,
 	    "IssuedInvoiceTotalValue" => $e->IssuedInvoiceTotalValue,
 	    "IssuedInvoiceChargedAmount" => $e->IssuedInvoiceChargedAmount    	    
-	); },$charges));*/
+	); },$charges));
 
 //22) Ejemplo de obtención de las formas de pago
 	$payChargeMethods = Anfix\PayChargeMethod::all($companyId);
@@ -257,14 +247,13 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 	); },$receivedInvoices));
 
 //25) Ejemplo de obtención de pagos pendientes
-	//TO-DO: cambiar la url porque tiene un guión medio y no deberia. Además es de gestiona y no de servicios por lo que tb casca
-	/*$receivedInvoices = Anfix\ReceivedInvoice::where([],$companyId)->searchForPayment();
+	$receivedInvoices = Anfix\ReceivedInvoice::where([],$companyId)->searchForPayment();
 	print_result('Lista de pagos de una factura recibida',array_map(function($e){ return array(
 	    "ReceivedInvoiceNumber" => $e->ReceivedInvoiceNumber,
 	    "ReceivedInvoiceDate" => $e->ReceivedInvoiceDate,
 	    "ReceivedInvoiceTotalValue" => $e->ReceivedInvoiceTotalValue,
 	    "ReceivedInvoicePaidAmount" => $e->ReceivedInvoicePaidAmount    	    
-	); },$receivedInvoices));*/
+	); },$receivedInvoices));
 
 //26) Ejemplo de obtención de las facturas recurrentes de una empresa
 	$recurringInvoices = Anfix\RecurringInvoice::all($companyId);
@@ -299,17 +288,14 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 //Módulo de Contabilidad
 
 //30) Ejemplo de obtención de las Cuentas Contables de un plan general contable
-//TO-DO: Está saliendo un error
-	/*$accountingAccounts = Anfix\AccountingAccount::where(['AccountingPlanId'=>'1'],$companyId)->get();	
+	$accountingAccounts = Anfix\AccountingAccount::where(['AccountingPlanId'=>'1'],$companyId)->get();	
 	print_result('Lista de cuentas contables de una empresa',array_map(function($e){ return array(
 	    "AccountingAccountNumber" => $e->AccountingAccountNumber,
 	    "AccountingAccountDescription" => $e->AccountingAccountDescription
-	); },$accountingAccounts));*/
+	); },$accountingAccounts));
 
 //31) Ejemplo de obtención de los asientos de una empresa y un ejercicio fiscal
-//TO-DO: Está saliendo un error por el id
 	$accountingEntryReferences = Anfix\CompanyAccountingEntryReference::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
-	//print_result('CompanyId de la primera empresa disponible',$accountingEntryReferences);	
 	print_result('Lista de asientos de una empresa',array_map(function($e){ return array(
 	    "AccountingEntryDate" => $e->AccountingEntryDate,	    
 	    "PredefinedAccountingEntryDescription" => $e->PredefinedAccountingEntryDescription,	    	    
@@ -318,7 +304,6 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 	); },$accountingEntryReferences));
 
 //32) Ejemplo de obtención de los apuntes de una empresa y un ejercicio fiscal
-//TO-DO: Está saliendo un error por el id
 	$accountingEntryNotes = Anfix\CompanyAccountingEntryNote::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
 	print_result('Lista de apuntes de una empresa',array_map(function($e){ return array(
 	    "AccountingEntryDate" => $e->AccountingEntryDate,	    
@@ -328,7 +313,6 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 	); },$accountingEntryNotes));
 
 //33) Ejemplo de obtención de los ejercicios de una empresa
-//TO-DO: Está saliendo un error por el id
 	$accountingPeriodYears = Anfix\CompanyAccountingPeriod::where([],$companyId)->get();
 	print_result('Lista de ejercicios de una empresa',array_map(function($e){ return array(
 	    "AccountingPeriodYear" => $e->AccountingPeriodYear,	    
@@ -338,26 +322,19 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 	); },$accountingPeriodYears));
 
 //34) Ejemplo de obtención de planes contables existentes
-//TO-DO: Revisar lo que está saliendo
 	$accountingPlans = Anfix\AccountingPlan::all($companyId);
 	print_result('Lista de planes contables oficiales y sus cuentas',array_map(function($e){ return array(
 	    "AccountingPlanName" => $e->AccountingPlanName,	    
 	    "AccountingPlanDescription" => $e->AccountingPlanDescription,	    	    
-	    "AccountingAccount" => $e->AccountingAccount
+	    "AccountingPeriodYear" => $e->AccountingPeriodYear
 	); },$accountingPeriodYears));
 
 
 //35) Ejemplo de obtención de parámetros base de un plan contable
-//TO-DO: Da error porque no devuelve TotalRowNumber
-	//$accountingPlanParameterBase = Anfix\AccountingPlanParameterBase::where(['AccountingPlanParameterBaseAccountingPlanId'=> '1'],$companyId)->get();
-	/*print_result('Lista de planes contables oficiales y sus cuentas',array_map(function($e){ return array(
-	    "BankingAccountGroup" => $e->BankingAccountGroup,	    
-	    "CapitalAssetsGroups" => $e->CapitalAssetsGroups,	    	    
-	    "CreditIncomes" => $e->CreditIncomes
-	); },$accountingPlanParameterBase));	*/
+	$accountingPlanParameterBase = Anfix\AccountingPlanParameterBase::where(['AccountingPlanParameterBaseAccountingPlanId'=> '1'],$companyId)->get();
+	print_result('Plantilla de parametrización base de un plan contable',$accountingPlanParameterBase);
 
 //36) Ejemplo de obtención de datos de actividad de una empresa
-//TO-DO: Da error porque no devuelve TotalRowNumber
 	$activities = Anfix\Activity::all($companyId);
 	print_result('Lista de actividades',array_map(function($e){ return array(
 	    "EconomicActivityCode" => $e->EconomicActivityCode,	    	    
@@ -372,11 +349,11 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 	); },$bankAccounts));
 
 //38) Ejemplo de obtención de cuentas contables de una empresa
-//TO-DO: la url usada no era la correcta. La he actualizado en la docu de origen, falta la librería
-	//$companyAccountingAccounts = Anfix\CompanyAccountingAccount::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
-	/*print_result('Lista de cuentas contables',array_map(function($e){ return array(
+//TO-DO: da error por el id
+	/*$companyAccountingAccounts = Anfix\CompanyAccountingAccount::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
+	print_result('Lista de cuentas contables',array_map(function($e){ return array(
 	    "CompanyAccountingAccount" => $e->CompanyAccountingAccount
-	); },$companyAccountingAccounts));	*/
+	); },$companyAccountingAccounts));*/
 
 //39) Ejemplo de obtención de retenciones de una empresa
 	$deductionValues = Anfix\DeductionValue::all($companyId);
@@ -400,7 +377,7 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 
 //41) Ejemplo de obtención de las actividades económicas estructurales
 	$economicActivities = Anfix\EconomicActivity::all($companyId);
-	print_result('Lista de cuentas anualess',array_map(function($e){ return array(
+	print_result('Lista de cuentas anuales',array_map(function($e){ return array(
 	    "EconomicActivityCode" => $e->EconomicActivityCode,	    	    
 	    "EconomicActivityName" => $e->EconomicActivityName        	    
 	); },$economicActivities));	
@@ -473,7 +450,7 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 	); },$salariedEmployees));	
 
 //50) Ejemplo de obtención de los tipos impositivos de una empresa
-	//TO-DO: no funciona
+	//TO-DO: no funciona, la url usada es incorrecta
 	/*$vats = Anfix\Vat::all($companyId);
 	print_result('Lista de tipos impositivos de una empresa',array_map(function($e){ return array(
 	    "VatValue" => $e->VatValue,
@@ -481,11 +458,11 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 	    "VatClassLabel" => $e->VatClassLabel,	    	    
 	    "VatInitDate" => $e->VatInitDate,	    
 	    "VatEndDate" => $e->VatEndDate  
-	); },$vats));			*/
+	); },$vats));*/
 
 //51) Ejemplo de obtención de plantillas
 	$templates = Anfix\Template::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
 	print_result('Lista de plantillas de Balances y PyGs de una empresa',array_map(function($e){ return array(
 	    "TemplateName" => $e->TemplateName,	    	    
 	    "TemplateTypeName" => $e->TemplateTypeName
-	); },$templates));	
+	); },$templates));
