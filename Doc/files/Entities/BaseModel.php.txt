@@ -237,8 +237,12 @@ class BaseModel
         if($result->outputData->TotalRowNumber == 0)
             return [];
 
-        foreach($result->outputData->{$this->Model} as $params)
-            $return[$params->{$this->primaryKey}] = new $this(get_object_vars($params), true, $this->companyId);
+        foreach($result->outputData->{$this->Model} as $params) {
+            if(!empty($params->{$this->primaryKey}))
+                $return[$params->{$this->primaryKey}] = new $this(get_object_vars($params), true, $this->companyId);
+            else
+                $return[] = $params;
+        }
 
         return $return;
     }

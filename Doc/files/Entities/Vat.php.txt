@@ -23,6 +23,7 @@ namespace Anfix;
 class Vat extends BaseModel
 {
     protected $applicationId = 'E';
+    protected $apiUrlSufix = 'common/structuraldata/tax/value/';
     protected $update = true;
     protected $create = true;
     protected $delete = true;

@@ -73,10 +73,12 @@ class IssuedInvoice extends BaseModel
      * @param string $eInvoiceFormat = 'facturae32' Especifica el formato de la factura electrónica
      * @param bool $forced = false Indica si debe forzarse o no la generación de la factura electrónica en caso de que se hubiese almacenado previamente
      * @param bool $temporal = false Indica si la factura electrónica se almacenará temporalmente
+     * @param string $EInvoiceCertificateId = "1" Identificador del certificado con el que firmar la factura
+     * @param string $EInvoiceCertificateAlias = "AnfixCert" Alias del certificado con el que firmar la factura
      * @throws AnfixException
      * @return Object
      */
-    public function generateEInvoice($eInvoiceFormat = 'facturae32', $forced = false, $temporal = false){
+    public function generateEInvoice($eInvoiceFormat = 'facturae32', $forced = false, $temporal = false, $EInvoiceCertificateId = "1", $EInvoiceCertificateAlias = "AnfixCert"){
 
         if(! $this->{$this->primaryKey})
             throw new AnfixException('Para generar una factura electrónica debe partir de una factura ya registrada en anfix');
@@ -85,7 +87,9 @@ class IssuedInvoice extends BaseModel
             'IssuedInvoiceId' => $this->{$this->primaryKey},
             'EInvoiceFormat' => $eInvoiceFormat,
             'Forced' => $forced,
-            'Temporal' => $temporal
+            'Temporal' => $temporal,
+            'EInvoiceCertificateId' => $EInvoiceCertificateId,
+            'EInvoiceCertificateAlias' => $EInvoiceCertificateAlias
         ];
 
         $url = $this->config['applicationIdUrl'][$this->applicationId].'report/einvoice';
