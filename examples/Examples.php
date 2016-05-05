@@ -148,21 +148,23 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Número de presupuestos eliminados',$result);*/
 
 //16) Creación de factura emitida
-//TO-DO: Error, la url usada en la entidad Invoice para el create no es la correcta	
-    /*$customerToUse = Anfix\Customer::firstOrFail([],$companyId)->get();
-    $customerToUse = $customerToUse[$customer->CustomerId]->getArray();
-    print_result('Código de Cliente al que hacer una factura',$customerToUse['CustomerCode']);    
+	//****** MAL USO DE LA LIBRERÍA, LO HE CORREGIDO, CUSTOMER NI NINGUNA OTRA ENTIDAD PUEDE SER UTILIZADO COMO UN ARRAY, NUNCA ['XXX']
+ /*   $customerToUse = Anfix\Customer::firstOrFail([],$companyId);
+
+	//Nota, firstOrFail no devuelve un array, es get quien devuelve un array, el ejemplo no se estaba utilizando correctamente..
+
+    print_result('Código de Cliente al que hacer una factura',$customerToUse->CustomerCode);
 
 	$issuedInvoice = Anfix\IssuedInvoice::create([
-				'IssuedInvoiceCustomerCode' => $customerToUse['CustomerCode'],
-				'IssuedInvoiceCustomerId' => $customerToUse['CustomerId'],
-				'IssuedInvoiceCustomerIdentificationNumber' => $customerToUse['CustomerIdentificationNumber'],
-				'IssuedInvoiceCustomerIdentificationTypeId' => $customerToUse['CustomerIdentificationTypeId'],
-				'IssuedInvoiceCustomerName'=> $customerToUse['CustomerName'], 
-				'IssuedInvoiceCustomerTaxTypeId' => $customerToUse['CustomerTaxTypeId'], 				
-				'IssuedInvoiceCustomerVATTypeId' => $customerToUse['CustomerIVATypeId'],
-				'IssuedInvoiceDiscountPercentage' => $customerToUse['CustomerFixedDiscount'],				
-				'IssuedInvoiceDate' => '01/05/2016', 
+				'IssuedInvoiceCustomerCode' => $customerToUse->CustomerCode,
+				'IssuedInvoiceCustomerId' => $customerToUse->CustomerId,
+				'IssuedInvoiceCustomerIdentificationNumber' => $customerToUse->CustomerIdentificationNumber,
+				'IssuedInvoiceCustomerIdentificationTypeId' => $customerToUse->CustomerIdentificationTypeId,
+				'IssuedInvoiceCustomerName'=> $customerToUse->CustomerName,
+				'IssuedInvoiceCustomerTaxTypeId' => $customerToUse->CustomerTaxTypeId,
+				'IssuedInvoiceCustomerVATTypeId' => $customerToUse->CustomerIVATypeId,
+				'IssuedInvoiceDiscountPercentage' => $customerToUse->CustomerFixedDiscount,
+				'IssuedInvoiceDate' => '05/05/2016',
 				'IssuedInvoiceSerialNum' => 'F2016',
 				'IssuedInvoiceStateId' => '1',
 				'Action' => 'ADD',
@@ -174,7 +176,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 											'IssuedInvoiceLineES' => 5.2]),
 				],$companyId);
 	
-	print_result('Factura emitida creada',$issuedInvoice->IssuedInvoiceId);*/
+	print_result('Factura emitida creada',$issuedInvoice->IssuedInvoiceId); */
 
 	/*$customerBudget = Anfix\CustomerBudget::firstOrFail([],$companyId)->get();
 	print_result('Presupuesto a facturar',$customerBudget);
@@ -247,6 +249,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Número de facturas recibidas eliminadas',$result);*/
 
 //25) Creación de factura recurrente
+	// ****** USO INCORRECTO DE LA LIBRERIA EN ESTE EJEMPLO, NI CUSTOMER NI NINGUNA OTRA ENTIDAD PUEDE SER UTILIZADO COMO UN ARRAY, NUNCA ['XXX']
     /*$customerToUse = Anfix\Customer::firstOrFail([],$companyId)->get();
     $customerToUse = $customerToUse[$customer->CustomerId]->getArray();
     print_result('Código de Cliente al que hacer una factura recurrente',$customerToUse['CustomerCode']);    
@@ -292,26 +295,26 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Número de facturas recurrentes eliminadas',$result);*/
 
 //28) Creación de un proveedor
-    $nextNumber = Anfix\NextNumber::compute('2',$companyId);
-    print_result('Siguiente número de proveedor libre',$nextNumber);
-
-	$supplier = Anfix\Supplier::create([
-				'SupplierCode' => $nextNumber, 
-				'SupplierFiscalName'=> 'Mariano', 
-				'SupplierIdentificationTypeId' => '1',
-				'SupplierIdentificationNumber' => '11111111H', 
-				'SupplierFixedDiscount' => 25.0, 
-				'SupplierTaxTypeId' => '1', 
-				'SupplierIncludeEquivalentCharge' => true,
-				'SupplierComments' => 'Este proveedor cierra en Agosto',
-				'Action' => 'ADD',
-				'Address' => ['Action' => 'ADD', 'AddressText' => 'Plaza España, 13, 3',  'AddressCountryId'=> '1'],
-				'Contact' => ['Action' => 'ADD', 'ContactPersonName' => 'Alberto'],
-				'BankAccount' => ['Action' => 'ADD', 'BankAccountIBAN' => 'ES4801822370420000000011'],
-				'SupplierIVATypeId' => '1',
-				],$companyId);
-
-	print_result('Proveedor creado',$supplier->SupplierId);
+//    $nextNumber = Anfix\NextNumber::compute('2',$companyId);
+//    print_result('Siguiente número de proveedor libre',$nextNumber);
+//
+//	$supplier = Anfix\Supplier::create([
+//				'SupplierCode' => $nextNumber,
+//				'SupplierFiscalName'=> 'Mariano',
+//				'SupplierIdentificationTypeId' => '1',
+//				'SupplierIdentificationNumber' => '11111111H',
+//				'SupplierFixedDiscount' => 25.0,
+//				'SupplierTaxTypeId' => '1',
+//				'SupplierIncludeEquivalentCharge' => true,
+//				'SupplierComments' => 'Este proveedor cierra en Agosto',
+//				'Action' => 'ADD',
+//				'Address' => ['Action' => 'ADD', 'AddressText' => 'Plaza España, 13, 3',  'AddressCountryId'=> '1'],
+//				'Contact' => ['Action' => 'ADD', 'ContactPersonName' => 'Alberto'],
+//				'BankAccount' => ['Action' => 'ADD', 'BankAccountIBAN' => 'ES4801822370420000000011'],
+//				'SupplierIVATypeId' => '1',
+//				],$companyId);
+//
+//	print_result('Proveedor creado',$supplier->SupplierId);
 
 //29) Modificación de un proveedor
 	/*$supplierToUpdate = Anfix\Supplier::where(['SupplierId' => $supplier->SupplierId],$companyId)->get();
@@ -329,8 +332,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Número de proveedores eliminados',$result);*/	
 
 //31) Creación de un tipo impositivo
-//TO-DO: Error porque la url no es la correcta
-	/*$vat = Anfix\Vat::create([
+	$vat = Anfix\Vat::create([
 				'VatClassId' => '1', 
 				'VatEsValue'=> 5.2, 
 				'VatInitDate' => '01/05/2016',
@@ -339,7 +341,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 				'Action' => 'ADD'
 				],$companyId);
 
-	print_result('Tipo impositivo creado',$vat->VatId);	*/
+	print_result('Tipo impositivo creado',$vat->VatId);
 
 //32) Modificación de un tipo impositivo
 	/*$vatToUpdate = Anfix\Vat::where(['SupplierId' => $supplier->SupplierId],$companyId)->get();

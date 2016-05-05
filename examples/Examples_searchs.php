@@ -83,27 +83,27 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Datos de ciudad a partir del CP',$citysByPostalCode);    
 
 //7) findByUser TO-DO
-    /*$cnaeList = Anfix\Cnae::all($companyId);
+    $cnaeList = Anfix\Cnae::all($companyId);
 	print_result('Lista de tipos de cnae',array_map(function($e){ return array(
 	    "CnaeCode" => $e->CnaeCode,	    	    
 	    "CnaeDescription" => $e->CnaeDescription
-	); },$cnaeList));*/
+	); },$cnaeList));
 
 //8) Actualización de los datos de la empresa
-/*	//$company = Anfix\Company::firstOrFail(['CompanyId' => $companyId]);
-$company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
+	//$company = Anfix\Company::firstOrFail(['CompanyId' => $companyId]);
+/* 	$company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
 
 	$company->CompanyCommercialName = 'Saneamientos Pérez';
 	$company->CompanyIdentificationTypeId = '6';
 	$company->CompanyIdentificationNumber = '123456789N';
-	$company->CompanyId = $company->CompanyId;	
+	//$company->CompanyId = $company->CompanyId; NO SE PUEDE CAMBIAR UN ID !!
     $company->save(); //Guardado del cliente
 	print_result('Actualización de los datos de la empresa',$company->getArray());
 
 	$company = Anfix\Company::firstOrFail(['CompanyId' => $companyId],$companyId);
-	$customer->CustomerIdentificationNumber = '987654321N';	
-    $customer->save(); //Guardado del cliente	
-*/
+	$customer->CustomerIdentificationNumber = '987654321N';
+    $customer->save(); //Guardado del cliente	*/
+
 	//$companyId = Anfix\Company::firstOrFail([])->CompanyId;
 	//print_result('CompanyId de la primera empresa disponible',$companyId);
 
@@ -196,7 +196,6 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 	); },$issuedInvoiceExpirations));	
 
 //20) Ejemplo de obtención de las facturas emitidas de una empresa
-	//TO-DO: Error con la última versión de la librería 03/05/2016
 	$issuedInvoices = Anfix\IssuedInvoice::all($companyId);
 	print_result('Lista de facturas emitidas de una empresa',array_map(function($e){ return array(
 	    "IssuedInvoiceSerialNum" => $e->IssuedInvoiceSerialNum,
@@ -210,7 +209,7 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 	/*$issuedInvoiceLines = Anfix\IssuedInvoiceLine::all($companyId);
 	print_result('Lista de las líneas de las facturas emitidas de una empresa',array_map(function($e){ return array(
 	    "IssuedInvoiceLineItemRef" => $e->IssuedInvoiceLineItemRef    
-	); },$issuedInvoiceLines));
+	); },$issuedInvoiceLines));*/
 
 //Ejemplo de obtención de cobros pendientes
 	$charges = Anfix\IssuedInvoice::where(['IssuedInvoiceStateIdDistinct'=>'3'],$companyId)->searchForCharge();
@@ -350,10 +349,10 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 
 //38) Ejemplo de obtención de cuentas contables de una empresa
 //TO-DO: da error por el id
-	/*$companyAccountingAccounts = Anfix\CompanyAccountingAccount::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
+	$companyAccountingAccounts = Anfix\CompanyAccountingAccount::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
 	print_result('Lista de cuentas contables',array_map(function($e){ return array(
 	    "CompanyAccountingAccount" => $e->CompanyAccountingAccount
-	); },$companyAccountingAccounts));*/
+	); },$companyAccountingAccounts));
 
 //39) Ejemplo de obtención de retenciones de una empresa
 	$deductionValues = Anfix\DeductionValue::all($companyId);
@@ -450,15 +449,14 @@ $company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con e
 	); },$salariedEmployees));	
 
 //50) Ejemplo de obtención de los tipos impositivos de una empresa
-	//TO-DO: no funciona, la url usada es incorrecta
-	/*$vats = Anfix\Vat::all($companyId);
+	$vats = Anfix\Vat::all($companyId);
 	print_result('Lista de tipos impositivos de una empresa',array_map(function($e){ return array(
 	    "VatValue" => $e->VatValue,
 	    "VatEsValue" => $e->VatEsValue,	    
 	    "VatClassLabel" => $e->VatClassLabel,	    	    
 	    "VatInitDate" => $e->VatInitDate,	    
 	    "VatEndDate" => $e->VatEndDate  
-	); },$vats));*/
+	); },$vats));
 
 //51) Ejemplo de obtención de plantillas
 	$templates = Anfix\Template::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);

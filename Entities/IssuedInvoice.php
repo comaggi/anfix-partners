@@ -78,7 +78,7 @@ class IssuedInvoice extends BaseModel
      */
     public function generateEInvoice($eInvoiceFormat = 'facturae32', $forced = false, $temporal = false){
 
-        if(empty($this->{$this->primaryKey}))
+        if(! $this->{$this->primaryKey})
             throw new AnfixException('Para generar una factura electrónica debe partir de una factura ya registrada en anfix');
 
         $params = [

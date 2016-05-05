@@ -58,43 +58,43 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Movimientos transferidos de cuenta',$accountingEntryNotesTransferred);
 
 //7) Cerrar ejercicio
-    $accountingPeriodYearClosed = Anfix\CompanyAccountingPeriod::close(['AccountingPeriodYear' => 2019, 'CompanyAccountingPeriodRegularizationEntryDate' => '31/12/2017', 'CompanyAccountingPeriodOpenEntryDate' => '01/01/2018', 'CompanyAccountingPeriodRegularizationEntryDate' => '31/12/2017'], $companyId);
-    print_result('Ejercicio cerrado',$accountingPeriodYearClosed);
+//    $accountingPeriodYearClosed = Anfix\CompanyAccountingPeriod::close(['AccountingPeriodYear' => 2019, 'CompanyAccountingPeriodRegularizationEntryDate' => '31/12/2017', 'CompanyAccountingPeriodOpenEntryDate' => '01/01/2018', 'CompanyAccountingPeriodRegularizationEntryDate' => '31/12/2017'], $companyId);
+//    print_result('Ejercicio cerrado',$accountingPeriodYearClosed);
 
 //8) Crear un ejercicio fiscal a partir de un plan contable determinado
-	//$accountingPeriodYear = Anfix\CompanyAccountingPeriod::createwithplan(['AccountingPeriodYear' => 2011,'CompanyAccountingPeriodInitDate' => '01/01/2019', 'CompanyAccountingPeriodEndDate' => '31/12/2019', 'CompanyAccountingPlanId' => '1'], $companyId);
-    //print_result('Ejercicio creado',$accountingPeriodYear); 	
+//	$accountingPeriodYear = Anfix\CompanyAccountingPeriod::createwithplan(['AccountingPeriodYear' => 2011,'CompanyAccountingPeriodInitDate' => '01/01/2019', 'CompanyAccountingPeriodEndDate' => '31/12/2019', 'CompanyAccountingPlanId' => '1'], $companyId);
+//    print_result('Ejercicio creado',$accountingPeriodYear);
 
 //9) Bloquear/Desbloquear un ejercicio
-	$accountingPeriodYear = Anfix\CompanyAccountingPeriod::lockunlock(['AccountingPeriodYear' => 2019,'CompanyAccountingPeriodLocked' => false], $companyId);
-    print_result('Ejercicio bloqueado',$accountingPeriodYear);
+//	$accountingPeriodYear = Anfix\CompanyAccountingPeriod::lockunlock(['AccountingPeriodYear' => 2019,'CompanyAccountingPeriodLocked' => false], $companyId);
+//    print_result('Ejercicio bloqueado',$accountingPeriodYear);
 
 //10) Recalcular saldos de un ejercicio contable
 	$accountingPeriodYear = Anfix\CompanyAccountingPeriod::regeneratebalance(2016, $companyId);
     print_result('Actualización de saldos',$accountingPeriodYear);
 
-//11) Obtención de la plantilla base de parametrización de una empresa    
+//11) Obtención de la plantilla base de parametrización de una empresa
 	$parametrizationBaseTemplate = Anfix\CompanyParameter::parameterinitialize(['SourceAccountingPlanId' => '1'], $companyId);
-    print_result('Parametrización Base del plan contable Plan General de Contabilidad 2008',$parametrizationBaseTemplate);	
-	
+    print_result('Parametrización Base del plan contable Plan General de Contabilidad 2008',$parametrizationBaseTemplate);
+
 //12) Obtención de una cuenta contable para posteriormente modificarla
 	$accountingAccount = Anfix\CompanyAccountingAccount::select(2016, 1000000,$companyId);
     print_result('Obtención de datos de una cuenta contable',$accountingAccount);
 
 //13) Copia de un predefinido
 	$predefinedAccountingEntryCopy = Anfix\PredefinedAccountingEntry::copy(['AccountingPeriodYear' => 2016, 'Action' => 'COPY','CompanyIdSource' => $companyId, 'PredefinedEntriesId' => ['P']],$companyId);
-    print_result('Copia de un predefinido',$predefinedAccountingEntryCopy);	
+    print_result('Copia de un predefinido',$predefinedAccountingEntryCopy);
 
 //14) Búsqueda de asientos predefinidos por tipo de asiento
     //TO-DO: no devuelve id
-	/*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::where(['EntryTypeToPredefinedEntryEntryTypeId' => '2'],$companyId)->get([],5,1,[],'','searchbyentrytype',['AccountingPeriodYear' => 2016]);
+	$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::where(['EntryTypeToPredefinedEntryEntryTypeId' => '2'],$companyId)->get([],5,1,[],'','searchbyentrytype',['AccountingPeriodYear' => 2016]);
     print_result('Predefinido en base a un tipo de asiento',array_map(function($e){ return array(
 	    "PredefinedAccountingEntryCode" => $e->PredefinedAccountingEntryCode,  	    	    
 	    "PredefinedAccountingEntryTypeName" => $e->PredefinedAccountingEntryTypeName,
 		"PredefinedAccountingEntryDescription" => $e->PredefinedAccountingEntryDescription,    
 	    "PredefinedAccountingEntryNote" => $e->PredefinedAccountingEntryNote,
 	    "PredefinedAccountingEntryTaxLine" => $e->PredefinedAccountingEntryTaxLine
-	); },$predefinedAccountingEntry));*/
+	); },$predefinedAccountingEntry));
 
 //15) Obtención de un predefinido contable para posteriormente modificarlo
 	$predefinedAccountingEntry = Anfix\CompanyAccountingEntryReference::selectPredefined(2016, '1',$companyId);
@@ -114,4 +114,5 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
 //19) Duplicar una factura recibida    	
 	$receivedInvoice = Anfix\ReceivedInvoice::duplicate(['MbS010Qe8'],$companyId);
-	print_result('Factura recibida duplicada',$receivedInvoice);		
+	print_result('Factura recibida duplicada',$receivedInvoice);
+

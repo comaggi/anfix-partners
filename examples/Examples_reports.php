@@ -85,6 +85,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Listado de IVA Soportado', $receivedInvoiceReport);   
 
 //11) efactura
-    //TO-DO: cómo lo genero?
-    //$eInvoice = Anfix\IssuedInvoice::generateEInvoice();
-    //print_result('Documento temporal creado', $eInvoice);
+    //TO-DO: cómo lo genero, Asi... :)
+    $invoice = \Anfix\IssuedInvoice::first([],$companyId);
+    $eInvoice = $invoice->generateEInvoice('facturae32',true);
+    print_result('Documento temporal creado', $eInvoice);
