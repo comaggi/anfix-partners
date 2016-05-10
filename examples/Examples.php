@@ -432,8 +432,30 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Asiento de factura emitida creada',$issuedInvoiceEntryReference->AccountingEntryId);*/
 
 //35) Actualización de un asiento contable
+    /*$issuedInvoiceEntryReference = Anfix\CompanyAccountingEntryReference::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
+    $issuedInvoiceToUpdate = $issuedInvoiceEntryReference[key($issuedInvoiceEntryReference)];
+
+    $issuedInvoiceToUpdate->AccountingEntryDate = '12/05/2016';
+    $issuedInvoiceToUpdate->AccountingPeriodYear = 2016;
+    $issuedInvoiceToUpdate->save(); //Actualizo el asiento contable
+
+    print_result('Asiento de factura emitida actualizado',$issuedInvoiceToUpdate->AccountingEntryId);*/
+	
+    // Si creamos un asiento y lo actualizamos posteriormente
+    /*$issuedInvoiceEntryReference->AccountingEntryDate = '11/05/2016';
+    $issuedInvoiceEntryReference->AccountingPeriodYear = 2016;
+    $issuedInvoiceEntryReference->save(); //Actualizo el asiento contable
+
+    print_result('Asiento de factura emitida actualizado',$issuedInvoiceEntryReference->AccountingEntryId);*/
 
 //36) Eliminación de un asiento contable
+//TO-DO: Da un error ¿Cómo incluyo AccountingPeriodYear
+    /*$issuedInvoiceEntryReference = Anfix\CompanyAccountingEntryReference::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
+    $issuedInvoiceToDelete = $issuedInvoiceEntryReference[key($issuedInvoiceEntryReference)];
+
+    $result = $issuedInvoiceToDelete->delete();
+
+    print_result('Número de asientos eliminados',$result);*/
 
 //37) Borrado de ejercicio contable
 
