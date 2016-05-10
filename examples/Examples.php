@@ -627,9 +627,23 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
    print_result('Número de asientos predefinidos eliminados',$result);*/
 
 //56) Creación de tipo impositivo
+	/*$vat = Anfix\Vat::create([
+				'VatClassId' => '1',
+				'Action' => 'ADD', 								
+				'VatEsValue' => 5.2,
+				'VatInitDate' => '10/05/2016',
+				'VatTypeId' => '1',
+				'VatValue' => 28
+					],$companyId);
 
+    print_result('Impuesto creado',$vat->VatId);*/
 //57) Modificación de tipo impositivo
+    /*$vat -> VatValue= 29.5;
+    $result = $vat->save();
+    print_result("Impuesto actualizado", $result);*/
 
 //58) Eliminación de tipo impositivo
+    /*$result = $vat->delete();
+    print_result("Impuesto eliminado", $result);*/
 
 //59) Eliminación de plantilla de Balance/PyG
