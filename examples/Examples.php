@@ -340,7 +340,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Número de proveedores eliminados',$result);*/	
 
 //31) Creación de un tipo impositivo
-	$vat = Anfix\Vat::create([
+	/*$vat = Anfix\Vat::create([
 				'VatClassId' => '1', 
 				'VatEsValue'=> 5.2, 
 				'VatInitDate' => '01/05/2016',
@@ -349,7 +349,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 				'Action' => 'ADD'
 				],$companyId);
 
-	print_result('Tipo impositivo creado',$vat->VatId);
+	print_result('Tipo impositivo creado',$vat->VatId);*/
 
 //32) Modificación de un tipo impositivo
 	/*$vatToUpdate = Anfix\Vat::where(['SupplierId' => $supplier->SupplierId],$companyId)->get();
