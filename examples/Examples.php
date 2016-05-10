@@ -148,10 +148,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Número de presupuestos eliminados',$result);*/
 
 //16) Creación de factura emitida
-	//****** MAL USO DE LA LIBRERÍA, LO HE CORREGIDO, CUSTOMER NI NINGUNA OTRA ENTIDAD PUEDE SER UTILIZADO COMO UN ARRAY, NUNCA ['XXX']
- /*   $customerToUse = Anfix\Customer::firstOrFail([],$companyId);
-
-	//Nota, firstOrFail no devuelve un array, es get quien devuelve un array, el ejemplo no se estaba utilizando correctamente..
+	/*$customerToUse = Anfix\Customer::firstOrFail([],$companyId);
 
     print_result('Código de Cliente al que hacer una factura',$customerToUse->CustomerCode);
 
@@ -163,8 +160,8 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 				'IssuedInvoiceCustomerName'=> $customerToUse->CustomerName,
 				'IssuedInvoiceCustomerTaxTypeId' => $customerToUse->CustomerTaxTypeId,
 				'IssuedInvoiceCustomerVATTypeId' => $customerToUse->CustomerIVATypeId,
-				'IssuedInvoiceDiscountPercentage' => $customerToUse->CustomerFixedDiscount,
-				'IssuedInvoiceDate' => '05/05/2016',
+				'IssuedInvoiceDiscountPercentage' => 10,
+				'IssuedInvoiceDate' => '05/05/2016 13:00:00',
 				'IssuedInvoiceSerialNum' => 'F2016',
 				'IssuedInvoiceStateId' => '1',
 				'Action' => 'ADD',
@@ -173,17 +170,18 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 											'IssuedInvoiceLineQuantity' => 1,
 											'IssuedInvoiceLinePrice' => 100,
 											'IssuedInvoiceLineVAT' => 21,
-											'IssuedInvoiceLineES' => 5.2]),
+											'IssuedInvoiceLineES' => 5.2])
 				],$companyId);
 	
-	print_result('Factura emitida creada',$issuedInvoice->IssuedInvoiceId); */
+	print_result('Factura emitida creada',$issuedInvoice->IssuedInvoiceId);
 
-	/*$customerBudget = Anfix\CustomerBudget::firstOrFail([],$companyId)->get();
-	print_result('Presupuesto a facturar',$customerBudget);
+	$customerBudget = Anfix\CustomerBudget::firstOrFail([],$companyId)->get();
+	print_result('Presupuesto a facturar',$customerBudget[key($customerBudget)]);
 
-	$invoice = $budget->generateDocuments([$customerBudget->CustomerBudgetId],3,$companyId);
+	$customerBudgetToBill = $customerBudget[key($customerBudget)];
+
+	$invoice = $customerBudgetToBill->generateDocuments([$customerBudgetToBill->CustomerBudgetId],3,$companyId);
     print_result('Conversión de presupuesto en factura',$invoice);*/
-
 
 //17) Modificación de factura emitida
 
