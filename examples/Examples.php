@@ -524,6 +524,43 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 //49) Eliminación de una retención
 
 //50) Creación de factura
+	/*$invoice = Anfix\Invoice::create([
+				'AccountingPeriodYear' => 2016,
+				'Action' => 'ADD', 								
+				'FromInvoiceManagement' => true,
+				'Invoice347OperationKeyId' => '2',
+				'InvoiceCashAccounting' => false,
+				'InvoiceCustomerSupplierAccountingAccountNumber' => 4300003,
+				'InvoiceCustomerSupplierId'=> 'MuuWmORY;',
+				'InvoiceDate' => '10/05/2016',
+				'InvoiceNumber' => 17,
+				'InvoiceOperationKeyId' => '1',
+				'InvoiceOrder' => 33,
+				'InvoiceSerialNum' => 'FE2016',
+				'InvoiceTotalValue' => 100,
+				'InvoiceType' => 'R',
+				'InvoiceLine' => array(['Action' => 'ADD',
+										'InvoiceLineESPercentage' => 5.2,
+										'InvoiceLineIncludeEquivalenceSurcharge' => false,
+										'InvoiceLineIncludeIn340' => false,
+										'InvoiceLineIncludeIn349' => false,
+										'InvoiceLineOperationTypeId' => '7',
+										'InvoiceLineOrder' => 1,
+										'InvoiceLineTaxBaseValue' => 82.64,
+										'InvoiceLineTaxPercentage' => 21,
+										'InvoiceLineTaxValue' => 17.36,
+										'InvoiceLineTaxValueId' => 'g'
+					]),
+				'Address' => array(['Action' => 'ADD',
+										'AddressCityId' => '9;u',
+										'AddressCountryId' => '1',
+										'AddressPostalCode' => '47001',
+										'AddressProvinceId' => 'L',
+										'AddressText' => 'Plaza España, 13'
+									])
+					],$companyId);
+
+    print_result('Factura creada',$invoice->InvoiceId);*/
 
 //51) Modificación de factura
 
