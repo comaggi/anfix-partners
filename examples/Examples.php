@@ -618,13 +618,24 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
     print_result('Número de cuentas contables eliminadas',$result);*/
 
-//46) Creación de importación
-
 //47) Creación de retención
+	/*$deductionValue = Anfix\DeductionValue::create([
+					'Action' => 'ADD', 								
+					'DeductionValueTypeId' => '1',
+					'DeductionValueInitDate' => '10/05/2016',
+					'DeductionValueValue' => 0,
+					'DeductionValueName' => 'Personalizada'
+						],$companyId);
 
-//48) Modificación de una retención
+	    print_result('Impuesto creado',$deductionValue->DeductionValueId);*/
+//48) Modificación de retención
+	    /*$deductionValue->DeductionValueValue= 19.5;
+	    $result = $deductionValue->save();
+	    print_result("Retención actualizada", $result);*/
 
-//49) Eliminación de una retención
+//49) Eliminación de retención
+	    /*$result = $deductionValue->delete();
+	    print_result("Retención eliminado", $result);*/
 
 //50) Creación de factura
 	/*$invoice = Anfix\Invoice::create([
