@@ -484,6 +484,24 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 //42) Actualización de una empresa
 
 //43) Creación de cuenta contable
+    //TO-DO: la url usada no es la correcta, debería ser apps.anfix.com//contapro/conta/company/accountingplan/accountingaccountmanager/create
+	/*$accountingAccount = Anfix\CompanyAccountingAccount::create([
+				'AccountingPeriodYear' => 2016,	
+				'CompanyAccountingAccount' => array(['Action' => 'ADD', 
+														'CompanyAccountingAccountDescription' => 'Proveedores de inmovilizado a largo plazo', 
+														'CompanyAccountingAccountNumber' => 1730],
+														['Action' => 'ADD', 
+														'CompanyAccountingAccountDescription' => 'Proveedores de inmovilizado a largo plazo', 
+														'CompanyAccountingAccountNumber' => 17300],
+														['Action' => 'ADD', 
+														'CompanyAccountingAccountDescription' => 'Iberdrola', 
+														'CompanyAccountingAccountNumber' => 1730001],
+														'Supplier' => ['Action' => 'ADD',
+																		'SupplierFiscalName' => 'Iberdrola'
+														])
+				],$companyId);
+	
+	print_result('Cuenta contable creada',$accountingAccount->CompanyAccountingAccountNumber);*/
 
 //44) Modificación de cuenta contable
 
