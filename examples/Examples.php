@@ -504,7 +504,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Cuenta contable creada',$accountingAccount->CompanyAccountingAccountNumber);*/
 
 //44) Modificación de cuenta contable
-//TO-DO: Está dando un error al llamar al save
+	//TO-DO: Está dando un error al llamar al save
     /*$accountingAccount = Anfix\CompanyAccountingAccount::select(2016, 4300000, $companyId);
 
     $accountingAccount->AccountingPeriodYear = 2016;
@@ -514,6 +514,13 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Número de cuentas contables actualizadas',$result);*/
 
 //45) Eliminación de cuenta contable
+    //TO-DO: Está dando un error al llamar al delete
+	/*$accountingAccountToDelete = Anfix\CompanyAccountingAccount::select(2016, 4300003, $companyId);
+	print_result('Cuenta a eliminar',$accountingAccountToDelete);
+
+	$result = $accountingAccountToDelete->delete();
+
+    print_result('Número de cuentas contables eliminadas',$result);*/
 
 //46) Creación de importación
 
