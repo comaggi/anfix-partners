@@ -68,10 +68,10 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	//print_result('Número de cobros eliminados',$result);
 
 //10) Creación de cliente
-    $nextNumber = Anfix\NextNumber::compute('1',$companyId);
+    //$nextNumber = Anfix\NextNumber::compute('1',$companyId);
     //print_result('Siguiente número de cliente libre',$nextNumber);
 
-	$customer = Anfix\Customer::create([
+	/*$customer = Anfix\Customer::create([
 				'CustomerCode' => $nextNumber, 
 				'CustomerName'=> 'Alberto', 
 				'CustomerIdentificationTypeId' => '1',
@@ -87,7 +87,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 				'CustomerIVATypeId' => '1',
 				],$companyId);
 
-	print_result('Cliente creado',$customer->CustomerId);
+	print_result('Cliente creado',$customer->CustomerId);*/
 
 //11) Modificación de cliente
 	/*$customerToUpdate = Anfix\Customer::where(['CustomerId' => $customer->CustomerId],$companyId)->get();
@@ -486,6 +486,90 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Número de ejercicios actualizados',$result);*/
 
 //40) Creación de empresa
+    //TO-DO: aparece un error porque no se puede crear la empresa (el objeto company no admite creación)
+    /*$newCompany = Anfix\Company::create(['Action' => 'ADD',
+    									'AccountingPeriodYear' => 2016,
+    									'AccountingPeriodInitDate' => '01/01/2016',
+    									'AccountingPeriodEndDate' => '31/12/2016',
+    									'CompanyAccountingPlanIdSource' => '2',
+    									'CompanyAccountingPlanSourceFlag' => '2',
+    									'CompanyCorporateName' => 'Empresa',
+    									'CompanyIdentificationNumber' => 'B00000000',
+    									'CompanyIdentificationTypeId' => '1',
+    									'DesktopApplicationId' => '3',
+    									'CompanyParameter' => ['ChargeAccountNumber2' => 432,
+    															'ChargeAccountNumber3' => 433,
+    															'ChargeAccountNumber4' => 440,
+																'ChargeAccountNumber5' => 449,
+																'ChargeAccountNumber6' => 431,
+																'ChargeAccountNumber7' => 441,
+																'ChargeAccountNumber8' => 0,
+																'ChargeAccountNumber9' => 0,
+																'ChargeAccountNumber10' => 0,
+																'ChargeAccountNumber11' => 0,
+																'ChargeAccountNumber12' => 0,
+																'ClosedAccountingPeriodYearEntryAutoUpdate' => true,
+																'CompanyAccountingDigitNumber' => 7, 
+																'CompanyDeductionValueId' =>'1',
+																'CompanyProrate' => false,
+																'CompanyTaxTypeId' => '1',
+																'CompanyTaxValueId' => 'g',
+																'DeductionAccountingBreakdown' => '1',
+																'InputDeductionAccountNumber' => 4730000,
+																'InputVAT1AccountNumber' => 4720000,
+																'InputVAT2AccountNumber' => 4720000,
+																'InputVAT3AccountNumber' => 4720000,
+																'InputVAT4AccountNumber' => 4720000,
+																'InputVAT5AccountNumber' => 4720000,
+																'InputVAT6AccountNumber' => 4720000,
+																'InputVAT7AccountNumber' => 6000000,
+																'IssuedInvoiceAccountNumber1' => 70,
+																'IssuedInvoiceAccountNumber2'=>73,
+																'IssuedInvoiceAccountNumber3'=>75,
+																'IssuedInvoiceAccountNumber4'=>0,
+																'IssuedInvoiceAccountNumber5'=>0,
+																'IssuedInvoiceAccountNumber6'=>0,
+																'IssuedInvoiceAccountNumber7'=>0,
+																'IssuedInvoiceAccountNumber8'=>0,
+																'IssuedInvoiceAccountNumber9'=>0,
+																'IssuedInvoiceAccountNumber10'=>0,
+																'IssuedInvoiceAccountNumber11'=>0,
+																'IssuedInvoiceAccountNumber12'=>0,
+																'OutputDeductionAccountNumber'=>4751000,
+																'OutputVAT1AccountNumber'=>4770000,
+																'OutputVAT2AccountNumber'=>4770000,
+																'OutputVAT3AccountNumber'=>4770000,
+																'PaymentAccountNumber1'=>173,
+																'PaymentAccountNumber2'=>400,
+																'PaymentAccountNumber3'=>402,
+																'PaymentAccountNumber4'=>403,
+																'PaymentAccountNumber5'=>410,
+																'PaymentAccountNumber6'=>419,
+																'PaymentAccountNumber7'=>523,
+																'PaymentAccountNumber8'=>401,
+																'PaymentAccountNumber9'=>411,
+																'PaymentAccountNumber10'=>0,
+																'PaymentAccountNumber11'=>0,
+																'PaymentAccountNumber12'=>0,
+																'ReceivedInvoiceAccountNumber1'=>60,
+																'ReceivedInvoiceAccountNumber2'=>62,
+																'ReceivedInvoiceAccountNumber3'=>20,
+																'ReceivedInvoiceAccountNumber4'=>21,
+																'ReceivedInvoiceAccountNumber5'=>22,
+																'ReceivedInvoiceAccountNumber6'=>0,
+																'ReceivedInvoiceAccountNumber7'=>0,
+																'ReceivedInvoiceAccountNumber8'=>0,
+																'ReceivedInvoiceAccountNumber9'=>0,
+																'ReceivedInvoiceAccountNumber10'=>0,
+																'ReceivedInvoiceAccountNumber11'=>0,
+																'ReceivedInvoiceAccountNumber12'=>0,
+																'VATAccountingBreakdown'=>'1'
+
+    									]
+
+    	], $companyId);
+
+		print_result('Empresa creada', $newCompany);*/
 
 //41) Parametrización por defecto de una empresa
 
