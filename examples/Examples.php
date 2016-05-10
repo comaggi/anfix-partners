@@ -360,6 +360,76 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 // Módulo de Contabilidad
 
 //34) Creación de un asiento contable
+//Cambiar el valor de InvoiceOrder a uno libre, las fechas y el InvoiceCustomerSupplierId
+
+	/*$issuedInvoiceEntryReference = Anfix\CompanyAccountingEntryReference::create([
+				'AccountingEntryTypeId' => '2',
+				'PredefinedAccountingEntryId' => '1',
+				'AccountingEntryDate' => '10/05/2016',
+				'FlagCapitalAssets' => false,
+				'AccountingEntryPredefinedEntryId'=> '1', 
+				'Action' => 'ADD', 				
+				'AccountingPeriodYear' => 2016,
+				'CompanyAccountingEntryNote' => array(['Action' => 'ADD', 
+														'AccountingEntryNoteTypeId' => '1', 
+														'AccountingEntryConcept' => 'Fra. de Cliente Pepe',
+														'AccountingEntryDocumentDescription' => 'F2016/134',
+														'CompanyAccountingAccountNumber' => 4300003,
+														'AccountingEntryTypeId' => '2',
+														'PredefinedAccountingEntryId' => '1',
+														'AccountingEntryAmountDebit' => 1021.34,
+														'AccountingEntryIsDebitAmount' => true,
+														'AccountingEntryAmount' => 1021.34,
+														'AccountingEntryNoteAmountExpression' => '?'],
+														['Action' => 'ADD', 
+														'AccountingEntryNoteTypeId' => '1', 
+														'AccountingEntryConcept' => 'Fra. de Cliente Pepe',
+														'AccountingEntryDocumentDescription' => 'F2016/134',
+														'CompanyAccountingAccountNumber' => 7000000,
+														'AccountingEntryNoteTaxLineNumber' => 1,
+														'AccountingEntryTypeId' => '2',
+														'AccountingEntryAmountDebit' => 844.08,
+														'AccountingEntryIsDebitAmount' => false,
+														'AccountingEntryAmount' => 844.08,
+														'AccountingEntryNoteAmountExpression' => 'TaxBaseValue1'],
+														['Action' => 'ADD', 
+														'AccountingEntryNoteTypeId' => '2', 
+														'AccountingEntryConcept' => 'Fra. de Cliente Pepe',
+														'AccountingEntryDocumentDescription' => 'F2016/134',
+														'CompanyAccountingAccountNumber' => 4770000,
+														'AccountingEntryNoteTaxLineNumber' => 1,
+														'AccountingEntryTypeId' => '2',
+														'AccountingEntryAmountDebit' => 177.26,
+														'AccountingEntryIsDebitAmount' => false,
+														'AccountingEntryAmount' => 177.26,
+														'AccountingEntryNoteAmountExpression' => 'TaxBaseValue1 TaxPercentage1 %']),				
+				'Invoice' => ['InvoiceOperationKeyId' => '1',
+									'InvoiceDate' => '10/05/2016',
+									'InvoiceOperationDate' => '10/05/2016',
+									'InvoiceCustomerSupplierId' => 'MuuWnXxCo',
+									'InvoiceCustomerSupplierIdentificationTypeId' => '1',
+									'InvoiceCustomerSupplierIdentificationNumber' => '11111111H',
+									'InvoiceOrder' => 21,
+									'Action' => 'ADD',
+									'InvoiceCustomerSupplierAccountingAccountNumber' => 4300003,
+									'Invoice347OperationKeyId' => '2',
+									'InvoiceCashAccounting' => false,
+									'InvoiceLine' => array(['InvoiceLineOrder' => 1,
+															'InvoiceLineOperationTypeId' => '7',
+															'InvoiceLineTaxBaseValue' => 844.08,
+															'InvoiceLineTaxValueId' => 'g',
+															'InvoiceLineTaxPercentage' => 21,
+															'InvoiceLineTaxValue' => 177.26,
+															'InvoiceLineESPercentage' => 5.2,
+															'InvoiceLineIncludeEquivalenceSurcharge' =>  false,
+															'InvoiceLineIncludeIn340' => false,
+															'InvoiceLineIncludeIn349' => false,
+															'Action' => 'ADD'
+										])
+					]
+				],$companyId);
+	
+	print_result('Asiento de factura emitida creada',$issuedInvoiceEntryReference->AccountingEntryId);*/
 
 //35) Actualización de un asiento contable
 
