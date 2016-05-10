@@ -259,20 +259,18 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Número de facturas recibidas eliminadas',$result);*/
 
 //25) Creación de factura recurrente
-	// ****** USO INCORRECTO DE LA LIBRERIA EN ESTE EJEMPLO, NI CUSTOMER NI NINGUNA OTRA ENTIDAD PUEDE SER UTILIZADO COMO UN ARRAY, NUNCA ['XXX']
-    /*$customerToUse = Anfix\Customer::firstOrFail([],$companyId)->get();
-    $customerToUse = $customerToUse[$customer->CustomerId]->getArray();
-    print_result('Código de Cliente al que hacer una factura recurrente',$customerToUse['CustomerCode']);    
+	/*$customerToUse = Anfix\Customer::firstOrFail([],$companyId);
+
+    print_result('Código de Cliente al que hacer una factura',$customerToUse->CustomerCode);
 
 	$recurringInvoice = Anfix\RecurringInvoice::create([
-				'RecurringInvoiceCustomerCode' => $customerToUse['CustomerCode'],
-				'RecurringInvoiceCustomerId' => $customerToUse['CustomerId'],
-				'RecurringInvoiceCustomerIdentificationNumber' => $customerToUse['CustomerIdentificationNumber'],
-				'RecurringInvoiceCustomerIdentificationTypeId' => $customerToUse['CustomerIdentificationTypeId'],
-				'RecurringInvoiceCustomerName'=> $customerToUse['CustomerName'], 
-				'RecurringInvoiceCustomerTaxTypeId' => $customerToUse['CustomerTaxTypeId'], 				
-				'RecurringInvoiceCustomerVATTypeId' => $customerToUse['CustomerIVATypeId'],
-				'RecurringInvoiceDiscountPercentage' => $customerToUse['CustomerFixedDiscount'],				
+				'RecurringInvoiceCustomerCode' => $customerToUse->CustomerCode,
+				'RecurringInvoiceCustomerId' => $customerToUse->CustomerId,
+				'RecurringInvoiceCustomerIdentificationNumber' => $customerToUse->CustomerIdentificationNumber,
+				'RecurringInvoiceCustomerIdentificationTypeId' => $customerToUse->CustomerIdentificationTypeId,
+				'RecurringInvoiceCustomerName'=> $customerToUse->CustomerName, 
+				'RecurringInvoiceCustomerTaxTypeId' => $customerToUse->CustomerTaxTypeId, 				
+				'RecurringInvoiceCustomerVATTypeId' => $customerToUse->CustomerIVATypeId,
 				'RecurringInvoiceSerialNum' => 'F2016',
 				'RecurringInvoiceStateId' => '1',
 				'RecurringInvoiceEndDate' => '04/05/2016',
