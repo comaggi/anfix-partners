@@ -470,6 +470,12 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Número de ejercicios desactivados',$result);*/
 
 //39) Actualización de ejercicio contable
+    /*$accountingPeriodYear = Anfix\CompanyAccountingPeriod::where(['AccountingPeriodYear' => 2012], $companyId)->get();
+    print_result('Ejercicio a actualizar',$accountingPeriodYear[2012]);
+
+    $accountingPeriodYear[2012]->CompanyAccountingPeriodInitDate = '02/01/2012 00:00:00';
+    $result = $accountingPeriodYear[2012]->save();
+    print_result('Número de ejercicios actualizados',$result);*/
 
 //40) Creación de empresa
 
