@@ -585,6 +585,21 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Facturas modificadas',$result);	*/
 
 //53) Creación de predefinido
+	/*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::create([
+				'AccountingPeriodYear' => 2016,
+				'Action' => 'ADD', 								
+				'PredefinedAccountingEntryCode' => '202',
+				'PredefinedAccountingEntryDescription' => 'Predefinido personalizado',
+				'PredefinedAccountingEntryTypeId' => '1',
+				'PredefinedAccountingEntryNote' => array(['Action' => 'ADD',
+										'PredefinedAccountingEntryNoteAccountNumber' => '4300?',
+										'PredefinedAccountingEntryNoteAccountNumberDescription' => '4300?',
+										'PredefinedAccountingEntryNoteConcept' => 'Pago a Proveedor $',
+										'PredefinedAccountingEntryNoteDocumentDescription' => 'Factura -'
+					])
+					],$companyId);
+
+    print_result('Predefindo creado',$predefinedAccountingEntry->PredefinedAccountingEntryId);*/
 
 //54) Modificación de predefinido
 
