@@ -571,9 +571,13 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
 		print_result('Empresa creada', $newCompany);*/
 
-//41) Parametrización por defecto de una empresa
-
 //42) Actualización de una empresa
+	/*$companyToUpdate = Anfix\Company::firstOrFail([],$companyId);
+
+	$companyToUpdate->CorporateName = 'Empresa 2';
+	$result = $companyToUpdate->save();
+
+	print_result('Empresa actualizada', $result);*/
 
 //43) Creación de cuenta contable
     //TO-DO: la url usada no es la correcta, debería ser apps.anfix.com//contapro/conta/company/accountingplan/accountingaccountmanager/create
