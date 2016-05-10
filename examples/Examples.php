@@ -193,6 +193,11 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Factura modificada',$result);*/
 
 //18) Eliminación de factura emitida
+    /*$invoice = Anfix\IssuedInvoice::firstOrFail([],$companyId);
+    print_result('Factura a eliminar', $invoice); 
+
+    $result = $invoice->delete();
+    print_result('Factura eliminada',$result);*/
 
 //19) Creación de pago
     //$payment = Anfix\Payment::create(['PaymentAmount' => 50.05, 'PaymentSupplierName'=> 'Pepe', 'PaymentDate' => '11/05/2016','PaymentDescription' => 'Pago adelantado factura', 'PaymentIsRefund' => false, 'PaymentSourceId' => 'MbS010Qe8', "PaymentSourceType" => '1'],$companyId);
