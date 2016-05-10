@@ -563,6 +563,15 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Factura creada',$invoice->InvoiceId);*/
 
 //51) Modificación de factura
+    /*$invoice = Anfix\Invoice::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
+    print_result('Factura a modificar',$invoice[key($invoice)]);
+
+    $invoiceToUpdate = $invoice[key($invoice)];
+    $invoiceToUpdate->AccountingPeriodYear = 2016;
+    $invoiceToUpdate->InvoiceDate = '15/05/2016';
+    $result = $invoiceToUpdate->save();
+
+    print_result('Facturas modificadas',$result);*/
 
 //52) Actualización de factura
 
