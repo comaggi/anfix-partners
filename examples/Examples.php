@@ -647,3 +647,10 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result("Impuesto eliminado", $result);*/
 
 //59) Eliminación de plantilla de Balance/PyG
+	/*$templates = Anfix\Template::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
+
+	$templateToDelete = $templates[key($templates)];
+	print_result('Plantilla a eliminar', $templateToDelete);
+
+	$result = $templateToDelete->delete();
+	print_result('Plantilla eliminada', $result);*/
