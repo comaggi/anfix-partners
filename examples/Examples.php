@@ -184,6 +184,13 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Conversión de presupuesto en factura',$invoice);*/
 
 //17) Modificación de factura emitida
+    /*$invoice = Anfix\IssuedInvoice::firstOrFail([],$companyId);
+    print_result('Factura a modificar', $invoice);
+
+    $invoice->IssuedInvoiceDate = '05/05/2020 13:00:00';
+    $result = $invoice->save();
+
+    print_result('Factura modificada',$result);*/
 
 //18) Eliminación de factura emitida
 
