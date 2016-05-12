@@ -580,27 +580,18 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Empresa actualizada', $result);*/
 
 //43) Creación de cuenta contable
-    //TO-DO: la url usada no es la correcta, debería ser apps.anfix.com//contapro/conta/company/accountingplan/accountingaccountmanager/create
 	/*$accountingAccount = Anfix\CompanyAccountingAccount::create([
 				'AccountingPeriodYear' => 2016,	
-				'CompanyAccountingAccount' => array(['Action' => 'ADD', 
+				'CompanyAccountingAccount' => array((object)['Action' => 'ADD',
 														'CompanyAccountingAccountDescription' => 'Proveedores de inmovilizado a largo plazo', 
-														'CompanyAccountingAccountNumber' => 1730],
-														['Action' => 'ADD', 
-														'CompanyAccountingAccountDescription' => 'Proveedores de inmovilizado a largo plazo', 
-														'CompanyAccountingAccountNumber' => 17300],
-														['Action' => 'ADD', 
-														'CompanyAccountingAccountDescription' => 'Iberdrola', 
-														'CompanyAccountingAccountNumber' => 1730001],
-														'Supplier' => ['Action' => 'ADD',
-																		'SupplierFiscalName' => 'Iberdrola'
+														'CompanyAccountingAccountNumber' => 1730005
 														])
 				],$companyId);
 	
-	print_result('Cuenta contable creada',$accountingAccount->CompanyAccountingAccountNumber);*/
+	print_result('Cuenta contable creada',$accountingAccount);*/
 
 //44) Modificación de cuenta contable
-	//TO-DO: Está dando un error al llamar al save
+
     /*$accountingAccount = Anfix\CompanyAccountingAccount::select(2016, 4300000, $companyId);
 
     $accountingAccount->AccountingPeriodYear = 2016;
@@ -610,11 +601,10 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Número de cuentas contables actualizadas',$result);*/
 
 //45) Eliminación de cuenta contable
-    //TO-DO: Está dando un error al llamar al delete
-	/*$accountingAccountToDelete = Anfix\CompanyAccountingAccount::select(2016, 4300003, $companyId);
+	/*$accountingAccountToDelete = Anfix\CompanyAccountingAccount::select(2016, 1730003, $companyId);
 	print_result('Cuenta a eliminar',$accountingAccountToDelete);
 
-	$result = $accountingAccountToDelete->delete();
+	$result = $accountingAccountToDelete->delete(["AccountingPeriodYear" => 2016]);
 
     print_result('Número de cuentas contables eliminadas',$result);*/
 
@@ -689,14 +679,14 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
 //52) Eliminación de factura
     //TO-DO: Da un error, cómo incluyo AccountingPeriodYear en el borrado?
-	/*$invoice = Anfix\Invoice::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);    
+	$invoice = Anfix\Invoice::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
     $invoiceToDelete = $invoice[key($invoice)];
 
 	$invoiceToDelete->AccountingPeriodYear=2016;
 	$invoiceToDelete->FromInvoiceManagement=true;
 	$result = $invoiceToDelete->delete();
 
-    print_result('Facturas modificadas',$result);	*/
+    print_result('Facturas modificadas',$result);
 
 //53) Creación de predefinido
 	/*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::create([
