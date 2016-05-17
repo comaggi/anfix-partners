@@ -143,36 +143,30 @@ class IssuedInvoice extends BaseModel
     /**
      * Exporta una serie de facturas a contabilidad
      *
-     * @param int $AccountingPeriodYear
-     * @param int $IssuedInvoiceInitNumber
-     * @param int $IssuedInvoiceEndNumber
-     * @param string $IssuedInvoiceSerialNum
-     * @param bool $ExportPayment
+     * @param array $params [AccountingPeriodYear, IssuedInvoiceInitNumber, IssuedInvoiceEndNumber, IssuedInvoiceSerialNum ]
+     * @param bool $ExportCharge
      * @param string $companyId
      * @return object
      */
-    public static function exportMultiple($AccountingPeriodYear, $IssuedInvoiceInitNumber, $IssuedInvoiceEndNumber, $IssuedInvoiceSerialNum, $ExportPayment, $companyId){
+    public static function exportMultiple(array $params, $ExportCharge, $companyId){
         $obj = new static([],false,$companyId);
-
-        $result =  parent::_send([
-              'AccountingPeriodYear' => $AccountingPeriodYear,
-              'IssuedInvoiceInitNumber' => $IssuedInvoiceInitNumber,
-              'IssuedInvoiceEndNumber' => $IssuedInvoiceEndNumber,
-              'IssuedInvoiceSerialNum' => $IssuedInvoiceSerialNum,
-              'ExportPayment' => $ExportPayment
-        ], $companyId,'synchronization/export');
+        $params['ExportCharge'] =  $ExportCharge;
+        $result =  parent::_send($params, $companyId,'synchronization/export');
 
         return $result->outputData->{$obj->Model};
     }
 
     /**
      * Exporta la factura a contabilidad
-     * @param int $AccountingPeriodYear
-     * @param bool $ExportPayment
+     * @param bool $ExportCharge
+     * @throws Exceptions\AnfixException
      * @return object
      */
-    public function export($AccountingPeriodYear,$ExportPayment){
-        return self::exportMultiple($AccountingPeriodYear,$this->IssuedInvoiceNumber,$this->IssuedInvoiceNumber,$this->IssuedInvoiceSerialNum,$ExportPayment,$this->companyId);
+    public function export($AccountingPeriodYear,$ExportCharge){
+        if(! $this->IssuedInvoiceNumber)
+            throw new AnfixException('Para exportar una factura debe partir de una factura ya registrada en anfix');
+
+        return self::exportMultiple(['IssuedInvoiceInitNumber' => $this->IssuedInvoiceNumber, 'IssuedInvoiceEndNumber' => $this->IssuedInvoiceNumber, 'IssuedInvoiceSerialNum' => $this->IssuedInvoiceSerialNum],$ExportPayment,$this->companyId);
     }
 
 }
