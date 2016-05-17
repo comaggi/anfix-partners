@@ -678,13 +678,10 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Facturas modificadas',$result);*/
 
 //52) Eliminación de factura
-    //TO-DO: Da un error, cómo incluyo AccountingPeriodYear en el borrado?
+    //TO-DO**: Da un error, cómo incluyo AccountingPeriodYear en el borrado?
 	$invoice = Anfix\Invoice::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
-    $invoiceToDelete = $invoice[key($invoice)];
-
-	$invoiceToDelete->AccountingPeriodYear=2016;
-	$invoiceToDelete->FromInvoiceManagement=true;
-	$result = $invoiceToDelete->delete();
+    	$invoiceToDelete = $invoice[key($invoice)];
+	$result = $invoiceToDelete->delete(["AccountingPeriodYear" => 2016, "FromInvoiceManagement" => true]);
 
     print_result('Facturas modificadas',$result);
 
@@ -719,14 +716,13 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
    print_result('Número de asientos predefinidos actualizados',$result);*/
 
 //55) Eliminación de predefinido
-   //TO-DO: Está apareciendo un error al hacer el delete
+   //TO-DO**: Está apareciendo un error al hacer el delete
     /*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::where(['EntryTypeToPredefinedEntryEntryTypeId' => '2'],$companyId)->get([],1,1,[],'','searchbyentrytype',['AccountingPeriodYear' => 2016]);
     print_result('Predefinido a eliminar',$predefinedAccountingEntry);
 
     $predefinedToDelete = $predefinedAccountingEntry[key($predefinedAccountingEntry)];
 
-   $predefinedToDelete->AccountingPeriodYear=2016;
-   $result = $predefinedToDelete->delete();
+   $result = $predefinedToDelete->delete(["AccountingPeriodYear" => 2016]);
 
    print_result('Número de asientos predefinidos eliminados',$result);*/
 
