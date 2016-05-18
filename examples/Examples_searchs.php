@@ -82,7 +82,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     $citysByPostalCode = Anfix\City::findByPostalCode('47140', '1');
 	print_result('Datos de ciudad a partir del CP',$citysByPostalCode);    
 
-//7) findByUser TO-DO
+//7) Ejemplo de obtención de códigos CNAE
     $cnaeList = Anfix\Cnae::all($companyId);
 	print_result('Lista de tipos de cnae',array_map(function($e){ return array(
 	    "CnaeCode" => $e->CnaeCode,	    	    
