@@ -105,19 +105,18 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Número de clientes eliminados',$result);*/
 
 //13) Creación de presupuesto
-    /*$customerToUse = Anfix\Customer::firstOrFail([],$companyId)->get();
-    $customerToUse = $customerToUse[$customer->CustomerId]->getArray();
-    print_result('Código de Cliente al que hacer un presupuesto',$customerToUse['CustomerCode']);    
+    /*$customerToUse = Anfix\Customer::firstOrFail([],$companyId);
+    print_result('Código de Cliente al que hacer un presupuesto',$customerToUse->CustomerCode);    
 
 	$customerBudget = Anfix\CustomerBudget::create([
-				'CustomerBudgetCustomerCode' => $customerToUse['CustomerCode'],
-				'CustomerBudgetCustomerId' => $customerToUse['CustomerId'],
-				'CustomerBudgetCustomerIdentificationNumber' => $customerToUse['CustomerIdentificationNumber'],
-				'CustomerBudgetCustomerIdentificationTypeId' => $customerToUse['CustomerIdentificationTypeId'],
-				'CustomerBudgetCustomerName'=> $customerToUse['CustomerName'], 
-				'CustomerBudgetCustomerTaxTypeId' => $customerToUse['CustomerTaxTypeId'], 				
-				'CustomerBudgetCustomerVATTypeId' => $customerToUse['CustomerIVATypeId'],
-				'CustomerBudgetDiscountPercentage' => $customerToUse['CustomerFixedDiscount'],				
+				'CustomerBudgetCustomerCode' => $customerToUse->CustomerCode,
+				'CustomerBudgetCustomerId' => $customerToUse->CustomerId,
+				'CustomerBudgetCustomerIdentificationNumber' => $customerToUse->CustomerIdentificationNumber,
+				'CustomerBudgetCustomerIdentificationTypeId' => $customerToUse->CustomerIdentificationTypeId,
+				'CustomerBudgetCustomerName'=> $customerToUse->CustomerName, 
+				'CustomerBudgetCustomerTaxTypeId' => $customerToUse->CustomerTaxTypeId, 				
+				'CustomerBudgetCustomerVATTypeId' => $customerToUse->CustomerIVATypeId,
+				'CustomerBudgetDiscountPercentage' => $customerToUse->CustomerFixedDiscount,				
 				'CustomerBudgetDate' => '01/05/2016', 
 				'CustomerBudgetSerialNum' => 'P2016',
 				'CustomerBudgetStateId' => '1',
