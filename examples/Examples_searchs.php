@@ -339,7 +339,6 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	); },$bankAccounts));
 
 //38) Ejemplo de obtención de cuentas contables de una empresa
-//TO-DO: da error por el id
 	$companyAccountingAccounts = Anfix\CompanyAccountingAccount::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
 	print_result('Lista de cuentas contables',array_map(function($e){ return array(
 	    "CompanyAccountingAccount" => $e->CompanyAccountingAccount
