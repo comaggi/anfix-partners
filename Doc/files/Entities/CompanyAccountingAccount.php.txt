@@ -56,7 +56,24 @@ class CompanyAccountingAccount extends BaseModel
 		$params = ['AccountingPeriodYear' => $accountingPeriodYear, 'CompanyAccountingAccountNumber' => $companyAccountingAccountNumber];
         $result = self::_send($params,$companyId,'select');
 
-        return $result->outputData->{$obj->Model};
+		if(empty($result->outputData->{$obj->Model}))
+			return null;
+
+        return new static(get_object_vars($result->outputData->{$obj->Model}),true,$companyId);
     }
+
+	/**
+	 * Crea el objeto en la API
+	 * @param array $params
+	 * @param string $companyId Identificador de la compañia, sólo necesario en algunas entidades
+	 * @param string $path = 'create' Path de la función en anfix
+	 * @throws Exceptions\AnfixException
+	 * @throws Exceptions\AnfixResponseException
+	 * @return static
+	 */
+	public static function create(array $params, $companyId = null, $path = 'create'){
+		return CompanyAccountingAccountManager::create($params, $companyId, $path);
+    }
+
 
 }

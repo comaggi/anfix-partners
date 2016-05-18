@@ -182,18 +182,19 @@ class BaseModel
 
     /**
      * Elimina un objeto de la API
+     * @param $params = [] Parámetros especiales
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
      * @return bool
      */
-    public function delete(){
+    public function delete($params = []){
         if(!$this->delete)
             throw new AnfixException("El objeto {$this->Model} no admite eliminación");
 
         if(empty($this->attributes[$this->primaryKey]))
             throw new AnfixException('No puede borrar un objeto sin id');
 
-        return $this->destroy($this->attributes[$this->primaryKey], $this->companyId);
+        return $this->destroy($this->attributes[$this->primaryKey], $this->companyId, 'delete',$params);
     }
 
     /**
@@ -237,12 +238,8 @@ class BaseModel
         if($result->outputData->TotalRowNumber == 0)
             return [];
 
-        foreach($result->outputData->{$this->Model} as $params) {
-            if(!empty($params->{$this->primaryKey}))
-                $return[$params->{$this->primaryKey}] = new $this(get_object_vars($params), true, $this->companyId);
-            else
-                $return[] = $params;
-        }
+        foreach($result->outputData->{$this->Model} as $params)
+            $return[$params->{$this->primaryKey}] = new $this(get_object_vars($params), true, $this->companyId);
 
         return $return;
     }
@@ -292,6 +289,8 @@ class BaseModel
             throw new AnfixException("El objeto {$obj->Model} no admite creación");
 
         $result = self::_send($params,$companyId,$path);
+        if(empty($result->outputData->{$obj->Model}))
+            return $result->result;
 
         $received_params = array_filter(get_object_vars($result->outputData->{$obj->Model}),function($value){ return !is_array($value); }); //Parametros no array
         $received_params_arr = array_filter(get_object_vars($result->outputData->{$obj->Model}),function($value){ return is_array($value); }); //Parámetros de tipo array
@@ -321,17 +320,20 @@ class BaseModel
      * @param string $id
      * @param string $companyId Identificador de la compañia, sólo necesario en algunas entidades
      * @param string $path = 'delete' Path de la función en anfix
+     * @param $params = [] Parámetros especiales
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
      * @return bool
      */
-    public static function destroy($id, $companyId = null, $path = 'delete'){
+    public static function destroy($id, $companyId = null, $path = 'delete', $params = []){
         $obj = new static([],false,$companyId);
 
         if(!$obj->delete)
             throw new AnfixException("El objeto {$obj->Model} no admite eliminación");
 
-        $result = self::_send([$obj->primaryKey => $id],$companyId,$path);
+        $params[$obj->primaryKey] = $id;
+
+        $result = self::_send($params,$companyId,$path);
 
         if($result->result == 0)
             return true;
