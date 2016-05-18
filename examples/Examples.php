@@ -678,12 +678,11 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Facturas modificadas',$result);*/
 
 //52) Eliminación de factura
-    //TO-DO**: Da un error, cómo incluyo AccountingPeriodYear en el borrado?
 	$invoice = Anfix\Invoice::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
     	$invoiceToDelete = $invoice[key($invoice)];
 	$result = $invoiceToDelete->delete(["AccountingPeriodYear" => 2016, "FromInvoiceManagement" => true]);
 
-    print_result('Facturas modificadas',$result);
+    print_result('Facturas eliminadas',$result);
 
 //53) Creación de predefinido
 	/*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::create([
