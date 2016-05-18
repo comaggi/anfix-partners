@@ -90,22 +90,13 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	); },$cnaeList));
 
 //8) Actualización de los datos de la empresa
-	//$company = Anfix\Company::firstOrFail(['CompanyId' => $companyId]);
-/* 	$company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
+ 	$company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
 
 	$company->CompanyCommercialName = 'Saneamientos Pérez';
-	$company->CompanyIdentificationTypeId = '6';
+	$company->CompanyIdentificationTypeId = '4';
 	$company->CompanyIdentificationNumber = '123456789N';
-	//$company->CompanyId = $company->CompanyId; NO SE PUEDE CAMBIAR UN ID !!
     $company->save(); //Guardado del cliente
 	print_result('Actualización de los datos de la empresa',$company->getArray());
-
-	$company = Anfix\Company::firstOrFail(['CompanyId' => $companyId],$companyId);
-	$customer->CustomerIdentificationNumber = '987654321N';
-    $customer->save(); //Guardado del cliente	*/
-
-	//$companyId = Anfix\Company::firstOrFail([])->CompanyId;
-	//print_result('CompanyId de la primera empresa disponible',$companyId);
 
 //9) Ejemplo de obtención de los datos de contacto de una empresa
     $contacts = Anfix\Contact::all($companyId);
