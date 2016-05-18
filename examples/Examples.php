@@ -471,11 +471,10 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Número de ejercicios eliminados',$result);*/
 
 //38) Desactivación de ejercicio contable
-    /*$accountingPeriodYear = Anfix\CompanyAccountingPeriod::where(['AccountingPeriodYear' => 2019], $companyId)->get();
-    print_result('Ejercicio a eliminar',$accountingPeriodYear[2019]);
+    /*$accountingPeriodYear = Anfix\CompanyAccountingPeriod::where(['AccountingPeriodYear' => 2021], $companyId)->get();
+    print_result('Ejercicio a eliminar',$accountingPeriodYear[2021]);
 
-    $accountingPeriodYear[2019]->AccountingPeriodYear = 2019;
-    $result = $accountingPeriodYear[2019]->delete();
+    $result = $accountingPeriodYear[2021]->delete();
     print_result('Número de ejercicios desactivados',$result);*/
 
 //39) Actualización de ejercicio contable
