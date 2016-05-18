@@ -351,16 +351,17 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Tipo impositivo creado',$vat->VatId);*/
 
 //32) Modificación de un tipo impositivo
-	/*$vatToUpdate = Anfix\Vat::where(['SupplierId' => $supplier->SupplierId],$companyId)->get();
+	/*$vatToUpdate = Anfix\Vat::find($vat->VatId,$companyId);
 	
-	$vatToUpdate[$vat->VatId]->VatEndDate = '01/05/2016';
-    $vatToUpdate[$vat->VatId]->save(); //Actualizo el tipo impositivo
+	$vatToUpdate->VatEndDate = '01/05/2016';
+    $vatToUpdate->save(); //Actualizo el tipo impositivo
 
-	print_result('Actualización de un tipo impositivo',$vatToUpdate[$vat->VatId]->getArray());*/	
+	print_result('Actualización de un tipo impositivo',$vatToUpdate->VatId);*/
 
 //33) Eliminación de un tipo impositivo
-	/*$vatToDelete = Anfix\Vat::firstOrFail(['CompanyId' => $companyId],$companyId);
+	/*$vatToDelete = Anfix\Vat::find($vat->VatId,$companyId);
 	print_result('Tipo impositivo a eliminar',$vatToDelete);
+	
 	$result = $vatToDelete-> delete();
 	print_result('Número de tipos impositivos eliminados',$result);*/
 
