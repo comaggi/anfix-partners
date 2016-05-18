@@ -440,6 +440,14 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Asiento de factura emitida creada',$issuedInvoiceEntryReference->AccountingEntryId);*/
 
 //35) Actualización de un asiento contable
+     // Si creamos un asiento y lo actualizamos posteriormente
+    /*$issuedInvoiceEntryReference->AccountingEntryDate = '11/05/2016';
+    $issuedInvoiceEntryReference->AccountingPeriodYear = 2016;
+    $issuedInvoiceEntryReference->save(); //Actualizo el asiento contable
+
+    print_result('Asiento de factura emitida actualizado',$issuedInvoiceEntryReference->AccountingEntryId);    */
+
+    //recuperando uno en concreto
     /*$issuedInvoiceEntryReference = Anfix\CompanyAccountingEntryReference::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
     $issuedInvoiceToUpdate = $issuedInvoiceEntryReference[key($issuedInvoiceEntryReference)];
 
@@ -448,14 +456,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     $issuedInvoiceToUpdate->save(); //Actualizo el asiento contable
 
     print_result('Asiento de factura emitida actualizado',$issuedInvoiceToUpdate->AccountingEntryId);*/
-	
-    // Si creamos un asiento y lo actualizamos posteriormente
-    /*$issuedInvoiceEntryReference->AccountingEntryDate = '11/05/2016';
-    $issuedInvoiceEntryReference->AccountingPeriodYear = 2016;
-    $issuedInvoiceEntryReference->save(); //Actualizo el asiento contable
-
-    print_result('Asiento de factura emitida actualizado',$issuedInvoiceEntryReference->AccountingEntryId);*/
-
+    
 //36) Eliminación de un asiento contable
 //TO-DO: Da un error ¿Cómo incluyo AccountingPeriodYear
     /*$issuedInvoiceEntryReference = Anfix\CompanyAccountingEntryReference::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
