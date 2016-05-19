@@ -116,10 +116,10 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Factura recibida duplicada',$receivedInvoice);
 	
 //20) Exportar facturas a Contabilidad
-    /*$invoice = Anfix\ReceivedInvoice::find('ML3gxRJxI',$companyId);
-    print_result('Factura a exportar', $invoice);
-    $export = $invoice->export(2015,true);
-    print_result('Factura exportada', $export);*/
+   /*$invoice = Anfix\IssuedInvoice::find('ML10QQOtI',$companyId); 
+   print_result('Factura a exportar', $invoice);
+   $export = $invoice->export(2015,true);  
+   print_result('Factura exportada', $export);*/
 
    //TO-DO: Falta rango por fechas y gestionar la obligatoriedad de los campos/rangos
    //$invoice = Anfix\IssuedInvoice::exportMultiple(2016,1,50,'F2016',true,$companyId);
