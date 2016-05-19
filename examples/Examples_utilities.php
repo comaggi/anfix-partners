@@ -121,9 +121,8 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
    $export = $invoice->export(2015,true);  
    print_result('Factura exportada', $export);*/
 
-   //TO-DO: Falta rango por fechas y gestionar la obligatoriedad de los campos/rangos
-   //$invoice = Anfix\IssuedInvoice::exportMultiple(2016,1,50,'F2016',true,$companyId);
-   //print_result('Facturas emitidas exportadas', $invoice);     
+   /*$export = Anfix\IssuedInvoice::exportMultiple(['AccountingPeriodYear' => 2016,'IssuedInvoiceInitNumber' => 1,'IssuedInvoiceEndNumber' => 50,'IssuedInvoiceSerialNum' => 'F2016'], true,$companyId);
+   print_result('Facturas emitidas exportadas', $export); */
 
     //TO-DO: Da un error la librería
     $invoice = Anfix\ReceivedInvoice::find('ML3gxRJxI',$companyId);
