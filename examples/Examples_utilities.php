@@ -116,19 +116,20 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Factura recibida duplicada',$receivedInvoice);
 	
 //20) Exportar facturas a Contabilidad
-//TO-DO: sobra el ejercicio fiscal y no consigo hacerlo funcionar
-    //$invoice = Anfix\IssuedInvoice::where(['IssuedInvoiceId' => 'LQ:,4qF3A'],$companyId);
-    //$export = $invoice->export(2016,true);
-    //print_result('Factura exportada', $export);
+    /*$invoice = Anfix\ReceivedInvoice::find('ML3gxRJxI',$companyId);
+    print_result('Factura a exportar', $invoice);
+    $export = $invoice->export(2015,true);
+    print_result('Factura exportada', $export);*/
 
    //TO-DO: Falta rango por fechas y gestionar la obligatoriedad de los campos/rangos
    //$invoice = Anfix\IssuedInvoice::exportMultiple(2016,1,50,'F2016',true,$companyId);
    //print_result('Facturas emitidas exportadas', $invoice);     
 
-    //TO-DO: Usa los parámetros de facturas emitidas
-    //$invoice = Anfix\ReceivedInvoice::first([],$companyId);
-    //$export = $invoice->export(2016,true);
-    //print_result('Factura exportada', $export);
+    //TO-DO: Da un error la librería
+    $invoice = Anfix\ReceivedInvoice::find('ML3gxRJxI',$companyId);
+    print_result('Factura a exportar', $invoice);
+    $export = $invoice->export(2015,true);
+    print_result('Factura exportada', $export);
     
    //TO-DO: Falta rango por fechas y gestionar la obligatoriedad de los campos/rangos
    //$invoice = Anfix\ReceivedInvoice::exportMultiple(2016,1,50,'FR2016',true,$companyId);
