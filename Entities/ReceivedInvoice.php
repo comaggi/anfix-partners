@@ -100,7 +100,7 @@ class ReceivedInvoice extends BaseModel
      * @return object
      */
     public function export($ExportPayment){
-        if(!$this->ReceivedInvoiceNumber)
+        if(!$this->{$this->primaryKey})
             throw new AnfixException('Para exportar una factura debe partir de una factura ya registrada en anfix');
 
         return self::exportMultiple(['IssuedInvoiceInitNumber' => $this->IssuedInvoiceNumber, 'IssuedInvoiceEndNumber' => $this->IssuedInvoiceNumber, 'IssuedInvoiceSerialNum' => $this->IssuedInvoiceSerialNum],$ExportPayment,$this->companyId);
