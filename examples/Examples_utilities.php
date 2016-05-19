@@ -128,10 +128,10 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
    print_result('Facturas emitidas exportadas', $export);*/
 
     //TO-DO: Da un error la librería
-    $invoice = Anfix\ReceivedInvoice::find('ML3gxRJxI',$companyId);
+    /*$invoice = Anfix\ReceivedInvoice::findOrFail("MLfVAioBI",$companyId);
     print_result('Factura a exportar', $invoice);
-    $export = $invoice->export(2016,true);
-    print_result('Factura exportada', $export);
+    $export = $invoice->export(true);
+    print_result('Factura exportada', $export);*/
     
    //Exportación de facturas recibidas por rango
    /*$export = Anfix\ReceivedInvoice::exportMultiple(['ReceivedInvoiceInitDate' => '01/05/2016', 'ReceivedInvoiceEndDate' => '31/05/2016', 'AccountingPeriodYear' => 2016,'ReceivedInvoiceInitNumber' => 1,'ReceivedInvoiceEndNumber' => 50,'ReceivedInvoiceSerialNum' => 'FR2016'], true,$companyId);
