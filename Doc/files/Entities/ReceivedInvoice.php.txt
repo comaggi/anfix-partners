@@ -78,7 +78,7 @@ class ReceivedInvoice extends BaseModel
     /**
      * Exporta una serie de facturas a contabilidad
      *
-     * @param array $params [AccountingPeriodYear, ReceivedInvoiceInitNumber, ReceivedInvoiceEndNumber, ReceivedInvoiceSerialNum ]
+     * @param array $params [AccountingPeriodYear, ReceivedInvoiceInitNumber, ReceivedInvoiceEndNumber, ReceivedInvoiceSerialNum, ReceivedInvoiceInitDate, ReceivedInvoiceEndDate ]
      * @param bool $ExportPayment
      * @param string $companyId
      * @return object

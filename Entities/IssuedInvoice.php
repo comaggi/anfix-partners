@@ -143,7 +143,7 @@ class IssuedInvoice extends BaseModel
     /**
      * Exporta una serie de facturas a contabilidad
      *
-     * @param array $params [AccountingPeriodYear, IssuedInvoiceInitNumber, IssuedInvoiceEndNumber, IssuedInvoiceSerialNum ]
+     * @param array $params [AccountingPeriodYear, IssuedInvoiceInitNumber, IssuedInvoiceEndNumber, IssuedInvoiceSerialNum, IssuedInvoiceInitDate, IssuedInvoiceEndDate ]
      * @param bool $ExportCharge
      * @param string $companyId
      * @return object
