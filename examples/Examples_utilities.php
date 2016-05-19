@@ -86,7 +86,6 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Copia de un predefinido',$predefinedAccountingEntryCopy);
 
 //14) Búsqueda de asientos predefinidos por tipo de asiento
-    //TO-DO: no devuelve id
 	$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::where(['EntryTypeToPredefinedEntryEntryTypeId' => '2'],$companyId)->get([],5,1,[],'','searchbyentrytype',['AccountingPeriodYear' => 2016]);
     print_result('Predefinido en base a un tipo de asiento',array_map(function($e){ return array(
 	    "PredefinedAccountingEntryCode" => $e->PredefinedAccountingEntryCode,  	    	    

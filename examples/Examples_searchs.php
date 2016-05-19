@@ -82,7 +82,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     $citysByPostalCode = Anfix\City::findByPostalCode('47140', '1');
 	print_result('Datos de ciudad a partir del CP',$citysByPostalCode);    
 
-//7) findByUser TO-DO
+//7) Ejemplo de obtención de códigos CNAE
     $cnaeList = Anfix\Cnae::all($companyId);
 	print_result('Lista de tipos de cnae',array_map(function($e){ return array(
 	    "CnaeCode" => $e->CnaeCode,	    	    
@@ -90,22 +90,13 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	); },$cnaeList));
 
 //8) Actualización de los datos de la empresa
-	//$company = Anfix\Company::firstOrFail(['CompanyId' => $companyId]);
-/* 	$company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
+ 	$company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
 
 	$company->CompanyCommercialName = 'Saneamientos Pérez';
-	$company->CompanyIdentificationTypeId = '6';
+	$company->CompanyIdentificationTypeId = '4';
 	$company->CompanyIdentificationNumber = '123456789N';
-	//$company->CompanyId = $company->CompanyId; NO SE PUEDE CAMBIAR UN ID !!
     $company->save(); //Guardado del cliente
 	print_result('Actualización de los datos de la empresa',$company->getArray());
-
-	$company = Anfix\Company::firstOrFail(['CompanyId' => $companyId],$companyId);
-	$customer->CustomerIdentificationNumber = '987654321N';
-    $customer->save(); //Guardado del cliente	*/
-
-	//$companyId = Anfix\Company::firstOrFail([])->CompanyId;
-	//print_result('CompanyId de la primera empresa disponible',$companyId);
 
 //9) Ejemplo de obtención de los datos de contacto de una empresa
     $contacts = Anfix\Contact::all($companyId);
@@ -348,7 +339,6 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	); },$bankAccounts));
 
 //38) Ejemplo de obtención de cuentas contables de una empresa
-//TO-DO: da error por el id
 	$companyAccountingAccounts = Anfix\CompanyAccountingAccount::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
 	print_result('Lista de cuentas contables',array_map(function($e){ return array(
 	    "CompanyAccountingAccount" => $e->CompanyAccountingAccount

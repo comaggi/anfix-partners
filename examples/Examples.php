@@ -458,12 +458,9 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Asiento de factura emitida actualizado',$issuedInvoiceToUpdate->AccountingEntryId);*/
     
 //36) Eliminación de un asiento contable
-//TO-DO: Da un error ¿Cómo incluyo AccountingPeriodYear
     /*$issuedInvoiceEntryReference = Anfix\CompanyAccountingEntryReference::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
     $issuedInvoiceToDelete = $issuedInvoiceEntryReference[key($issuedInvoiceEntryReference)];
-
-    $result = $issuedInvoiceToDelete->delete();
-
+    $result = $issuedInvoiceToDelete->delete(["AccountingPeriodYear" => 2016]);
     print_result('Número de asientos eliminados',$result);*/
 
 //37) Borrado de ejercicio contable
@@ -678,12 +675,11 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Facturas modificadas',$result);*/
 
 //52) Eliminación de factura
-    //TO-DO**: Da un error, cómo incluyo AccountingPeriodYear en el borrado?
 	$invoice = Anfix\Invoice::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
     	$invoiceToDelete = $invoice[key($invoice)];
 	$result = $invoiceToDelete->delete(["AccountingPeriodYear" => 2016, "FromInvoiceManagement" => true]);
 
-    print_result('Facturas modificadas',$result);
+    print_result('Facturas eliminadas',$result);
 
 //53) Creación de predefinido
 	/*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::create([
