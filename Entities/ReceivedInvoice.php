@@ -20,6 +20,8 @@
 
 namespace Anfix;
 
+use Anfix\Exceptions\AnfixException;
+
 class ReceivedInvoice extends BaseModel
 {
     protected $applicationId = 'E';
