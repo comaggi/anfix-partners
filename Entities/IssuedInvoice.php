@@ -162,7 +162,7 @@ class IssuedInvoice extends BaseModel
      * @throws Exceptions\AnfixException
      * @return object
      */
-    public function export($AccountingPeriodYear,$ExportCharge){
+    public function export($ExportCharge){
         if(! $this->IssuedInvoiceNumber)
             throw new AnfixException('Para exportar una factura debe partir de una factura ya registrada en anfix');
 

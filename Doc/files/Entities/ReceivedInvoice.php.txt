@@ -78,7 +78,7 @@ class ReceivedInvoice extends BaseModel
     /**
      * Exporta una serie de facturas a contabilidad
      *
-     * @param array $params [AccountingPeriodYear, IssuedInvoiceInitNumber, IssuedInvoiceEndNumber, IssuedInvoiceSerialNum ]
+     * @param array $params [AccountingPeriodYear, ReceivedInvoiceInitNumber, ReceivedInvoiceEndNumber, ReceivedInvoiceSerialNum ]
      * @param bool $ExportPayment
      * @param string $companyId
      * @return object
@@ -97,7 +97,7 @@ class ReceivedInvoice extends BaseModel
      * @throws Exceptions\AnfixException
      * @return object
      */
-    public function export($AccountingPeriodYear,$ExportPayment){
+    public function export($ExportPayment){
         if(! $this->IssuedInvoiceNumber)
             throw new AnfixException('Para exportar una factura debe partir de una factura ya registrada en anfix');
 
