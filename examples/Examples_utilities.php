@@ -121,7 +121,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
    $export = $invoice->export(2015,true);  
    print_result('Factura exportada', $export);*/
    
-   //Exportación de facturas por rango
+   //Exportación de facturas emitidas por rango
    /*$export = Anfix\IssuedInvoice::exportMultiple(['AccountingPeriodYear' => 2016,'IssuedInvoiceInitNumber' => 1,'IssuedInvoiceEndNumber' => 50,'IssuedInvoiceSerialNum' => 'F2016'], true,$companyId);
    print_result('Facturas emitidas exportadas', $export); */
    /*$export = Anfix\IssuedInvoice::exportMultiple(['IssuedInvoiceInitDate' => '01/05/2016', 'IssuedInvoiceEndDate' => '31/05/2016', 'AccountingPeriodYear' => 2016,'IssuedInvoiceInitNumber' => 1,'IssuedInvoiceEndNumber' => 50,'IssuedInvoiceSerialNum' => 'F2016'], true,$companyId);
@@ -133,7 +133,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     $export = $invoice->export(2015,true);
     print_result('Factura exportada', $export);
     
-   //TO-DO: Falta rango por fechas y gestionar la obligatoriedad de los campos/rangos
-   //$invoice = Anfix\ReceivedInvoice::exportMultiple(2016,1,50,'FR2016',true,$companyId);
-   //print_result('Facturas recibidas exportadas', $invoice);         
+   //Exportación de facturas recibidas por rango
+   /*$export = Anfix\ReceivedInvoice::exportMultiple(['ReceivedInvoiceInitDate' => '01/05/2016', 'ReceivedInvoiceEndDate' => '31/05/2016', 'AccountingPeriodYear' => 2016,'ReceivedInvoiceInitNumber' => 1,'ReceivedInvoiceEndNumber' => 50,'ReceivedInvoiceSerialNum' => 'FR2016'], true,$companyId);
+   print_result('Facturas recibidas exportadas', $export);*/
 
