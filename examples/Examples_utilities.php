@@ -116,6 +116,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	print_result('Factura recibida duplicada',$receivedInvoice);
 	
 //20) Exportar facturas a Contabilidad
+   //Exportación de facturas emitidas por id
    /*$invoice = Anfix\IssuedInvoice::findOrFail('ML10QQOtI',$companyId);
    print_result('Factura a exportar', $invoice);
    $export = $invoice->export(true);
@@ -127,7 +128,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
    /*$export = Anfix\IssuedInvoice::exportMultiple(['IssuedInvoiceInitDate' => '01/05/2016', 'IssuedInvoiceEndDate' => '31/05/2016', 'AccountingPeriodYear' => 2016,'IssuedInvoiceInitNumber' => 1,'IssuedInvoiceEndNumber' => 50,'IssuedInvoiceSerialNum' => 'F2016'], true,$companyId);
    print_result('Facturas emitidas exportadas', $export);*/
 
-    //TO-DO: Da un error la librería
+    //Exportación de facturas recibidas por id
     /*$invoice = Anfix\ReceivedInvoice::findOrFail("MLfVAioBI",$companyId);
     print_result('Factura a exportar', $invoice);
     $export = $invoice->export(true);
