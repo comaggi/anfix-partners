@@ -686,17 +686,17 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Predefindo creado',$predefinedAccountingEntry->PredefinedAccountingEntryId);*/
 
 //54) Modificación de predefinido
-    //TO-DO: Está fallando, no reconoce el save?
-    /*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::where(['EntryTypeToPredefinedEntryEntryTypeId' => '2'],$companyId)->get([],1,1,[],'','searchbyentrytype',['AccountingPeriodYear' => 2016]);
+    /*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::where(['EntryTypeToPredefinedEntryEntryTypeId' => '2'],$companyId)->getByEntryType(2016,true, [], [], []);
     print_result('Predefinido a actualizar',$predefinedAccountingEntry);
 
-    $predefinedToUpdate = $predefinedAccountingEntry[key($predefinedAccountingEntry)];
+    $predefinedToCreate = $predefinedAccountingEntry[key($predefinedAccountingEntry)];
 
-   $predefinedToUpdate->PredefinedAccountingEntryDescription = 'Asiento predefinido personalizado';
-   $predefinedToUpdate->AccountingPeriodYear=2016;
-   $result = $predefinedToUpdate->save();
+    $predefinedToCreate->PredefinedAccountingEntryDescription = 'Asiento predefinido personalizado';
+    $predefinedToCreate->AccountingPeriodYear=2016;
+    $predefinedToCreate->PredefinedAccountingEntryCode='990';
+    $result = $predefinedToCreate->save();
 
-   print_result('Número de asientos predefinidos actualizados',$result);*/
+    print_result('Número de asientos predefinidos actualizados',$result);*/
 
 //55) Eliminación de predefinido
    //TO-DO**: Está apareciendo un error al hacer el delete
