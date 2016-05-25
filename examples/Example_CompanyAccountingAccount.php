@@ -32,5 +32,5 @@ $data = Anfix\CompanyAccountingAccount::select(2016, 7000000, $companyId);
 print_result('Selección de datos de subcuentas contables',$data);
 
 //Impresión de cuentas del plan contable de la empresa.
-$data = Anfix\CompanyAccountingAccount::where([], $companyId)->accountPrint(['AccountingPeriodYear' => 2016]);
+$data = Anfix\CompanyAccountingAccount::where(['CompanyAccountingAccountLevelInclude' => [1, 2, 3, 4, 5, 6]], $companyId)->accountPrint(['AccountingPeriodYear' => 2016, 'HierarchyLevel' => true, 'ReportFormat' => 'PDF', 'ShowAccountsWithoutEntries' => true, 'ShowBalance' =>true], [],null ,null ,['CompanyAccountingAccountNumber'],['ASC']);
 print_result('Selección de datos de subcuentas contables',$data);
