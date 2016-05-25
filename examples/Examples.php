@@ -699,15 +699,15 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Número de asientos predefinidos actualizados',$result);*/
 
 //55) Eliminación de predefinido
-   //TO-DO**: Está apareciendo un error al hacer el delete
-    /*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::where(['EntryTypeToPredefinedEntryEntryTypeId' => '2'],$companyId)->get([],1,1,[],'','searchbyentrytype',['AccountingPeriodYear' => 2016]);
+    /*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::where([],$companyId)->get([],1,1,['PredefinedAccountingEntryCode'],['ASC'],'search',['AccountingPeriodYear' => 2016, 'IncludeStructuralPredefinedAccountingEntries' => true]);
     print_result('Predefinido a eliminar',$predefinedAccountingEntry);
 
     $predefinedToDelete = $predefinedAccountingEntry[key($predefinedAccountingEntry)];
 
-   $result = $predefinedToDelete->delete(["AccountingPeriodYear" => 2016]);
+    $result = $predefinedToDelete->delete(["AccountingPeriodYear" => 2016]);
 
-   print_result('Número de asientos predefinidos eliminados',$result);*/
+    print_result('Número de asientos predefinidos eliminados',$result);*/
+
 
 //56) Creación de tipo impositivo
 	/*$vat = Anfix\Vat::create([
