@@ -58,7 +58,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     print_result('Reporte de la factura',$report);
 
     //Contabilización de la factura
-    $export_result = $invoice->export(2016,true);
+    $export_result = $invoice->export(true);
     print_result('Contabilización de la factura',$export_result);
 
 
