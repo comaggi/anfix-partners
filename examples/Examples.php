@@ -33,19 +33,6 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	//$directoryCreated = Anfix\MyDocuments::createdirectory(['HumanReadableName' => 'temp', 'HumanReadablePath'=> '/', 'OwnerId' => 'L7DZmNGqU','OwnerTypeId' => '2'],$companyId);
 	//print_result('Creación de una carpeta en Documentos',$directoryCreated);
 
-//2) Creación de fichero
-//Coger del ejemplo base
-
-//3) Descarga de un fichero
-//coger del ejemplo base
-
-//4) Enviar mail
-//coger del ejemplo base
-
-//5) media download
-
-//6) media upload
-
 //Módulo de Facturación
 
 //7) Creación de cobro
