@@ -1,3 +1,111 @@
+API para conexión con los servicios de facturacin de anfix. Capa de abstracción en PHP que pretende simplificar el uso de la API de anfix. Con ella, se puede acceder a los servicios de Facturación y Contabilidad.
+
+([Ver ejemplos!](examples/Examples.php)
+
+* **Módulo de Facturación**
+   * Clientes
+      * Creación de cliente
+      * Modificación de cliente
+      * Eliminación de un cliente
+
+   * Proveedores
+      * Creación de un proveedor
+      * Modificación de un proveedor
+      * Eliminación de un proveedor
+
+   * Presupuestos
+      * Creación de presupuesto
+      * Modificación de presupuesto
+      * Eliminación de presupuesto
+      * Generación de un preview de un presupuesto
+
+   * Facturas Emitidas
+      * Creación de factura emitida
+      * Modificación de factura emitida
+      * Eliminación de factura emitida
+      * Generación de un preview de una factura emitida
+			* efactura
+
+   * Facturas Recibidas
+      * Creación de factura recibida 
+      * Modificación de factura recibida
+      * Eliminación de factura recibida
+
+  * Cobros
+      * Creación de cobro
+      * Actualización de cobro
+      * Eliminación de cobro
+
+  * Pagos
+      * Creación de pago
+      * Modificación de pago
+      * Eliminación de pago
+
+   * Facturas Recurrentes
+      * Creación de factura recurrente
+      * Modificación de factura recurrente
+      * Eliminación de factura recurrente
+
+   * Tipos de Impuestos
+      * Creación de un tipo impositivo
+      * Modificación de un tipo impositivo
+   		* Eliminación de un tipo impositivo
+
+* **Módulo de Contabilidad**
+	* Empresas
+	  * Creación de empresa
+	  * Actualización de una empresa
+
+	* Ejercicio Contable
+	  * Borrado de ejercicio contable
+	  * Desactivación de ejercicio contable
+	  * Actualización de ejercicio contable
+
+	* Cuentas
+	  * Creación de cuenta contable
+	  * Modificación de cuenta contable
+	  * Eliminación de cuenta contable
+
+	* Asientos
+	  * Creación de un asiento contable
+	  * Actualización de un asiento contable
+	  * Eliminación de un asiento contable
+
+	* Asientos Predefinidos
+		* Creación de predefinido
+	  * Modificación de predefinido
+	  * Eliminación de predefinido
+
+	* Facturas en Contabilidad
+		* Creación de factura
+	  * Modificación de factura
+	  * Eliminación de factura
+		* efactura
+
+	* Retenciones
+	  * Creación de retención
+	  * Modificación de retención
+	  * Eliminación de retención
+
+	* Tipos de Impuestos
+	  * Creación de tipo impositivo
+	  * Modificación de tipo impositivo
+	  * Eliminación de tipo impositivo
+
+	* Estados Financieros
+	  * Eliminación de plantilla de Balance/PyG
+	  * Listado del Plan Contable
+	  * Libro Mayor
+	  * Libro Diario
+	  * Sumas y Saldos
+	  * Balance
+	  * PyG
+	  * Listado de IVA Repercutido
+	  * Listado de IVA Soportado
+
+
+
+
 #### Requerimientos mínimos
 * php > 5.2.2
 * curl
