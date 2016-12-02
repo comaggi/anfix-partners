@@ -31,13 +31,11 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     $invoices = Anfix\IssuedInvoice::all($companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
     print_result('Listado de id de facturas',array_map(function($e){ return $e->IssuedInvoiceId; },$invoices));
 
-
     //Obtención de la factura con id L,iWRC3GE
     //$invoice = Anfix\IssuedInvoice::findOrFail('L,iWRC3GE',$companyId); //Obtenemos la factura con el id indicado o un error si no existe
 
     //Obtención de la primera factura
     $invoice = Anfix\IssuedInvoice::first([],$companyId); //Obtenemos la factura con el id indicado o un error si no existe
-
 
     //Cobro de la factura
     $charge = \Anfix\Charge::create([
@@ -47,7 +45,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     ],$companyId);
     print_result('Creación de un cargo',$charge);
 
-    //Reporte de la factura
+    //Report de la factura
     $report = \Anfix\DocumentReport::issuedInvoice([
         "IssuedInvoiceIds" =>  [$invoice->IssuedInvoiceId],
         "IssuedInvoiceTemplateId" =>  "65",
