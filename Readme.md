@@ -1,4 +1,4 @@
-API para conexión con los servicios de facturacin de anfix. Capa de abstracción en PHP que pretende simplificar el uso de la API de anfix. Con ella, se puede acceder a los servicios de Facturación y Contabilidad.
+Versión Beta de la nueva API para conexión con los servicios de facturacin de anfix (no publicada aún en el entorno de producción). Capa de abstracción en PHP que pretende simplificar el uso de la API de anfix. Con ella, se puede acceder a los servicios de Facturación y Contabilidad más básicos y habituales.
 
 ([Ver ejemplos!](examples/Examples.php)
 
@@ -49,11 +49,10 @@ API para conexión con los servicios de facturacin de anfix. Capa de abstracció
    * Tipos de Impuestos
       * Creación de un tipo impositivo
       * Modificación de un tipo impositivo
-   		* Eliminación de un tipo impositivo
+      * Eliminación de un tipo impositivo
 
 * **Módulo de Contabilidad**
 	* Empresas
-	  * Creación de empresa
 	  * Actualización de una empresa
 
 	* Ejercicio Contable
@@ -72,15 +71,9 @@ API para conexión con los servicios de facturacin de anfix. Capa de abstracció
 	  * Eliminación de un asiento contable
 
 	* Asientos Predefinidos
-		* Creación de predefinido
+	  * Creación de predefinido
 	  * Modificación de predefinido
 	  * Eliminación de predefinido
-
-	* Facturas en Contabilidad
-		* Creación de factura
-	  * Modificación de factura
-	  * Eliminación de factura
-		* efactura
 
 	* Retenciones
 	  * Creación de retención
