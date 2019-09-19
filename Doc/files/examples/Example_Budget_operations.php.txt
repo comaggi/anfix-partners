@@ -49,7 +49,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
 
     //Conversión del presupuesto en factura
-    $invoice = $budget->generateDocuments([$budget->CustomerBudgetId],3,$companyId);
+    $invoice = $budget->generatedocuments([$budget->CustomerBudgetId],3,$companyId);
     print_result('Conversión de presupuesto en factura',$invoice);
 
 

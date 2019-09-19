@@ -29,7 +29,7 @@ include 'example_utils.php';
 
 //Módulo de Servicios Básicos
 
-//1) Ejemplo de obtención de todas las empresas disponibles para la cuenta por defecto:
+// 1) Ejemplo de obtención de todas las empresas disponibles para la cuenta por defecto:
     $myCompanies = Anfix\Company::all();
 	print_result('Lista de empresas disponibles',array_map(function($e){ return array(
 		"CompanyCorporateName" => $e->CompanyCorporateName,    
@@ -60,7 +60,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
 //4) Ejemplo de obtención de las cuentas bancarias
     $bankAccounts = Anfix\BankAccount::all($companyId);
-	print_result('Lista de tipos de vía',array_map(function($e){ return array(
+	print_result('Lista de cuentas bancarias',array_map(function($e){ return array(
 	    "BankName" => $e->BankName,	    	    
 	    "BankAccountEntity" => $e->BankAccountEntity,
 	    "BankAccountOffice" => $e->BankAccountOffice,
@@ -71,23 +71,29 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "BankAccountingAccount" => $e->BankAccountingAccount
 	); },$bankAccounts));
 
-//5) Ejemplo de obtención de los códigos CNAE asociados a una empresa
+//5) Ejemplo de obtención de los productos bancarios
+	$banks = Anfix\Bank::getBalanceBanks([], $companyId);
+	print_result('Lista de productos bancarios',array_map(function($e){ return array(
+	    "BankAccountInfo" => $e->BankAccountInfo,
+	    "BankCompanyAccountTypeId" => $e->BankCompanyAccountTypeId,		    
+	    "BankAccountActualBalance" => $e->BankAccountActualBalance,
+	    "BankAccountRefreshDate" => $e->BankAccountRefreshDate,
+	    "BankAccountRefreshStatus" => $e->BankAccountRefreshStatus,	 
+	    "BankName" => $e->BankName,	 
+	    "BankComercialName" => $e->BankComercialName,	 
+	    "BankLogoId" => $e->BankLogoId
+	); },$banks));
+
+//6) Ejemplo de obtención de los códigos CNAE asociados a una empresa
     $cnaeList = Anfix\Cnae::all($companyId);
 	print_result('Lista de tipos de cnae',array_map(function($e){ return array(
 	    "CnaeCode" => $e->CnaeCode,	    	    
 	    "CnaeDescription" => $e->CnaeDescription
 	); },$cnaeList));
 
-//6) Ejemplo de obtención de datos de ciudad a partir del CP
+//7) Ejemplo de obtención de datos de ciudad a partir del CP
     $citysByPostalCode = Anfix\City::findByPostalCode('47140', '1');
 	print_result('Datos de ciudad a partir del CP',$citysByPostalCode);    
-
-//7) Ejemplo de obtención de códigos CNAE
-    $cnaeList = Anfix\Cnae::all($companyId);
-	print_result('Lista de tipos de cnae',array_map(function($e){ return array(
-	    "CnaeCode" => $e->CnaeCode,	    	    
-	    "CnaeDescription" => $e->CnaeDescription
-	); },$cnaeList));
 
 //8) Actualización de los datos de la empresa
  	$company = Anfix\Company::first([],$companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
@@ -146,19 +152,23 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 //Módulo de Facturación
 
 //15) Ejemplo de obtención de los cobros (da igual el origen de los mismos)
-	$charges = Anfix\Charge::where(['ChargeSourceId' => 'LQ:,4qF3A', 'ChargeSourceType' => '2'], $companyId)->get();
+	$charges = Anfix\Charge::where(['ChargeSourceId' => '1aWViTNwps', 'ChargeSourceType' => '2'], $companyId)->get();
 	print_result('Lista de cobros (independientemente del origen)',array_map(function($e){ return array(
 	    "ChargeDescription" => $e->ChargeDescription,
 	    "ChargeAmount" => $e->ChargeAmount,
-	    "ChargeDate" => $e->ChargeDate    
+			"ChargeDate" => $e->ChargeDate,
+			"ChargeAccountId" => $esysout->ChargeAccountId,
+			"ChargeAccountTypeId" => $e->ChargeAccountTypeId
 	); },$charges));
 
 //16) Ejemplo de obtención de cobros vinculados a facturas emitidas
-	$charges = Anfix\Charge::where([],$companyId)->searchforissuedinvoice();
+	$charges = Anfix\Charge::all($companyId);
 	print_result('Lista de cobros vinculados a facturas emitidas',array_map(function($e){ return array(
 	    "ChargeDescription" => $e->ChargeDescription,
 	    "ChargeAmount" => $e->ChargeAmount,
-	    "ChargeDate" => $e->ChargeDate	    
+	    "ChargeDate" => $e->ChargeDate,
+			"ChargeAccountId" => $e->ChargeAccountId,
+			"ChargeAccountTypeId" => $e->ChargeAccountTypeId
 	); },$charges));
 
 //17) Ejemplo de obtención de los clientes de una empresa
@@ -177,16 +187,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "CustomerBudgetTotalValue" => $e->CustomerBudgetTotalValue	    
 	); },$customerBudgets));
 
-//19) Ejemplo de obtención de vencimientos de facturas emitidas
-	$issuedInvoiceExpirations = Anfix\Expiration::where(['IsInRemittance'=> false],$companyId)->searchforissuedinvoice();
-	print_result('Lista de vencimientos no remesados',array_map(function($e){ return array(
-	    "ExpirationSerialNum" => $e->ExpirationSerialNum,
-	    "ExpirationDocumentNumber" => $e->ExpirationDocumentNumber,
-	    "ExpirationDate" => $e->ExpirationDate,
-	    "ExpirationQuantity" => $e->ExpirationQuantity    	    
-	); },$issuedInvoiceExpirations));	
-
-//20) Ejemplo de obtención de las facturas emitidas de una empresa
+//19) Ejemplo de obtención de las facturas emitidas de una empresa
 	$issuedInvoices = Anfix\IssuedInvoice::all($companyId);
 	print_result('Lista de facturas emitidas de una empresa',array_map(function($e){ return array(
 	    "IssuedInvoiceSerialNum" => $e->IssuedInvoiceSerialNum,
@@ -195,23 +196,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "IssuedInvoiceTotalValue" => $e->IssuedInvoiceTotalValue	    
 	); },$issuedInvoices));
 
-//21) Ejemplo de obtención de las líneas de las facturas emitidas de una empresa
-	//TO-DO: da error el servicio pero es porque esa búsqueda no está permitida? comprobar
-	/*$issuedInvoiceLines = Anfix\IssuedInvoiceLine::all($companyId);
-	print_result('Lista de las líneas de las facturas emitidas de una empresa',array_map(function($e){ return array(
-	    "IssuedInvoiceLineItemRef" => $e->IssuedInvoiceLineItemRef    
-	); },$issuedInvoiceLines));*/
-
-//Ejemplo de obtención de cobros pendientes
-	$charges = Anfix\IssuedInvoice::where(['IssuedInvoiceStateIdDistinct'=>'3'],$companyId)->searchForCharge();
-	print_result('Lista de cobros de una factura emitida',array_map(function($e){ return array(
-	    "IssuedInvoiceNumber" => $e->IssuedInvoiceNumber,
-	    "IssuedInvoiceDate" => $e->IssuedInvoiceDate,
-	    "IssuedInvoiceTotalValue" => $e->IssuedInvoiceTotalValue,
-	    "IssuedInvoiceChargedAmount" => $e->IssuedInvoiceChargedAmount    	    
-	); },$charges));
-
-//22) Ejemplo de obtención de las formas de pago
+//20) Ejemplo de obtención de las formas de pago
 	$payChargeMethods = Anfix\PayChargeMethod::all($companyId);
 	print_result('Lista de formas de pago de una empresa',array_map(function($e){ return array(
 	    "PayChargeMethodCode" => $e->PayChargeMethodCode,
@@ -219,7 +204,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "PayChargeMethodEInvoiceCodeValue" => $e->PayChargeMethodEInvoiceCodeValue
 	); },$payChargeMethods));
 
-//23) Ejemplo de obtención de los pagos (da igual el origen de los mismos)
+//21) Ejemplo de obtención de los pagos (da igual el origen de los mismos)
 	$payments = Anfix\Payment::where([], $companyId)->get();
 	print_result('Lista de pagos (independientemente del origen)',array_map(function($e){ return array(
 	    "PaymentDescription" => $e->PaymentDescription,
@@ -227,7 +212,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "PaymentDate" => $e->PaymentDate    
 	); },$payments));
 
-//24) Ejemplo de obtención de las facturas recibidas de una empresa
+//22) Ejemplo de obtención de las facturas recibidas de una empresa
 	$receivedInvoices = Anfix\ReceivedInvoice::all($companyId);
 	print_result('Lista de facturas recibidas de una empresa',array_map(function($e){ return array(
 	    "ReceivedInvoiceSerialNum" => $e->ReceivedInvoiceSerialNum,
@@ -236,16 +221,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "ReceivedInvoiceTotalValue" => $e->ReceivedInvoiceTotalValue	    
 	); },$receivedInvoices));
 
-//25) Ejemplo de obtención de pagos pendientes
-	$receivedInvoices = Anfix\ReceivedInvoice::where([],$companyId)->searchForPayment();
-	print_result('Lista de pagos de una factura recibida',array_map(function($e){ return array(
-	    "ReceivedInvoiceNumber" => $e->ReceivedInvoiceNumber,
-	    "ReceivedInvoiceDate" => $e->ReceivedInvoiceDate,
-	    "ReceivedInvoiceTotalValue" => $e->ReceivedInvoiceTotalValue,
-	    "ReceivedInvoicePaidAmount" => $e->ReceivedInvoicePaidAmount    	    
-	); },$receivedInvoices));
-
-//26) Ejemplo de obtención de las facturas recurrentes de una empresa
+//23) Ejemplo de obtención de las facturas recurrentes de una empresa
 	$recurringInvoices = Anfix\RecurringInvoice::all($companyId);
 	print_result('Lista de facturas recurrentes de una empresa',array_map(function($e){ return array(
 	    "RecurringInvoiceSerialNum" => $e->ReceivedInvoiceSerialNum,
@@ -254,14 +230,14 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "RecurringInvoiceTotalValue" => $e->RecurringInvoiceTotalValue	    
 	); },$recurringInvoices));
 
-//27) Ejemplo de obtención de los proveedores de una empresa
+//24) Ejemplo de obtención de los proveedores de una empresa
 	$suppliers = Anfix\Supplier::all($companyId);
 	print_result('Lista de proveedores de una empresa',array_map(function($e){ return array(
 	    "SupplierFiscalName" => $e->SupplierFiscalName,
 	    "SupplierIdentificationNumber" => $e->SupplierIdentificationNumber	    
 	); },$suppliers));
 
-//28) Ejemplo de obtención de los impuestos de una empresa
+//25) Ejemplo de obtención de los impuestos de una empresa
 	$taxValues = Anfix\TaxValue::all($companyId);
 	print_result('Lista de impuestos de una empresa',array_map(function($e){ return array(
 	    "VatValue" => $e->VatValue,
@@ -271,30 +247,26 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "VatEndDate" => $e->VatEndDate    	    
 	); },$taxValues));
 
-//29)Ejemplo de obtención de las gráficas de tesorería
-	$treasuryData = Anfix\TreasuryDataGraph::search(['CheckExpenses'=> true, 'CheckRevenues'=> true, 'CheckTreasury' => true],$companyId);
-	print_result('Datos de tesorería de la empresa',$treasuryData);	
-
 //Módulo de Contabilidad
 
-//30) Ejemplo de obtención de las Cuentas Contables de un plan general contable
+//26) Ejemplo de obtención de las Cuentas Contables de un plan general contable
 	$accountingAccounts = Anfix\AccountingAccount::where(['AccountingPlanId'=>'1'],$companyId)->get();	
 	print_result('Lista de cuentas contables de una empresa',array_map(function($e){ return array(
 	    "AccountingAccountNumber" => $e->AccountingAccountNumber,
 	    "AccountingAccountDescription" => $e->AccountingAccountDescription
 	); },$accountingAccounts));
 
-//31) Ejemplo de obtención de los asientos de una empresa y un ejercicio fiscal
-	$accountingEntryReferences = Anfix\CompanyAccountingEntryReference::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
+//27) Ejemplo de obtención de los asientos de una empresa y un ejercicio fiscal
+	$accountingentrys = Anfix\CompanyAccountingEntryReference::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2019]);
 	print_result('Lista de asientos de una empresa',array_map(function($e){ return array(
 	    "AccountingEntryDate" => $e->AccountingEntryDate,	    
 	    "PredefinedAccountingEntryDescription" => $e->PredefinedAccountingEntryDescription,	    	    
 	    "CompanyAccountingEntryNote" => $e->CompanyAccountingEntryNote,
 	    "Invoice" => $e->Invoice
-	); },$accountingEntryReferences));
+	); },$accountingentrys));
 
-//32) Ejemplo de obtención de los apuntes de una empresa y un ejercicio fiscal
-	$accountingEntryNotes = Anfix\CompanyAccountingEntryNote::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
+//28) Ejemplo de obtención de los apuntes de una empresa y un ejercicio fiscal
+	$accountingEntryNotes = Anfix\CompanyAccountingEntryNote::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2019]);
 	print_result('Lista de apuntes de una empresa',array_map(function($e){ return array(
 	    "AccountingEntryDate" => $e->AccountingEntryDate,	    
 	    "AccountingEntryDocumentDescription" => $e->AccountingEntryDocumentDescription,	    	    
@@ -302,7 +274,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "CompanyAccountingAccountNumberBalance" => $e->CompanyAccountingAccountNumberBalance
 	); },$accountingEntryNotes));
 
-//33) Ejemplo de obtención de los ejercicios de una empresa
+//29) Ejemplo de obtención de los ejercicios de una empresa
 	$accountingPeriodYears = Anfix\CompanyAccountingPeriod::where([],$companyId)->get();
 	print_result('Lista de ejercicios de una empresa',array_map(function($e){ return array(
 	    "AccountingPeriodYear" => $e->AccountingPeriodYear,	    
@@ -311,7 +283,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "CompanyAccountingPeriodEndDate" => $e->CompanyAccountingPeriodEndDate
 	); },$accountingPeriodYears));
 
-//34) Ejemplo de obtención de planes contables existentes
+//30) Ejemplo de obtención de planes contables existentes
 	$accountingPlans = Anfix\AccountingPlan::all($companyId);
 	print_result('Lista de planes contables oficiales y sus cuentas',array_map(function($e){ return array(
 	    "AccountingPlanName" => $e->AccountingPlanName,	    
@@ -320,31 +292,24 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	); },$accountingPeriodYears));
 
 
-//35) Ejemplo de obtención de parámetros base de un plan contable
+//31) Ejemplo de obtención de parámetros base de un plan contable
 	$accountingPlanParameterBase = Anfix\AccountingPlanParameterBase::where(['AccountingPlanParameterBaseAccountingPlanId'=> '1'],$companyId)->get();
 	print_result('Plantilla de parametrización base de un plan contable',$accountingPlanParameterBase);
 
-//36) Ejemplo de obtención de datos de actividad de una empresa
+//32) Ejemplo de obtención de datos de actividad de una empresa
 	$activities = Anfix\Activity::all($companyId);
 	print_result('Lista de actividades',array_map(function($e){ return array(
 	    "EconomicActivityCode" => $e->EconomicActivityCode,	    	    
 	    "EconomicActivityName" => $e->EconomicActivityName
 	); },$activities));
 
-//37) Ejemplo de obtención de cuentas contables de banco de una empresa
-	$bankAccounts = Anfix\BankAccount::all($companyId);
-	print_result('Lista de cuentas contables de banco',array_map(function($e){ return array(
-	    "BankAccountingAccount" => $e->BankAccountingAccount,	    	    
-	    "BankAccountIBAN" => $e->BankAccountIBAN
-	); },$bankAccounts));
-
-//38) Ejemplo de obtención de cuentas contables de una empresa
-	$companyAccountingAccounts = Anfix\CompanyAccountingAccount::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
+//33) Ejemplo de obtención de cuentas contables de una empresa
+	$companyAccountingAccounts = Anfix\CompanyAccountingAccount::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2019]);
 	print_result('Lista de cuentas contables',array_map(function($e){ return array(
 	    "CompanyAccountingAccount" => $e->CompanyAccountingAccount
 	); },$companyAccountingAccounts));
 
-//39) Ejemplo de obtención de retenciones de una empresa
+//34) Ejemplo de obtención de retenciones de una empresa
 	$deductionValues = Anfix\DeductionValue::all($companyId);
 	print_result('Lista de retenciones',array_map(function($e){ return array(
 	    "DeductionValueValue" => $e->DeductionValueValue,
@@ -354,8 +319,8 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "DeductionTypeValue" => $e->DeductionTypeValue,	        	    
 	); },$deductionValues));
 
-//40) Ejemplo de obtención de las cuentas anuales de una empresa
-	$deferments = Anfix\Deferment::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
+//35) Ejemplo de obtención de las cuentas anuales de una empresa
+	$deferments = Anfix\Deferment::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2019]);
 	print_result('Lista de cuentas anuales',array_map(function($e){ return array(
 	    "DefermentTotalValue" => $e->DefermentTotalValue,
 	    "DefermentOutsideLegalDeadlineValue" => $e->DefermentOutsideLegalDeadlineValue,	    
@@ -364,48 +329,36 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "DefermentInsideLegalDeadlineValue" => $e->DefermentInsideLegalDeadlineValue,	        	    
 	); },$deferments));
 
-//41) Ejemplo de obtención de las actividades económicas estructurales
+//36) Ejemplo de obtención de las actividades económicas estructurales
 	$economicActivities = Anfix\EconomicActivity::all($companyId);
 	print_result('Lista de cuentas anuales',array_map(function($e){ return array(
 	    "EconomicActivityCode" => $e->EconomicActivityCode,	    	    
 	    "EconomicActivityName" => $e->EconomicActivityName        	    
 	); },$economicActivities));	
 
-//42) Ejemplo de obtención de las facturas de una emprsa
-	$invoices = Anfix\Invoice::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
-	print_result('Lista de facturas',array_map(function($e){ return array(
-	    "InvoiceDate" => $e->InvoiceDate,	    	    
-	    "InvoiceSerialNum" => $e->InvoiceSerialNum,
-	    "InvoiceType" => $e->InvoiceType,	    	    	    
-		"InvoiceTotalValue" => $e->InvoiceTotalValue,	    
-	    "InvoiceCustomerSupplierAccountingAccountNumber" => $e->InvoiceCustomerSupplierAccountingAccountNumber,	    
-	    "InvoiceLine" => $e->InvoiceLine,
-	    "CashFlow" => $e->CashFlow	           	    
-	); },$invoices));
-
-//43) Ejemplo de obtención de las personas jurídicas de una empresa
+//37) Ejemplo de obtención de las personas jurídicas de una empresa
 	$legalPerson = Anfix\LegalPerson::all($companyId);
 	print_result('Lista de personas jurídicas de la empresa',array_map(function($e){ return array(
 	    "LegalPersonAttorneyName" => $e->LegalPersonAttorneyName,	    	    
 	    "LegalPersonIdentificationNumber" => $e->LegalPersonIdentificationNumber
 	); },$legalPerson));
 
-//44) Ejemplo de obtención de las claves de operación
-	$operationKeys = Anfix\OperationKey::where(['OperationKeyDate'=> '01/01/2016', 'OperationKeyInvoiceType'=>1],$companyId)->get();
+//38) Ejemplo de obtención de las claves de operación
+	$operationKeys = Anfix\OperationKey::where(['OperationKeyDate'=> '01/01/2019', 'OperationKeyInvoiceType'=>1],$companyId)->get();
 	print_result('Lista de claves de operación',array_map(function($e){ return array(
 	    "OperationKeyCode" => $e->OperationKeyCode,	    	    
 	    "OperationKeyStartDate" => $e->OperationKeyStartDate,
 	    "OperationKeyDescription" => $e->OperationKeyDescription	    
 	); },$operationKeys));
 
-//45) Ejemplo de obtención de los tipos de operación
-	$operationTypes = Anfix\OperationType::where(['OperationTypeDate'=> '01/01/2016', 'OperationTypeOwnerTypeId'=> '2', 'OperationTypeAccountingEntryTypeId' => '2'],$companyId)->get();
+//39) Ejemplo de obtención de los tipos de operación
+	$operationTypes = Anfix\OperationType::where(['OperationTypeDate'=> '01/01/2019', 'OperationTypeOwnerTypeId'=> '2', 'OperationTypeAccountingEntryTypeId' => '2'],$companyId)->get();
 	print_result('Lista de tipos de operación',array_map(function($e){ return array(
 	    "OperationTypeCode" => $e->OperationTypeCode,	    	    
 	    "OperationTypeDescription" => $e->OperationTypeDescription	    
 	); },$operationTypes));
 
-//46) Ejemplo de obtención de los socios de una empresa
+//40) Ejemplo de obtención de los socios de una empresa
 	$partners = Anfix\Partner::all($companyId);
 	print_result('Lista de partners de una empresa',array_map(function($e){ return array(
 	    "PartnerName" => $e->PartnerName,	    	    
@@ -414,31 +367,31 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "PartnerPercentage" => $e->PartnerPercentage	    
 	); },$partners));
 
-//47) Ejemplo de obtención de predefinidos de una empresa
-	$predefinedAccountingEntries = Anfix\PredefinedAccountingEntry::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016, 'IncludeStructuralPredefinedAccountingEntries' => true]);
+//41) Ejemplo de obtención de predefinidos de una empresa
+	$predefinedAccountingEntries = Anfix\PredefinedAccountingEntry::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2019, 'IncludeStructuralPredefinedAccountingEntries' => true]);
 	print_result('Lista de predefinidos de una empresa',array_map(function($e){ return array(
 	    "PredefinedAccountingEntryCode" => $e->PredefinedAccountingEntryCode,	    	    
 	    "PredefinedAccountingEntryDescription" => $e->PredefinedAccountingEntryDescription,
 	    "PredefinedAccountingEntryTypeName" => $e->PredefinedAccountingEntryTypeName
 	); },$predefinedAccountingEntries));
 
-//48) Ejemplo de obtención de predefinidos por tipo de asiento de una empresa
-	$predefinedAccountingEntries = Anfix\PredefinedAccountingEntry::where(['PredefinedAccountingEntryTypeId'=> '1'],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016, 'IncludeStructuralPredefinedAccountingEntries' => true]);
+//42) Ejemplo de obtención de predefinidos por tipo de asiento de una empresa
+	$predefinedAccountingEntries = Anfix\PredefinedAccountingEntry::where(['PredefinedAccountingEntryTypeId'=> '1'],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2019, 'IncludeStructuralPredefinedAccountingEntries' => true]);
 	print_result('Lista de predefinidos por tipo de asiento de una empresa',array_map(function($e){ return array(
 	    "PredefinedAccountingEntryCode" => $e->PredefinedAccountingEntryCode,	    	    
 	    "PredefinedAccountingEntryDescription" => $e->PredefinedAccountingEntryDescription,
 	    "PredefinedAccountingEntryTypeName" => $e->PredefinedAccountingEntryTypeName
 	); },$predefinedAccountingEntries));
 
-//49) Ejemplo de obtención de empleados asalariados en cuentas anuales de una empresa
-	$salariedEmployees = Anfix\SalariedEmployee::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016, 'IncludeStructuralPredefinedAccountingEntries' => true]);
+//43) Ejemplo de obtención de empleados asalariados en cuentas anuales de una empresa
+	$salariedEmployees = Anfix\SalariedEmployee::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2019, 'IncludeStructuralPredefinedAccountingEntries' => true]);
 	print_result('Lista de empleados asalariados en cuentas anuales de una empresa',array_map(function($e){ return array(
 	    "AccountingPeriodYear" => $e->AccountingPeriodYear,	    	    
 	    "SalariedEmployeeTotalFixedFemale" => $e->SalariedEmployeeTotalFixedFemale,
 	    "SalariedEmployeeTotalFixedMale" => $e->SalariedEmployeeTotalFixedMale
 	); },$salariedEmployees));	
 
-//50) Ejemplo de obtención de los tipos impositivos de una empresa
+//44) Ejemplo de obtención de los tipos impositivos de una empresa
 	$vats = Anfix\Vat::all($companyId);
 	print_result('Lista de tipos impositivos de una empresa',array_map(function($e){ return array(
 	    "VatValue" => $e->VatValue,
@@ -448,8 +401,8 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "VatEndDate" => $e->VatEndDate  
 	); },$vats));
 
-//51) Ejemplo de obtención de plantillas
-	$templates = Anfix\Template::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2016]);
+//45) Ejemplo de obtención de plantillas
+	$templates = Anfix\Template::where([],$companyId)->get([],5,1,[],'','search',['AccountingPeriodYear' => 2019]);
 	print_result('Lista de plantillas de Balances y PyGs de una empresa',array_map(function($e){ return array(
 	    "TemplateName" => $e->TemplateName,	    	    
 	    "TemplateTypeName" => $e->TemplateTypeName

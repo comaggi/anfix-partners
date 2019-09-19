@@ -23,7 +23,7 @@ namespace Anfix;
 class CompanyAccountingEntryNote extends BaseModel
 {
     protected $applicationId = '3';
-	protected $apiUrlSufix = 'company/accountingentryreference/note/';
+	protected $apiUrlSufix = 'company/accountingentry/note/';
     protected $primaryKey = 'AccountingEntryNoteId';
     protected $update = false;
     protected $create = false;

@@ -24,7 +24,8 @@ use Anfix\Exceptions\AnfixException;
 
 class IssuedInvoice extends BaseModel
 {
-    protected $applicationId = 'E';
+    protected $applicationId = 'e';
+    protected $apiUrlSufix = 'sale/issuedinvoice/';
     protected $update = true;
     protected $create = true;
     protected $delete = true;
@@ -55,20 +56,6 @@ class IssuedInvoice extends BaseModel
     }
 
     /**
-     * Consulta de cobros de una factura emitida.
-     * Esta función se utiliza como get, normalmente después de ::where para establecer el filtrado
-     * @param array $fields Campos a devolver
-     * @param int $maxRows = null Máximo de filas a mostrar, si no se indica se devolverán 50
-     * @param null $minRowNumber Primera entrada a devolver como resultado del conjunto total de entradas devueltas por la operación
-     * @param array $order Lista con los campos por los que se quiere ordenar los resultados
-     * @param string $orderTypes ”ASC” o ”DESC”
-     * @return array
-     */
-    public function searchForCharge(array $fields = [],$maxRows = null, $minRowNumber = null, array $order = [], $orderTypes = 'ASC'){
-        return parent::get($fields, $maxRows, $minRowNumber, $order, $orderTypes, 'searchForCharge',[],str_replace('servicios/','simple/',$this->apiBaseUrl));
-    }
-
-    /**
      * Generación de factura electrónica.
      * @param string $eInvoiceFormat = 'facturae32' Especifica el formato de la factura electrónica
      * @param bool $forced = false Indica si debe forzarse o no la generación de la factura electrónica en caso de que se hubiese almacenado previamente
@@ -79,7 +66,6 @@ class IssuedInvoice extends BaseModel
      * @return Object
      */
     public function generateEInvoice($eInvoiceFormat = 'facturae32', $forced = false, $temporal = false, $EInvoiceCertificateId = "1", $EInvoiceCertificateAlias = "AnfixCert"){
-
         if(! $this->{$this->primaryKey})
             throw new AnfixException('Para generar una factura electrónica debe partir de una factura ya registrada en anfix');
 
@@ -92,10 +78,10 @@ class IssuedInvoice extends BaseModel
             'EInvoiceCertificateAlias' => $EInvoiceCertificateAlias
         ];
 
-        $url = $this->config['applicationIdUrl'][$this->applicationId].'report/einvoice';
+        $url = $this->config['applicationIdUrl']['E'].'report/einvoice';
 
         $result = Anfix::sendRequest($url,[
-            'applicationId' =>  $this->applicationId,
+            'applicationId' =>  'e',
             'companyId' => $this->companyId,
             'inputBusinessData' => [
                 $this->Model => $params
@@ -113,7 +99,7 @@ class IssuedInvoice extends BaseModel
      * @throws Exceptions\AnfixException
      * @throws Exceptions\AnfixResponseException
      */
-    public function createPayment($date, $amount){
+    public function createPayment($date, $amount, $accountId, $accountTypeId){
         $formapago = $this->IssuedInvoicePayChargeMethodId == 'b' ? 'Tarjeta' : 'Transferencia';
         return Charge::create([
             'ChargeSourceId' => $this->{$this->primaryKey},
@@ -122,7 +108,10 @@ class IssuedInvoice extends BaseModel
             'ChargeDescription' => 'Pago de la factura '.$this->IssuedInvoiceSerialNum.'/'.$this->IssuedInvoiceNumber,
             'ChargeAmount' => $amount > 0 ? $amount : $amount * -1,
             'ChargeComments' => 'Pago mediante '.$formapago,
-            'ChargeIsRefund' => $amount < 0
+            'ChargeIsRefund' => $amount < 0,
+            'ChargeAccountId' => $accountId,
+            'ChargeAccountTypeId' => $accountTypeId
+
         ], $this->companyId);
     }
     
@@ -139,35 +128,22 @@ class IssuedInvoice extends BaseModel
     	
     	return $total;
     }
-
+	
     /**
-     * Exporta una serie de facturas a contabilidad
-     *
-     * @param array $params [AccountingPeriodYear, IssuedInvoiceInitNumber, IssuedInvoiceEndNumber, IssuedInvoiceSerialNum, IssuedInvoiceInitDate, IssuedInvoiceEndDate ]
-     * @param bool $ExportCharge
-     * @param string $companyId
-     * @return object
+     * Informe de IVA repercutido
+     * @param array $params Parámetros para el reporte, AccountingPeriodYear es obligatorio
+     * @param string $companyId Identificador de la empresa
+     * @return Object
      */
-    public static function exportMultiple(array $params, $ExportCharge, $companyId){
-        $obj = new static([],false,$companyId);
-        $params['ExportCharge'] =  $ExportCharge;
-        $result =  parent::_send($params, $companyId,'synchronization/export');
-
-        return $result->outputData->{$obj->Model};
-    }
-
-    /**
-     * Exporta la factura a contabilidad
-     * @param bool $ExportCharge
-     * @throws Exceptions\AnfixException
-     * @return object
-     */
-    public function export($ExportCharge){
-        if(! $this->IssuedInvoiceNumber)
-            throw new AnfixException('Para exportar una factura debe partir de una factura ya registrada en anfix');
-
-        return self::exportMultiple(['IssuedInvoiceInitNumber' => $this->IssuedInvoiceNumber, 'IssuedInvoiceEndNumber' => $this->IssuedInvoiceNumber, 'IssuedInvoiceSerialNum' => $this->IssuedInvoiceSerialNum],$ExportCharge,$this->companyId);
-    }
+     public static function reportIssued(array $params,$companyId){
+         $obj = new static([],false,$companyId);
+         $urlBase = str_replace('/cm/','/',$obj->apiBaseUrl);
+         $urlBase = str_replace('/sales/','/',$obj->apiBaseUrl);
+         $result = self::_send($params,$companyId,'report/issuedinvoice',[],[],$urlBase);
+         if(!empty($result->outputData->{$obj->Model}))
+             return $result->outputData->{$obj->Model};
+ 
+         return $result->outputData;
+     }
 
 }
-

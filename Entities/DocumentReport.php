@@ -23,7 +23,7 @@ namespace Anfix;
 class DocumentReport extends StaticModel
 {
 	/** @var  @var string Obligatorio, Identificador de la App Anfix, este identificador asocia la Url base por defecto conforme a config/anfix.php */
-	protected static $applicationId = 'E';
+	protected static $applicationId = 'e';
 	/**  @var string Opcional, Nombre de la entidad en Anfix, por defecto será el nombre de la clase */
 	protected static $Model = null;
 	/**  @var string Opcional, Nombre de la clave primaria en Anfix, por defecto {$Model}Id */
@@ -31,7 +31,12 @@ class DocumentReport extends StaticModel
 	/**  @var string Opcional, Url de la API a la que conectar, por defecto se obtiene de config/anfix en función del applicationId */
 	protected static $apiBaseUrl = null;
 	/**  @var string Opcional, Sufijo que se añade a la url de la API, por defecto nombre de la entidad, si se indica apiBaseUrl no se tendrá en cuenta este parámetro */
-	protected static $apiUrlSufix = 'report/';
+	protected static $apiUrlSufix = null;
+
+	protected static function constructStatic(){
+		parent::constructStatic();
+		static::$apiBaseUrl = str_replace('/cm','/report',static::$apiBaseUrl);
+	}
 	
    /**
 	* Exportación de presupuestos a diferentes formatos.

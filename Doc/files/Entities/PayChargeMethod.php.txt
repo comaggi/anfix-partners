@@ -20,12 +20,10 @@
 
 namespace Anfix;
 
-class RecurringInvoiceLine extends BaseModel
+class PayChargeMethod extends BaseModel
 {
-    protected $applicationId = 'E';
-    protected $apiUrlSufix = 'recurringissuedinvoice/line/';
+    protected $applicationId = 1;
     protected $update = false;
-    protected $create = false;
-    protected $delete = false;
-
+	protected $create = false;
+	protected $delete = false;
 }

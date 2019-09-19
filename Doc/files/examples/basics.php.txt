@@ -37,7 +37,6 @@ include 'example_utils.php';
 	
 //Ejemplo de obtencion del primer cliente con nombre Anfix o creación del mismo si no existe y modificación del mismo
 	$customer = Anfix\Customer::firstOrNew(['CustomerName' => 'Anfix'],$companyId);
-	$customer->CustomerCode = 2222;
 	$customer->CustomerIdentificationTypeId = '6';
 	$customer->CustomerIdentificationNumber = '123456789N';
     $customer->save(); //Guardado del cliente
@@ -51,4 +50,4 @@ include 'example_utils.php';
 	
 //Borrado del cliente
 	$customer = Anfix\Customer::firstOrFail(['CustomerName' => 'Anfix'],$companyId);
-    $customer->delete();
+	$customer->delete();

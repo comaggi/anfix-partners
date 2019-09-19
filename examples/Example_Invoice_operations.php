@@ -41,7 +41,9 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     $charge = \Anfix\Charge::create([
         "ChargeAmount" => 90.75,
         "ChargeSourceId" => $invoice->IssuedInvoiceId,
-        "ChargeSourceType" => "2"
+        "ChargeSourceType" => "2",
+        'ChargeAccountId' => '1aWUmCH5xI',
+        'ChargeAccountTypeId' => '4'
     ],$companyId);
     print_result('Creación de un cargo',$charge);
 
@@ -54,10 +56,6 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
         "IssuedInvoiceTemporal" =>  true
     ],$companyId);
     print_result('Reporte de la factura',$report);
-
-    //Contabilización de la factura
-    $export_result = $invoice->export(true);
-    print_result('Contabilización de la factura',$export_result);
 
 
     //Almacenamiento de la factura en local

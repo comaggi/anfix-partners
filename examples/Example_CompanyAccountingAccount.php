@@ -28,9 +28,9 @@ include 'example_utils.php';
 $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)
 
 //Selección de datos de subcuentas contables.
-$data = Anfix\CompanyAccountingAccount::select(2016, 7000000, $companyId);
+$data = Anfix\CompanyAccountingAccount::select(2019, 7000000, $companyId);
 print_result('Selección de datos de subcuentas contables',$data);
 
 //Impresión de cuentas del plan contable de la empresa.
-$data = Anfix\CompanyAccountingAccount::where(['CompanyAccountingAccountLevelInclude' => [1, 2, 3, 4, 5, 6]], $companyId)->accountPrint(['AccountingPeriodYear' => 2016, 'HierarchyLevel' => true, 'ReportFormat' => 'PDF', 'ShowAccountsWithoutEntries' => true, 'ShowBalance' =>true], [],null ,null ,['CompanyAccountingAccountNumber'],['ASC']);
+$data = Anfix\CompanyAccountingAccount::where(['CompanyAccountingAccountLevelInclude' => [1, 2, 3, 4, 5, 6]], $companyId)->accountPrint(['AccountingPeriodYear' => 2019, 'HierarchyLevel' => true, 'ReportFormat' => 'PDF', 'ShowAccountsWithoutEntries' => true, 'ShowBalance' =>true], [],null ,null ,['CompanyAccountingAccountNumber'],['ASC']);
 print_result('Selección de datos de subcuentas contables',$data);

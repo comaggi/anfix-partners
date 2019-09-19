@@ -22,10 +22,10 @@ namespace Anfix;
 
 class Expiration extends BaseModel
 {
-    protected $applicationId = 'E';
-    protected $update = true;
-    protected $create = true;
-    protected $delete = true;
+    protected $applicationId = 'e';
+    protected $update = false;
+    protected $create = false;
+    protected $delete = false;
 
     /**
      * Cálculo de vencimientos según una forma de cobro.
@@ -35,21 +35,8 @@ class Expiration extends BaseModel
      */
     public static function compute(array $params,$companyId){
         $obj = new static([],false,$companyId);
-        $result = self::_send($params,$companyId,'compute');
+		$urlBase = str_replace('/cm/','/',$obj->apiBaseUrl);
+        $result = self::_send($params,$companyId,'compute',[],[],$urlBase);
         return $result->outputData->{$obj->Model};
-    }
-
-    /**
-     * Consulta de vencimientos asociados a facturas emitidas.
-     * Esta función se utiliza como get, normalmente después de ::where para establecer el filtrado
-     * @param array $fields Campos a obtener
-     * @param int $maxRows = null Máximo de filas a mostrar, si no se indica se devolverán 50
-     * @param null $minRowNumber Primera entrada a devolver como resultado del conjunto total de entradas devueltas por la operación
-     * @param array $order Lista con los campos por los que se quiere ordenar los resultados
-     * @param string $orderTypes ”ASC” o ”DESC”
-     * @return array
-     */
-    public function searchforissuedinvoice(array $fields = [], $maxRows = null, $minRowNumber = null, array $order = [], $orderTypes = 'ASC'){
-        return parent::get($fields, $maxRows, $minRowNumber, $order, $orderTypes, 'searchWithIssuedInvoiceAction');
     }
 }

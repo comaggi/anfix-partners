@@ -30,63 +30,55 @@ include 'example_utils.php';
 $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)	
 
 //1) Obtención de sugerencia de vencimientos
-    $expirations = Anfix\Expiration::compute(['ExpirationsQuantity' => 1000.23, 'ExpirationsStartDate' => '01/01/2016', 'ExpirationsPayChargeMethodId' => 'e'],$companyId);
+    $expirations = Anfix\Expiration::compute(['ExpirationsQuantity' => 1000.23, 'ExpirationsStartDate' => '01/01/2019'],$companyId);
 	print_result('Sugerencia de vencimientos',array_map(function($e){ return array(
 		"ExpirationDate" => $e->ExpirationDate,    
 	    "ExpirationQuantity" => $e->ExpirationQuantity,
 	    "ExpirationPercentage" => $e->ExpirationPercentage  
 	); },$expirations));
 
-//2) Obtención del siguiente número de cliente/proveedor
-    $nextNumber = Anfix\NextNumber::compute('1',$companyId);
-    print_result('Siguiente número de cliente libre',$nextNumber);
+//2) Obtención del siguiente número de documento (factura emitida)
+    $nextNumberFromSerial = Anfix\SerialAndNumber::getnextserialandnumber(['EntityTypeId'=> '5'],$companyId);
+		print_result('Siguiente número de Factura',$nextNumberFromSerial);
 
-//3) Obtención del siguiente número de documento (factura emitida)
-    $nextNumberFromSerial = Anfix\NextNumberFromSerial::compute(['DocumentDate'=> '01/01/2016', 'SerialNum' => 'F2016', 'DocumentTypeId' => '7'],$companyId);
-    print_result('Siguiente número de Factura',$nextNumberFromSerial);
-
-//4) Renumeración de facturas en contabilidad
-	$renumeratedInvoices = Anfix\Invoice::renumerate(2016, 'R', $companyId);
-    print_result('Número de facturas renumeradas',$renumeratedInvoices);
-
-//5) Obtención de sugerencia de esquema de asiento en base a un predefinido y una cuenta
-	$completePredefined = Anfix\CompanyAccountingEntryReference::completepredefined(['AccountingPeriodYear' => 2016, 'AccountingEntryPredefinedEntryId' => 'P', 'CompanyAccountingAccountNumber' => 4300000], $companyId);
+//3) Obtención de sugerencia de esquema de asiento en base a un predefinido y una cuenta
+	$completePredefined = Anfix\CompanyAccountingEntryReference::completepredefined(['AccountingPeriodYear' => 2019, 'AccountingEntryPredefinedEntryId' => 'P', 'CompanyAccountingAccountNumber' => 4300000], $companyId);
     print_result('Sugerencia de asiento en base al predefinido',$completePredefined);
 
-//6) Transferir movimientos de una cuenta a otra
-	$accountingEntryNotesTransferred = Anfix\CompanyAccountingEntryReference::transfer(['AccountingPeriodYear' => 2016, 'SourceCompanyAccountingAccountNumber' => 4300004, 'DestinationCompanyAccountingAccountNumber' => 43000000, 'CompanyAccountingEntryNote' => [array('AccountingEntryId' => 1, 'AccountingEntryNoteId' => 1, 'CompanyAccountingAccountNumber' => 430000)]], $companyId);
+//4) Transferir movimientos de una cuenta a otra
+	$accountingEntryNotesTransferred = Anfix\CompanyAccountingEntryReference::transfer(['AccountingPeriodYear' => 2019, 'SourceCompanyAccountingAccountNumber' => 4300004, 'DestinationCompanyAccountingAccountNumber' => 43000000, 'CompanyAccountingEntryReferenceNote' => [array('AccountingEntryId' => 1, 'AccountingEntryNoteId' => 1, 'CompanyAccountingAccountNumber' => 430000)]], $companyId);
     print_result('Movimientos transferidos de cuenta',$accountingEntryNotesTransferred);
 
-//7) Cerrar ejercicio
+//5) Cerrar ejercicio
 //    $accountingPeriodYearClosed = Anfix\CompanyAccountingPeriod::close(['AccountingPeriodYear' => 2019, 'CompanyAccountingPeriodRegularizationEntryDate' => '31/12/2017', 'CompanyAccountingPeriodOpenEntryDate' => '01/01/2018', 'CompanyAccountingPeriodRegularizationEntryDate' => '31/12/2017'], $companyId);
 //    print_result('Ejercicio cerrado',$accountingPeriodYearClosed);
 
-//8) Crear un ejercicio fiscal a partir de un plan contable determinado
+//6) Crear un ejercicio fiscal a partir de un plan contable determinado
 //	$accountingPeriodYear = Anfix\CompanyAccountingPeriod::createwithplan(['AccountingPeriodYear' => 2011,'CompanyAccountingPeriodInitDate' => '01/01/2019', 'CompanyAccountingPeriodEndDate' => '31/12/2019', 'CompanyAccountingPlanId' => '1'], $companyId);
 //    print_result('Ejercicio creado',$accountingPeriodYear);
 
-//9) Bloquear/Desbloquear un ejercicio
+//7) Bloquear/Desbloquear un ejercicio
 //	$accountingPeriodYear = Anfix\CompanyAccountingPeriod::lockunlock(['AccountingPeriodYear' => 2019,'CompanyAccountingPeriodLocked' => false], $companyId);
 //    print_result('Ejercicio bloqueado',$accountingPeriodYear);
 
-//10) Recalcular saldos de un ejercicio contable
-	$accountingPeriodYear = Anfix\CompanyAccountingPeriod::regeneratebalance(2016, $companyId);
+//8) Recalcular saldos de un ejercicio contable
+	$accountingPeriodYear = Anfix\CompanyAccountingPeriod::regeneratebalance(2019, $companyId);
     print_result('Actualización de saldos',$accountingPeriodYear);
 
-//11) Obtención de la plantilla base de parametrización de una empresa
+//9) Obtención de la plantilla base de parametrización de una empresa
 	$parametrizationBaseTemplate = Anfix\CompanyParameter::parameterinitialize(['SourceAccountingPlanId' => '1'], $companyId);
     print_result('Parametrización Base del plan contable Plan General de Contabilidad 2008',$parametrizationBaseTemplate);
 
-//12) Obtención de una cuenta contable para posteriormente modificarla
-	$accountingAccount = Anfix\CompanyAccountingAccount::select(2016, 1000000,$companyId);
+//10) Obtención de una cuenta contable para posteriormente modificarla
+	$accountingAccount = Anfix\CompanyAccountingAccount::select(2019, 1000000,$companyId);
     print_result('Obtención de datos de una cuenta contable',$accountingAccount);
 
-//13) Copia de un predefinido
-	$predefinedAccountingEntryCopy = Anfix\PredefinedAccountingEntry::copy(['AccountingPeriodYear' => 2016, 'Action' => 'COPY','CompanyIdSource' => $companyId, 'PredefinedEntriesId' => ['P']],$companyId);
+//11) Copia de un predefinido
+	$predefinedAccountingEntryCopy = Anfix\PredefinedAccountingEntry::copy(['AccountingPeriodYear' => 2019, 'Action' => 'COPY','CompanyIdSource' => $companyId, 'PredefinedEntriesId' => ['P']],$companyId);
     print_result('Copia de un predefinido',$predefinedAccountingEntryCopy);
 
-//14) Búsqueda de asientos predefinidos por tipo de asiento
-	$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::where(['EntryTypeToPredefinedEntryEntryTypeId' => '2'],$companyId)->get([],5,1,[],'','searchbyentrytype',['AccountingPeriodYear' => 2016]);
+//12) Búsqueda de asientos predefinidos por tipo de asiento
+	$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::where(['EntryTypeToPredefinedEntryEntryTypeId' => '2'],$companyId)->get([],5,1,[],'','searchbyentrytype',['AccountingPeriodYear' => 2019]);
     print_result('Predefinido en base a un tipo de asiento',array_map(function($e){ return array(
 	    "PredefinedAccountingEntryCode" => $e->PredefinedAccountingEntryCode,  	    	    
 	    "PredefinedAccountingEntryTypeName" => $e->PredefinedAccountingEntryTypeName,
@@ -95,46 +87,22 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	    "PredefinedAccountingEntryTaxLine" => $e->PredefinedAccountingEntryTaxLine
 	); },$predefinedAccountingEntry));
 
-//15) Obtención de un predefinido contable para posteriormente modificarlo
-	$predefinedAccountingEntry = Anfix\CompanyAccountingEntryReference::selectPredefined(2016, '1',$companyId);
+//13) Obtención de un predefinido contable para posteriormente modificarlo
+	$predefinedAccountingEntry = Anfix\CompanyAccountingEntryReference::selectPredefined(2019, '1',$companyId);
     print_result('Predefinido en base a un tipo de asiento',$predefinedAccountingEntry);
 
-//16) Fijar una plantilla por defecto
+//14) Fijar una plantilla por defecto
 	$template = Anfix\Template::setdefault('7', '1', $companyId);
     print_result('Fijada una plantilla por defecto',$template);
 
-//17) Duplicar un presupuesto
+//15) Duplicar un presupuesto
 	$customerBudget = Anfix\CustomerBudget::duplicate(['LQYEKEtJY'],$companyId);
 	print_result('Presupuesto duplicado',$customerBudget);
 
-//18) Duplicar una factura emitida
-	$issuedInvoice = Anfix\IssuedInvoice::duplicate(['LQ:,4qF3A'],$companyId);
+//16) Duplicar una factura emitida
+	$issuedInvoice = Anfix\IssuedInvoice::duplicate(['1aWViTNwps'],$companyId);
 	print_result('Factura emitida duplicada',$issuedInvoice);
 
-//19) Duplicar una factura recibida    	
+//17) Duplicar una factura recibida    	
 	$receivedInvoice = Anfix\ReceivedInvoice::duplicate(['MbS010Qe8'],$companyId);
 	print_result('Factura recibida duplicada',$receivedInvoice);
-	
-//20) Exportar facturas a Contabilidad
-   //Exportación de facturas emitidas por id
-   /*$invoice = Anfix\IssuedInvoice::findOrFail('ML10QQOtI',$companyId);
-   print_result('Factura a exportar', $invoice);
-   $export = $invoice->export(true);
-   print_result('Factura exportada', $export);*/
-   
-   //Exportación de facturas emitidas por rango
-   /*$export = Anfix\IssuedInvoice::exportMultiple(['AccountingPeriodYear' => 2016,'IssuedInvoiceInitNumber' => 1,'IssuedInvoiceEndNumber' => 50,'IssuedInvoiceSerialNum' => 'F2016'], true,$companyId);
-   print_result('Facturas emitidas exportadas', $export); */
-   /*$export = Anfix\IssuedInvoice::exportMultiple(['IssuedInvoiceInitDate' => '01/05/2016', 'IssuedInvoiceEndDate' => '31/05/2016', 'AccountingPeriodYear' => 2016,'IssuedInvoiceInitNumber' => 1,'IssuedInvoiceEndNumber' => 50,'IssuedInvoiceSerialNum' => 'F2016'], true,$companyId);
-   print_result('Facturas emitidas exportadas', $export);*/
-
-    //Exportación de facturas recibidas por id
-    /*$invoice = Anfix\ReceivedInvoice::findOrFail("MLfVAioBI",$companyId);
-    print_result('Factura a exportar', $invoice);
-    $export = $invoice->export(true);
-    print_result('Factura exportada', $export);*/
-    
-   //Exportación de facturas recibidas por rango
-   /*$export = Anfix\ReceivedInvoice::exportMultiple(['ReceivedInvoiceInitDate' => '01/05/2016', 'ReceivedInvoiceEndDate' => '31/05/2016', 'AccountingPeriodYear' => 2016,'ReceivedInvoiceInitNumber' => 1,'ReceivedInvoiceEndNumber' => 50,'ReceivedInvoiceSerialNum' => 'FR2016'], true,$companyId);
-   print_result('Facturas recibidas exportadas', $export);*/
-

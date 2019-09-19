@@ -24,7 +24,8 @@ use Anfix\Exceptions\AnfixException;
 
 class ReceivedInvoice extends BaseModel
 {
-    protected $applicationId = 'E';
+    protected $applicationId = 'e';
+    protected $apiUrlSufix = 'expense/receivedinvoice/';
     protected $update = true;
     protected $create = true;
     protected $delete = true;
@@ -41,21 +42,6 @@ class ReceivedInvoice extends BaseModel
         return $result->outputData->{$obj->Model};
     }
 
-
-    /**
-     * Consulta de pagos de una factura emitida.
-     * Esta función se utiliza como get, normalmente después de ::where para establecer el filtrado
-     * @param array $fields Campos a devolver
-     * @param int $maxRows = null Máximo de filas a mostrar, si no se indica se devolverán 50
-     * @param null $minRowNumber Primera entrada a devolver como resultado del conjunto total de entradas devueltas por la operación
-     * @param array $order Lista con los campos por los que se quiere ordenar los resultados
-     * @param string $orderTypes ”ASC” o ”DESC”
-     * @return array
-     */
-    public function searchForPayment(array $fields = [],$maxRows = null, $minRowNumber = null, array $order = [], $orderTypes = 'ASC'){
-        return parent::get($fields, $maxRows, $minRowNumber, $order, $orderTypes, 'searchForPayment', [], str_replace('servicios/','simple/',$this->apiBaseUrl));
-    }
-
     /**
      * Crea un cobro de una factura
      * @param string $date
@@ -64,7 +50,7 @@ class ReceivedInvoice extends BaseModel
      * @throws Exceptions\AnfixResponseException
      * @return Payment
      */
-    public function createPayment($date, $amount){
+    public function createPayment($date, $amount, $accountId, $accountTypeId){
         $formapago = $this->IssuedInvoicePayChargeMethodId == 'c' ? 'Domiciliación' : 'Tarjeta';
         return Payment::create([
             'PaymentSourceId' => $this->{$this->primaryKey},
@@ -73,36 +59,25 @@ class ReceivedInvoice extends BaseModel
             'PaymentDescription' => 'Pago de la factura '.$this->ReceivedInvoiceRefNumber,
             'PaymentAmount' => $amount > 0 ? $amount : $amount * -1,
             'PaymentComments' => 'Pago mediante '.$formapago,
-            'PaymentIsRefund' => $amount < 0
+            'PaymentIsRefund' => $amount < 0,
+            'PaymentAccountId' => $accountId,
+            'PaymentAccountTypeId' => $accountTypeId
         ], $this->companyId);
     }
-    
+	
     /**
-     * Exporta una serie de facturas a contabilidad
-     *
-     * @param array $params [AccountingPeriodYear, ReceivedInvoiceInitNumber, ReceivedInvoiceEndNumber, ReceivedInvoiceSerialNum, ReceivedInvoiceInitDate, ReceivedInvoiceEndDate ]
-     * @param bool $ExportPayment
-     * @param string $companyId
-     * @return object
+     * Informe de IVA soportado
+     * @param array $params Parámetros para el reporte, AccountingPeriodYear es obligatorio
+     * @param string $companyId Identificador de la empresa
+     * @return Object
      */
-    public static function exportMultiple(array $params, $ExportPayment, $companyId){
+     public static function reportReceived($params,$companyId){
         $obj = new static([],false,$companyId);
-        $params['ExportPayment'] =  $ExportPayment;
-        $result =  parent::_send($params, $companyId,'synchronization/export');
-
-        return $result->outputData->{$obj->Model};
-    }
-
-    /**
-     * Exporta la factura a contabilidad
-     * @param bool $ExportPayment
-     * @throws Exceptions\AnfixException
-     * @return object
-     */
-    public function export($ExportPayment){
-        if(!$this->{$this->primaryKey})
-            throw new AnfixException('Para exportar una factura debe partir de una factura ya registrada en anfix');
-
-        return self::exportMultiple(['ReceivedInvoiceInitNumber' => $this->ReceivedInvoiceNumber, 'ReceivedInvoiceEndNumber' => $this->ReceivedInvoiceNumber, 'ReceivedInvoiceSerialNum' => $this->ReceivedInvoiceSerialNum],$ExportPayment,$this->companyId);
+        $urlBase = str_replace('/cm/','/',$obj->apiBaseUrl);
+        $urlBase = str_replace('/expense/','/',$obj->apiBaseUrl);
+        $result = self::_send($params,$companyId,'report/receivedinvoice',[],[],$urlBase);
+        if(!empty($result->outputData->{$obj->Model}))
+            return $result->outputData->{$obj->Model};
+        return $result->outputData;
     }
 }

@@ -27,10 +27,8 @@ include 'example_utils.php';
 $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)
 
 $budget = Anfix\CustomerBudget::create([
-          "CustomerBudgetAddCustomerData" =>  false,
           "CustomerBudgetSerialNum" =>  "P2015",
           "CustomerBudgetDate" =>  "17/02/2015",
-          "CustomerBudgetCustomerCode" =>  4,
           "CustomerBudgetCustomerName" =>  "Otro cliente",
           "CustomerBudgetCustomerIdentificationNumber" =>  "11111111H",
           "CustomerBudgetId" =>  null,
