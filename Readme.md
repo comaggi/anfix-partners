@@ -56,7 +56,6 @@ Versión Beta de la nueva API para conexión con los servicios de facturacin de 
 	  * Actualización de una empresa
 
 	* Ejercicio Contable
-	  * Borrado de ejercicio contable
 	  * Desactivación de ejercicio contable
 	  * Actualización de ejercicio contable
 
