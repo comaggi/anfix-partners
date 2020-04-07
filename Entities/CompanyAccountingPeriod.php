@@ -43,19 +43,6 @@ class CompanyAccountingPeriod extends BaseModel
     }
 
     /**
-     * Borrar ejercicio contable y datos asociados.
-     * @param int $accountingPeriodYear Año del ejercicio contable a borrar
-     * @param string $companyId Identificador de la empresa
-     * @return int Número de ejercicios afectados por la operación.
-     */
-    public static function purge($accountingPeriodYear, $companyId){
-        $obj = new static([],false,$companyId);
-        $result = self::_send(['AccountingPeriodYear' => $accountingPeriodYear],$companyId,'purge');
-
-        return $result->outputData->{$obj->Model}->rowcount;
-    }
-
-    /**
      * Actualizar saldos de ejercicio contable.
      * @param int $accountingPeriodYear Año del ejercicio contable cuyos saldos se quieren actualizar
      * @param string $companyId Identificador de la empresa
