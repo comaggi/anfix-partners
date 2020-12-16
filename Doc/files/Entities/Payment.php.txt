@@ -22,7 +22,8 @@ namespace Anfix;
 
 class Payment extends BaseModel
 {
-    protected $applicationId = 'E';
+    protected $applicationId = '1';
+    protected $apiUrlSufix = '/payments/';
     protected $update = true;
     protected $create = true;
     protected $delete = true;

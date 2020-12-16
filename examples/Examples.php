@@ -29,74 +29,84 @@ include 'example_utils.php';
 
 $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)	
 
-//1) Creación de directorio
-	//$directoryCreated = Anfix\MyDocuments::createdirectory(['HumanReadableName' => 'temp', 'HumanReadablePath'=> '/', 'OwnerId' => 'L7DZmNGqU','OwnerTypeId' => '2'],$companyId);
-	//print_result('Creación de una carpeta en Documentos',$directoryCreated);
+// 1) Creación de directorio
+	// $directoryCreated = Anfix\MyDocuments::createdirectory(['HumanReadableName' => 'temp', 'HumanReadablePath'=> '/', 'OwnerId' => 'L7DZmNGqU','OwnerTypeId' => '2'],$companyId);
+	// print_result('Creación de una carpeta en Documentos',$directoryCreated);
 
 //Módulo de Facturación
 
-//7) Creación de cobro
-	//$charge = Anfix\Charge::create(['ChargeAmount' => 50.05, 'ChargeCustomerName'=> 'Pepe', 'ChargeDate' => '11/05/2016','ChargeDescription' => 'Pago adelantado factura', 'ChargeIsRefund' => false, 'ChargeSourceId' => 'MkePmY2E;', "ChargeSourceType" => '2'],$companyId);
-	//print_result('Creación de un cobro asociado a una factura emitida',$charge->ChargeId);
+// Añadir los dos campos tipo e id
+//2) Creación de cobro
+	/*$charge = Anfix\Charge::create([
+		'ChargeAmount' => 50.05,
+		'ChargeCustomerName'=> 'Pepe',
+		'ChargeDate' => '11/05/2019',
+		'ChargeDescription' => 'Pago adelantado factura',
+		'ChargeIsRefund' => false,
+		'ChargeSourceId' => '1aWV6;awHk',
+		"ChargeSourceType" => '2',
+		"ChargeAccountId" => "1aWUmCH5xI",
+		"ChargeAccountTypeId" => "4"
+	],$companyId);
+	print_result('Creación de un cobro asociado a una factura emitida',$charge->ChargeId);*/
 
-//8) Actualización de cobro
-	//$chargeToUpdate = Anfix\Charge::where(['ChargeId' => $charge->ChargeId],$companyId)->get();
-	//print_result('Cobro a actualizar',$chargeToUpdate[$charge->ChargeId]);
+//3) Actualización de cobro
+	// $chargeToUpdate = Anfix\Charge::where(['ChargeId' => $charge->ChargeId],$companyId)->get();
+	// print_result('Cobro a actualizar',$chargeToUpdate[$charge->ChargeId]);
 
-	//$chargeToUpdate[$charge->ChargeId]->ChargeDescription = 'Anticipo';
-	//$chargeToUpdate[$charge->ChargeId]->ChargeAmount = 35.03;
-    //$chargeToUpdate[$charge->ChargeId]->save(); //Actualizo el cobro
-	//print_result('Actualización de un cobro asociado a una factura emitida',$chargeToUpdate[$charge->ChargeId]->getArray());
+	// $chargeToUpdate[$charge->ChargeId]->ChargeDescription = 'Anticipo';
+	// $chargeToUpdate[$charge->ChargeId]->ChargeAmount = 35.03;
+  //   $chargeToUpdate[$charge->ChargeId]->save(); //Actualizo el cobro
+	// print_result('Actualización de un cobro asociado a una factura emitida',$chargeToUpdate[$charge->ChargeId]->getArray());
 
-//9) Eliminación de cobro
-	//$chargeToDelete = Anfix\Charge::firstOrFail([],$companyId);
-	//print_result('Cobro a eliminar',$chargeToDelete);
-	//$result = $chargeToDelete-> delete();
-	//print_result('Número de cobros eliminados',$result);
+//4) Eliminación de cobro
+	// $chargeToDelete = Anfix\Charge::firstOrFail([],$companyId);
+	// print_result('Cobro a eliminar',$chargeToDelete);
+	// $result = $chargeToDelete-> delete();
+	// print_result('Número de cobros eliminados',$result);
 
-//10) Creación de cliente
-    //$nextNumber = Anfix\NextNumber::compute('1',$companyId);
-    //print_result('Siguiente número de cliente libre',$nextNumber);
+	// $customer = Anfix\Customer::create([
+	// 	'CustomerAccountingAccountNumber' => 4300006, 
+	// 	'CustomerCompanyTypeId' => '1',
+	// 	'CustomerName'=> 'Alberto', 
+	// 	'CustomerIdentificationTypeId' => '1',
+	// 	'CustomerIdentificationNumber' => '11111111H',
+	// 	'CustomerUniqueDebitMandateReference' => 'abcdefghijklmnopqrstuvwxyz012345678',
+	// 	'CustomerMandateSignatureDate' => '20/01/2014 17:34:00',
+	// 	'AccountingPeriodYear' => 2012,
+	// 	'CustomerFixedDiscount' => 25.0, 
+	// 	'CustomerTaxTypeId' => '1', 
+	// 	'CustomerIncludeEquivalentCharge' => true,
+	// 	'CustomerComments' => 'Este cliente cambia de domicilio a partir de Septiembre.',
+	// 	'Action' => 'ADD',
+	// 	'FiscalAddress' => ['Action' => 'ADD', 'AddressText' => 'Plaza España, 13, 3',  'AddressCountryId'=> '1'],
+	// 	'Contact' => array(['Action' => 'ADD', 'ContactPersonName' => 'Alberto']),
+	// 	'BankAccount' => ['Action' => 'ADD', 'BankAccountIBAN' => 'ES4801822370420000000011'],
+	// 	'CustomerIVATypeId' => '1',
+	// 	],$companyId);
 
-	/*$customer = Anfix\Customer::create([
-				'CustomerCode' => $nextNumber, 
-				'CustomerName'=> 'Alberto', 
-				'CustomerIdentificationTypeId' => '1',
-				'CustomerIdentificationNumber' => '11111111H', 
-				'CustomerFixedDiscount' => 25.0, 
-				'CustomerTaxTypeId' => '1', 
-				'CustomerIncludeEquivalentCharge' => true,
-				'CustomerComments' => 'Este cliente cambia de domicilio a partir de Septiembre.',
-				'Action' => 'ADD',
-				'FiscalAddress' => ['Action' => 'ADD', 'AddressText' => 'Plaza España, 13, 3',  'AddressCountryId'=> '1'],
-				'Contact' => ['Action' => 'ADD', 'ContactPersonName' => 'Alberto'],
-				'BankAccount' => ['Action' => 'ADD', 'BankAccountIBAN' => 'ES4801822370420000000011'],
-				'CustomerIVATypeId' => '1',
-				],$companyId);
+	// print_result('Cliente creado',$customer->CustomerId);
 
-	print_result('Cliente creado',$customer->CustomerId);*/
-
-//11) Modificación de cliente
-	/*$customerToUpdate = Anfix\Customer::where(['CustomerId' => $customer->CustomerId],$companyId)->get();
+//5) Modificación de cliente
+	// $customerToUpdate = Anfix\Customer::where(['CustomerId' => $customer->CustomerId],$companyId)->get();
 	
-	$customerToUpdate[$customer->CustomerId]->CustomerName = 'Miguel';
-	$customerToUpdate[$customer->CustomerId]->CustomerFixedDiscount = 50;
-    $customerToUpdate[$customer->CustomerId]->save(); //Actualizo el cliente
+	// $customerToUpdate[$customer->CustomerId]->CustomerName = 'Miguel';
+	// $customerToUpdate[$customer->CustomerId]->CustomerFixedDiscount = 50;
+  //   $customerToUpdate[$customer->CustomerId]->save(); //Actualizo el cliente
 
-	print_result('Actualización de un cliente',$customerToUpdate[$customer->CustomerId]->getArray());*/
+	// print_result('Actualización de un cliente',$customerToUpdate[$customer->CustomerId]->getArray());
 
-//12) Eliminación de cliente
+//6) Eliminación de cliente
 	/*$customerToDelete = Anfix\Customer::firstOrFail([],$companyId);
 	print_result('Cliente a eliminar',$customerToDelete);
 	$result = $customerToDelete-> delete();
 	print_result('Número de clientes eliminados',$result);*/
 
-//13) Creación de presupuesto
+//6) Creación de presupuesto
     /*$customerToUse = Anfix\Customer::firstOrFail([],$companyId);
-    print_result('Código de Cliente al que hacer un presupuesto',$customerToUse->CustomerCode);    
+    print_result('Código de Cliente al que hacer un presupuesto',$customerToUse->CustomerName);    
 
 	$customerBudget = Anfix\CustomerBudget::create([
-				'CustomerBudgetCustomerCode' => $customerToUse->CustomerCode,
 				'CustomerBudgetCustomerId' => $customerToUse->CustomerId,
 				'CustomerBudgetCustomerIdentificationNumber' => $customerToUse->CustomerIdentificationNumber,
 				'CustomerBudgetCustomerIdentificationTypeId' => $customerToUse->CustomerIdentificationTypeId,
@@ -104,8 +114,8 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 				'CustomerBudgetCustomerTaxTypeId' => $customerToUse->CustomerTaxTypeId, 				
 				'CustomerBudgetCustomerVATTypeId' => $customerToUse->CustomerIVATypeId,
 				'CustomerBudgetDiscountPercentage' => $customerToUse->CustomerFixedDiscount,				
-				'CustomerBudgetDate' => '01/05/2016', 
-				'CustomerBudgetSerialNum' => 'P2016',
+				'CustomerBudgetDate' => '01/05/2019', 
+				'CustomerBudgetSerialNum' => 'P2019',
 				'CustomerBudgetStateId' => '1',
 				'Action' => 'ADD',
 				'CustomerBudgetLine' => array(['Action' => 'ADD', 'CustomerBudgetLineItemRef' => 'MTO', 
@@ -118,46 +128,105 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	
 	print_result('Presupuesto creado',$customerBudget->CustomerBudgetId);*/
 
-//14) Modificación de presupuesto
+//8) Modificación de presupuesto
 	/*$customerBudgetToUpdate = Anfix\CustomerBudget::where(['CustomerBudgetId' => $customerBudget->CustomerBudgetId],$companyId)->get();
 	
 	$customerBudgetToUpdate[$customerBudget->CustomerBudgetId]->CustomerBudgetCustomerName = 'Miguel';
-	$customerBudgetToUpdate[$customerBudget->CustomerBudgetId]->CustomerBudgetDate = '02/05/2016';
+	$customerBudgetToUpdate[$customerBudget->CustomerBudgetId]->CustomerBudgetDate = '02/05/2019';
     $customerBudgetToUpdate[$customerBudget->CustomerBudgetId]->save(); //Actualizo el presupuesto
 
 	print_result('Actualización de un presupuesto',$customerBudgetToUpdate[$customerBudget->CustomerBudgetId]->getArray());*/
 
-//15) Eliminación de presupuesto
+//9) Eliminación de presupuesto
 	/*$customerBudgetToDelete = Anfix\CustomerBudget::firstOrFail([],$companyId);
 	print_result('Presupuesto a eliminar',$customerBudgetToDelete);
 	$result = $customerBudgetToDelete-> delete();
 	print_result('Número de presupuestos eliminados',$result);*/
 
-//16) Creación de factura emitida
-	/*$customerToUse = Anfix\Customer::firstOrFail([],$companyId);
+//10) Creación de factura emitida indicando asientos contables
+	/*$customerToUse = Anfix\Customer::firstOrFail([],$companyId, 'searchwithpendinginvoices');
 
-    print_result('Código de Cliente al que hacer una factura',$customerToUse->CustomerCode);
+		print_result('Código de Cliente al que hacer una factura',$customerToUse->CustomerName);
 
 	$issuedInvoice = Anfix\IssuedInvoice::create([
-				'IssuedInvoiceCustomerCode' => $customerToUse->CustomerCode,
-				'IssuedInvoiceCustomerId' => $customerToUse->CustomerId,
-				'IssuedInvoiceCustomerIdentificationNumber' => $customerToUse->CustomerIdentificationNumber,
-				'IssuedInvoiceCustomerIdentificationTypeId' => $customerToUse->CustomerIdentificationTypeId,
-				'IssuedInvoiceCustomerName'=> $customerToUse->CustomerName,
-				'IssuedInvoiceCustomerTaxTypeId' => $customerToUse->CustomerTaxTypeId,
-				'IssuedInvoiceCustomerVATTypeId' => $customerToUse->CustomerIVATypeId,
-				'IssuedInvoiceDiscountPercentage' => 10,
-				'IssuedInvoiceDate' => '05/05/2016 13:00:00',
-				'IssuedInvoiceSerialNum' => 'F2016',
-				'IssuedInvoiceStateId' => '1',
-				'Action' => 'ADD',
-				'IssuedInvoiceLine' => array(['Action' => 'ADD', 'IssuedInvoiceLineItemRef' => 'MTO', 
-											'IssuedInvoiceLineItemDescription' => 'Mantenimiento trimestral',
-											'IssuedInvoiceLineQuantity' => 1,
-											'IssuedInvoiceLinePrice' => 100,
-											'IssuedInvoiceLineVAT' => 21,
-											'IssuedInvoiceLineES' => 5.2])
-				],$companyId);
+		'Action' => 'ADD',
+    'IssuedInvoiceComments' => 'Observaciones',
+		'IssuedInvoiceCustomerId' => $customerToUse->CustomerId,
+		'IssuedInvoiceCustomerIdentificationNumber' => $customerToUse->CustomerIdentificationNumber,
+		'IssuedInvoiceCustomerIdentificationTypeId' => $customerToUse->CustomerIdentificationTypeId,
+		'IssuedInvoiceCustomerName'=> $customerToUse->CustomerName,
+		'IssuedInvoiceCustomerTaxTypeId' => $customerToUse->CustomerTaxTypeId,
+		'IssuedInvoiceCustomerVATTypeId' => $customerToUse->CustomerIVATypeId,
+    'IssuedInvoiceDate' => '20/01/2019 15:05:27',
+    'IssuedInvoiceNumber' => 30,
+    'IssuedInvoiceRefNumber' => 'Rf-987030',
+    'IssuedInvoiceSerialNum' => '12345',
+    'IssuedInvoiceStateId' => '1',
+    'IssuedInvoiceTemplateId' => '65',
+    'IssuedInvoiceTemplateLanguage' => 1,
+    'IssuedInvoiceTotalValue' => 121,
+    'EntriesGenerated'=>array([
+      'CompanyAccountingEntryReference'=>[
+        'CompanyAccountingEntryNote'=>array([
+          'Action' => 'ADD',
+          'AccountingEntryNoteTypeId' => '1',
+          'AccountingEntryAmount' => 12,
+          'AccountingEntryIsDebitAmount' => true,
+          'CompanyAccountingAccountNumber' => 6000000,
+          'CompanyAccountingAccountNumberBalance' => 7000000,
+          'AccountingEntryConcept' => 'Prueba'
+        ],
+        [
+          'AccountingEntryNoteTypeId' => '1',
+          'Action' => 'ADD',
+          'AccountingEntryAmount' => 12,
+          'AccountingEntryIsDebitAmount' => false,
+          'CompanyAccountingAccountNumber' => 7000000,
+          'CompanyAccountingAccountNumberBalance' => null,
+          'AccountingEntryConcept' => 'Prueba'
+        ]),
+        'AccountingEntryDate' => '20/01/2019',
+        'Action' => 'ADD',
+        'PredefinedAccountingEntryId' => 'S',
+        'AccountingEntryPredefinedEntryId' => 'S',
+        'AccountingEntryTypeId' => '2',
+        'CompanyId' => $companyId,
+        'AccountingPeriodYear' => 2019,
+        'DocumentList'=>array([
+          'DocumentId' => 'a',
+          'DocumentTypeId' => '8'
+        ])
+      ]
+    ]),
+    'Address'=>array([
+      'Action' => 'ADD',
+      'AddressId' => null,
+      'AddressCity' => 'Barcelona',
+      'AddressCountryId' => '1',
+      'AddressPostalCode' => '8007',
+      'AddressProvince' => 'Barcelona',
+      'AddressText' => 'Diputación'
+    ]),
+    'Contact'=>array([
+      'Action' => 'ADD',
+      'ContactId' => null,
+      'ContactPersonName' => 'Castillo',
+      'ContactPhoneNumber' => '902 793 840',
+      'ContactFaxNumber' => '000 777 840'
+    ]),
+    'IssuedInvoiceLine'=>array([
+      'Action' => 'ADD',
+      'IssuedInvoiceLineItemDescription' => 'Descripción 1',
+      'IssuedInvoiceLinePrice' => 100,
+      'IssuedInvoiceLinePriceisDirty' => true,
+      'IssuedInvoiceLinePriceTaxIncluded' => true,
+      'IssuedInvoiceLineQuantity' => 1,
+      'IssuedInvoiceLineTotal' => 121,
+      'IssuedInvoiceLineVAT' => 21,
+      'IssuedInvoiceLineDirTaxValueId' => 'g'
+    ]),
+    'IssuedInvoiceHasToSendMessage' => false
+	],$companyId);
 	
 	print_result('Factura emitida creada',$issuedInvoice->IssuedInvoiceId);
 
@@ -166,10 +235,10 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
 	$customerBudgetToBill = $customerBudget[key($customerBudget)];
 
-	$invoice = $customerBudgetToBill->generateDocuments([$customerBudgetToBill->CustomerBudgetId],3,$companyId);
-    print_result('Conversión de presupuesto en factura',$invoice);*/
+	$invoice = $customerBudgetToBill->generatedocuments([$customerBudgetToBill->CustomerBudgetId],3,$companyId);
+    print_result('Conversión de presupuesto en factura',$invoice); */
 
-//17) Modificación de factura emitida
+//11) Modificación de factura emitida
     /*$invoice = Anfix\IssuedInvoice::firstOrFail([],$companyId);
     print_result('Factura a modificar', $invoice);
 
@@ -178,18 +247,28 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
     print_result('Factura modificada',$result);*/
 
-//18) Eliminación de factura emitida
+//12) Eliminación de factura emitida
     /*$invoice = Anfix\IssuedInvoice::firstOrFail([],$companyId);
     print_result('Factura a eliminar', $invoice); 
 
-    $result = $invoice->delete();
+    $result = $invoice->delete([
+			AccountingPeriodYear" => 2019]);
     print_result('Factura eliminada',$result);*/
 
-//19) Creación de pago
-    //$payment = Anfix\Payment::create(['PaymentAmount' => 50.05, 'PaymentSupplierName'=> 'Pepe', 'PaymentDate' => '11/05/2016','PaymentDescription' => 'Pago adelantado factura', 'PaymentIsRefund' => false, 'PaymentSourceId' => 'MbS010Qe8', "PaymentSourceType" => '1'],$companyId);
-	//print_result('Creación de un pago asociado a una factura recibida',$payment->PaymentId);
+//13) Creación de pago Añadir el tipo y el id del producto bancario contra caja
+    /*$payment = Anfix\Payment::create([
+			'PaymentAmount' => 50.05,
+			'PaymentSupplierName'=> 'Pepe',
+			'PaymentDate' => '11/05/2019','PaymentDescription' => 'Pago adelantado factura',
+			'PaymentIsRefund' => false,
+			'PaymentSourceId' => '1aWViTNwps',
+			"PaymentSourceType" => '1',
+			"PaymentAccountId" => "1aWUmCH5xI",
+			"PaymentAccountTypeId" => "4"
+		],$companyId);
+	print_result('Creación de un pago asociado a una factura recibida',$payment->PaymentId);*/
 
-//20) Modificación de pago
+//14) Modificación de pago
 	/*$paymentToUpdate = Anfix\Payment::where(['PaymentId' => $payment->PaymentId],$companyId)->get();
 	print_result('Pago a actualizar',$paymentToUpdate[$payment->PaymentId]);	
 
@@ -198,71 +277,154 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     $paymentToUpdate[$payment->PaymentId]->save(); //Actualizo el pago
 	print_result('Actualización de un pago asociado a una factura recibida',$paymentToUpdate[$payment->PaymentId]->getArray());	*/
 
-//21) Eliminación de pago
+//15) Eliminación de pago
 	/*$paymentToDelete = Anfix\Payment::firstOrFail([],$companyId);
 	print_result('Pago a eliminar',$paymentToDelete);
 	$result = $paymentToDelete-> delete();
 	print_result('Número de pagos eliminados',$result);	*/
 
-//22) Creación de factura recibida 
-    /*$nextNumber = Anfix\NextNumber::compute('2',$companyId);
-    print_result('Siguiente número de proveedor libre',$nextNumber);
+	//16) Creación de factura recibida 
 	
-	$receivedInvoice = Anfix\ReceivedInvoice::create([
-				'ReceivedInvoiceSupplierCode' => $nextNumber,
-				'ReceivedInvoiceSupplierIdentificationNumber' => '11111111H',
-				'ReceivedInvoiceSupplierIdentificationTypeId' => '1',
-				'ReceivedInvoiceSupplierName'=> 'Proveedor', 
-				'ReceivedInvoiceSupplierTaxTypeId' => '1', 				
-				'ReceivedInvoiceSupplierVATTypeId' => '1',
-				'ReceivedInvoiceDate' => '01/05/2016', 
-				'ReceivedInvoiceSerialNum' => 'FR2016',
-				'ReceivedInvoiceStateId' => '1',
-				'Action' => 'ADD',
-				'ReceivednvoiceLine' => array(['Action' => 'ADD', 'ReceivedInvoiceLineItemRef' => 'MTO', 
-											'ReceivedInvoiceLineItemDescription' => 'Mantenimiento trimestral',
-											'ReceivedInvoiceLineQuantity' => 1,
-											'ReceivedInvoiceLinePrice' => 100,
-											'ReceivedInvoiceLineVAT' => 21,
-											'ReceivedInvoiceLineES' => 5.2]),
-				],$companyId);
+	/*$receivedInvoice = Anfix\ReceivedInvoice::create([
+		'ReceivedInvoiceSupplierIdentificationNumber' => '11111111H',
+    'ReceivedInvoiceSupplierIdentificationTypeId' => '1',
+    'ReceivedInvoiceSupplierName'=> 'Proveedor', 
+		'ReceivedInvoiceHasSupplier' => true,
+    'ReceivedInvoiceSerialAndNumber'=>'F201810-4',
+    'ReceivedInvoiceCategoryTypeId'=>'d',
+    'ReceivedInvoiceDate'=>'01/09/2018',
+    'ReceivedInvoiceOperationDate'=>'01/09/2018',
+    'ReceivedInvoiceIncludeEquivalentCharge'=>true,
+    'ReceivedInvoiceCarriageCosts'=>10.56,
+    'ReceivedInvoiceCarriageCostsVAT'=>21.00,
+    'ReceivedInvoiceCarriageCostTaxValueId'=>'g',
+    'ReceivedInvoiceCarriageCostsES'=>5.20,
+    'ReceivedInvoicePromptPaymentPercentage'=>9.98,
+    'ReceivedInvoiceSupplierTaxTypeId'=>'1',
+    'ReceivedInvoiceSupplierVATTypeId'=>'1',
+    'ReceivedInvoiceDiscountPercentage'=>10,
+    'ReceivedInvoiceFinancingPercentage'=>20.10,
+    'ReceivedInvoiceDeductionPercentage'=>31.04,
+    'ReceivedInvoicePriceTaxIncluded'=>true,
+    'EntriesGenerated'=>array([
+      'CompanyAccountingEntryReference'=> [
+        'CompanyAccountingEntryNote'=>array([
+          'AccountingEntryNoteTypeId'=>'1',
+          'AccountingEntryAmount'=>12,
+          'AccountingEntryIsDebitAmount'=>true,
+          'CompanyAccountingAccountNumber'=>6000000,
+          'CompanyAccountingAccountNumberBalance'=>7000000,
+          'Action'=>'ADD',
+          'AccountingEntryConcept'=>'Prueba'
+        ], [
+          'AccountingEntryNoteTypeId'=>'1',
+          'AccountingEntryAmount'=>12,
+          'AccountingEntryIsDebitAmount'=>false,
+          'CompanyAccountingAccountNumber'=>7000000,
+          'CompanyAccountingAccountNumberBalance'=>null,
+          'Action'=>'ADD',
+          'AccountingEntryConcept'=>'Prueba'
+        ]),
+        'AccountingEntryDate'=>'01/09/2018',
+        'PredefinedAccountingEntryId'=>'S',
+        'AccountingEntryPredefinedEntryId'=>'S',
+        'AccountingEntryTypeId'=>'4',
+        'Action'=>'ADD',
+        'CompanyId'=>$companyId,
+        'AccountingPeriodYear'=>2018,
+        'DocumentList'=>array([
+          'DocumentId'=>'a',
+          'DocumentTypeId'=>'3'
+        ])
+			]
+    ]),
+    'ReceivedInvoiceLine'=>array([
+        'Action'=>'ADD',
+        'IdTemporal'=>1,
+        'ReceivedInvoiceLineItemDescription'=>'Desc Item prueba 1',
+        'ReceivedInvoiceLineQuantity'=>1,
+        'ReceivedInvoiceLinePrice'=>10,
+        'ReceivedInvoiceLineVAT'=>21.0,
+        'ReceivedInvoiceLineES'=>5.20,
+        'ReceivedInvoiceLineDiscountPercentage'=>10.0,
+        'ReceivedInvoiceLineLinealDiscount'=>1,
+        'ReceivedInvoiceLineDirTaxValueId'=>'g'
+      ], [
+        'Action'=>'ADD',
+        'IdTemporal'=>2,
+        'ReceivedInvoiceLineItemDescription'=>'Desc Item2 prueba 1',
+        'ReceivedInvoiceLineQuantity'=>2,
+        'ReceivedInvoiceLinePrice'=>20,
+        'ReceivedInvoiceLineVAT'=>21.0,
+        'ReceivedInvoiceLineES'=>5.20,
+        'ReceivedInvoiceLineDiscountPercentage'=>10.0,
+        'ReceivedInvoiceLineLinealDiscount'=>2,
+				'ReceivedInvoiceLineDirTaxValueId'=>'g'
+			]),
+      'ReceivedInvoiceIsEqualExpiration'=>false,
+      'Expiration'=>array([
+          'Action'=>'ADD',
+          'IdTemporal'=>1,
+          'ExpirationDate'=>'01/11/2018',
+          'ExpirationQuantity'=>100.0
+        ], [
+          'Action'=>'ADD',
+          'IdTemporal'=>2,
+          'ExpirationDate'=>'05/12/2018',
+					'ExpirationQuantity'=>250.0
+        ]),
+        'Address'=>array([
+          'Action'=>'ADD',
+          'AddressCity'=>'VALLADOLID',
+          'AddressCountry'=>'España',
+          'AddressCountryId'=>'1',
+          'AddressPostalCode'=>'47010',
+          'AddressProvince'=>'Valladolid',
+          'AddressText'=>'direccion en texto'
+        ]),
+        'Contact'=>array([
+          'Action'=>'ADD',
+          'ContactEMail'=>'correo@dominio.com',
+          'ContactPersonName'=>'nombre de contacto',
+          'ContactPhoneNumber'=>'87666666666'
+				])
+		], $companyId);
 	
 	print_result('Factura recibida creada',$receivedInvoice->ReceivedInvoiceId);*/
 
-//23) Modificación de factura recibida
+//17) Modificación de factura recibida
 	/*$receivedInvoiceToUpdate = Anfix\ReceivedInvoice::where(['ReceivedInvoiceId' => $receivedInvoice->ReceivedInvoiceId],$companyId)->get();
 	print_result('Factura recibida a actualizar',$receivedInvoiceToUpdate[$receivedInvoice->ReceivedInvoiceId]);	
 
 	$receivedInvoiceToUpdate[$receivedInvoice->ReceivedInvoiceId]->ReceivedInvoiceSupplierName = 'Miguel';
-	$receivedInvoiceToUpdate[$receivedInvoice->ReceivedInvoiceId]->ReceivedInvoiceDate = '02/05/2016';
+	$receivedInvoiceToUpdate[$receivedInvoice->ReceivedInvoiceId]->ReceivedInvoiceDate = '02/05/2019';
     $receivedInvoiceToUpdate[$receivedInvoice->ReceivedInvoiceId]->save(); //Actualizo la factura recibida
 	print_result('Actualización de una factura recibida',$receivedInvoiceToUpdate[$receivedInvoice->ReceivedInvoiceId]->getArray());*/
 
-//24) Eliminación de factura recibida
+//18) Eliminación de factura recibida
 	/*$receivedInvoiceToDelete = Anfix\ReceivedInvoice::firstOrFail([],$companyId);
 	print_result('Factura recibida a eliminar',$receivedInvoiceToDelete);
 	$result = $receivedInvoiceToDelete-> delete();
 	print_result('Número de facturas recibidas eliminadas',$result);*/
 
-//25) Creación de factura recurrente
+//19) Creación de factura recurrente
 	/*$customerToUse = Anfix\Customer::firstOrFail([],$companyId);
 
-    print_result('Código de Cliente al que hacer una factura',$customerToUse->CustomerCode);
+    print_result('Código de Cliente al que hacer una factura',$customerToUse->CustomerName);
 
 	$recurringInvoice = Anfix\RecurringInvoice::create([
-				'RecurringInvoiceCustomerCode' => $customerToUse->CustomerCode,
 				'RecurringInvoiceCustomerId' => $customerToUse->CustomerId,
 				'RecurringInvoiceCustomerIdentificationNumber' => $customerToUse->CustomerIdentificationNumber,
 				'RecurringInvoiceCustomerIdentificationTypeId' => $customerToUse->CustomerIdentificationTypeId,
 				'RecurringInvoiceCustomerName'=> $customerToUse->CustomerName, 
 				'RecurringInvoiceCustomerTaxTypeId' => $customerToUse->CustomerTaxTypeId, 				
 				'RecurringInvoiceCustomerVATTypeId' => $customerToUse->CustomerIVATypeId,
-				'RecurringInvoiceSerialNum' => 'F2016',
+				'RecurringInvoiceSerialNum' => 'F2019',
 				'RecurringInvoiceStateId' => '1',
-				'RecurringInvoiceEndDate' => '04/05/2016',
+				'RecurringInvoiceEndDate' => '04/05/2019',
 				'RecurringInvoiceFrequencyQuantity' => 1,
 				'RecurringInvoiceFrequencyTypeId' => "1",
-				'RecurringInvoiceStartDate' => '04/05/2016',
+				'RecurringInvoiceStartDate' => '04/05/2019',
 				'Action' => 'ADD',
 				'RecurringInvoiceLine' => array(['Action' => 'ADD', 'RecurringInvoiceLineItemRef' => 'MTO', 
 											'RecurringInvoiceLineItemDescription' => 'Mantenimiento trimestral',
@@ -274,43 +436,40 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	
 	print_result('Factura recurrente creada',$recurringInvoice->RecurringInvoiceId);*/
 
-//26) Modificación de factura recurrente
+//20) Modificación de factura recurrente
 	/*$recurringInvoiceToUpdate = Anfix\RecurringInvoice::where(['RecurringInvoiceId' => $recurringInvoice->RecurringInvoiceId],$companyId)->get();
 	print_result('Factura recurrente a actualizar',$recurringInvoiceToUpdate[$recurringInvoice->RecurringInvoiceId]);	
 
-	$recurringInvoiceToUpdate[$recurringInvoice->RecurringInvoiceId]->RecurringInvoiceEndDate = '04/06/2016';
+	$recurringInvoiceToUpdate[$recurringInvoice->RecurringInvoiceId]->RecurringInvoiceEndDate = '04/06/2019';
     $recurringInvoiceToUpdate[$recurringInvoice->RecurringInvoiceId]->save(); //Actualizo la factura recurrente
 	print_result('Actualización de una factura recurrente',$recurringInvoiceToUpdate[$recurringInvoice->RecurringInvoiceId]->getArray());*/
 
-//27) Eliminación de factura recurrente
+//21) Eliminación de factura recurrente
 	/*$recurringInvoiceToDelete = Anfix\RecurringInvoice::firstOrFail([],$companyId);
 	print_result('Factura recurrente a eliminar',$recurringInvoiceToDelete);
 	$result = $recurringInvoiceToDelete-> delete();
 	print_result('Número de facturas recurrentes eliminadas',$result);*/
 
-//28) Creación de un proveedor
-//    $nextNumber = Anfix\NextNumber::compute('2',$companyId);
-//    print_result('Siguiente número de proveedor libre',$nextNumber);
-//
-//	$supplier = Anfix\Supplier::create([
-//				'SupplierCode' => $nextNumber,
-//				'SupplierFiscalName'=> 'Mariano',
-//				'SupplierIdentificationTypeId' => '1',
-//				'SupplierIdentificationNumber' => '11111111H',
-//				'SupplierFixedDiscount' => 25.0,
-//				'SupplierTaxTypeId' => '1',
-//				'SupplierIncludeEquivalentCharge' => true,
-//				'SupplierComments' => 'Este proveedor cierra en Agosto',
-//				'Action' => 'ADD',
-//				'Address' => ['Action' => 'ADD', 'AddressText' => 'Plaza España, 13, 3',  'AddressCountryId'=> '1'],
-//				'Contact' => ['Action' => 'ADD', 'ContactPersonName' => 'Alberto'],
-//				'BankAccount' => ['Action' => 'ADD', 'BankAccountIBAN' => 'ES4801822370420000000011'],
-//				'SupplierIVATypeId' => '1',
-//				],$companyId);
-//
-//	print_result('Proveedor creado',$supplier->SupplierId);
+//22) Creación de un proveedor
+	/*$supplier = Anfix\Supplier::create([
+				'CustomerAccountingAccountNumber' => 4000006, 
+				'SupplierFiscalName'=> 'Mariano',
+				'SupplierIdentificationTypeId' => '1',
+				'SupplierIdentificationNumber' => '11111111H',
+				'SupplierFixedDiscount' => 25.0,
+				'SupplierTaxTypeId' => '1',
+				'SupplierIncludeEquivalentCharge' => true,
+				'SupplierComments' => 'Este proveedor cierra en Agosto',
+				'Action' => 'ADD',
+				'Address' => ['Action' => 'ADD', 'AddressText' => 'Plaza España, 13, 3',  'AddressCountryId'=> '1'],
+				'Contact' => array(['Action' => 'ADD', 'ContactPersonName' => 'Alberto']),
+				'BankAccount' => ['Action' => 'ADD', 'BankAccountIBAN' => 'ES4801822370420000000011'],
+				'SupplierIVATypeId' => '1',
+				],$companyId);
 
-//29) Modificación de un proveedor
+	print_result('Proveedor creado',$supplier->SupplierId);*/
+
+//23) Modificación de un proveedor
 	/*$supplierToUpdate = Anfix\Supplier::where(['SupplierId' => $supplier->SupplierId],$companyId)->get();
 	
 	$supplierToUpdate[$supplier->SupplierId]->CustomerName = 'Miguel';
@@ -319,17 +478,17 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
 	print_result('Actualización de un proveedor',$supplierToUpdate[$supplier->SupplierId]->getArray());*/
 
-//30) Eliminación de un proveedor
+//24) Eliminación de un proveedor
 	/*$supplierToDelete = Anfix\Supplier::firstOrFail([],$companyId);
 	print_result('Proveedor a eliminar',$supplierToDelete);
 	$result = $supplierToDelete-> delete();
 	print_result('Número de proveedores eliminados',$result);*/	
 
-//31) Creación de un tipo impositivo
+//25) Creación de un tipo impositivo
 	/*$vat = Anfix\Vat::create([
 				'VatClassId' => '1', 
 				'VatEsValue'=> 5.2, 
-				'VatInitDate' => '01/05/2016',
+				'VatInitDate' => '01/05/2019',
 				'VatTypeId' => '1', 
 				'VatValue' => 22.5,
 				'Action' => 'ADD'
@@ -337,15 +496,15 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
 	print_result('Tipo impositivo creado',$vat->VatId);*/
 
-//32) Modificación de un tipo impositivo
+//26) Modificación de un tipo impositivo
 	/*$vatToUpdate = Anfix\Vat::find($vat->VatId,$companyId);
 	
-	$vatToUpdate->VatEndDate = '01/05/2016';
+	$vatToUpdate->VatEndDate = '01/05/2019';
     $vatToUpdate->save(); //Actualizo el tipo impositivo
 
 	print_result('Actualización de un tipo impositivo',$vatToUpdate->VatId);*/
 
-//33) Eliminación de un tipo impositivo
+//277) Eliminación de un tipo impositivo
 	/*$vatToDelete = Anfix\Vat::find($vat->VatId,$companyId);
 	print_result('Tipo impositivo a eliminar',$vatToDelete);
 	
@@ -354,114 +513,110 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
 // Módulo de Contabilidad
 
-//34) Creación de un asiento contable
+//28) Creación de un asiento contable
 //Cambiar el valor de InvoiceOrder a uno libre, las fechas y el InvoiceCustomerSupplierId
+	/*$payrollEntryReference = Anfix\CompanyAccountingEntryReference::create([
+		"AccountingEntryTypeId" => "1",
+		"PredefinedAccountingEntryId" => "b",
+		"AccountingEntryDate" => "27/03/2019",
+		"FlagCapitalAssets" => false,
+		"AccountingEntryPredefinedEntryId" => "b",
+		"Action" => "ADD",
+		"AccountingPeriodYear" => 2019,
+		"CompanyAccountingEntryNote" => array([
+				"AccountingEntryNoteTypeId" => "1",
+				"AccountingEntryConcept" => "Sueldos y Salarios Brutos",
+				"CompanyAccountingAccountNumber" => 6400000,
+				"AccountingEntryTypeId" => "1",
+				"PredefinedAccountingEntryId" => "b",
+				"AccountingEntryAmountDebit" => 1750,
+				"Action" => "ADD",
+				"AccountingEntryIsDebitAmount" => true,
+				"AccountingEntryAmount" => 1750,
+				"AccountingEntryNoteAmountExpression" => "?"
+		], [
+				"AccountingEntryNoteTypeId" => "7",
+				"AccountingEntryConcept" => "I.R.P.F.",
+				"CompanyAccountingAccountNumber" => 4751000,
+				"AccountingEntryTypeId" => "1",
+				"AccountingEntryAmountCredit" => 200,
+				"IdTemporal" => 1,
+				"Action" => "ADD",
+				"AccountingEntryIsDebitAmount" => false,
+				"AccountingEntryAmount" => 200,
+				"AccountingEntryNoteAmountExpression" => "?"
+		], [
+				"AccountingEntryNoteTypeId" => "6",
+				"AccountingEntryConcept" => "S.S. Total TC1",
+				"CompanyAccountingAccountNumber" => 4760000,
+				"AccountingEntryTypeId" => "1",
+				"AccountingEntryAmountCredit" => 200,
+				"IdTemporal" => 2,
+				"Action" => "ADD",
+				"AccountingEntryIsDebitAmount" => false,
+				"AccountingEntryAmount" => 200,
+				"AccountingEntryNoteAmountExpression" => "?"
+		], [
+				"AccountingEntryNoteTypeId" => "6",
+				"AccountingEntryConcept" => "S.S. Empresa (Incl. Coti. Titu.)",
+				"CompanyAccountingAccountNumber" => 6420000,
+				"AccountingEntryTypeId" => "1",
+				"AccountingEntryAmountDebit" => 100,
+				"IdTemporal" => 3,
+				"Action" => "ADD",
+				"AccountingEntryIsDebitAmount" => true,
+				"AccountingEntryAmount" => 100,
+				"AccountingEntryNoteAmountExpression" => "?"
+		], [
+				"AccountingEntryNoteTypeId" => "6",
+				"AccountingEntryConcept" => "L\u00edquido a pagar",
+				"CompanyAccountingAccountNumber" => 4650000,
+				"AccountingEntryTypeId" => "1",
+				"AccountingEntryAmountCredit" => 1450,
+				"IdTemporal" => 4,
+				"Action" => "ADD",
+				"AccountingEntryIsDebitAmount" => false,
+				"AccountingEntryAmount" => 1450,
+				"AccountingEntryNoteAmountExpression" => "?"
+		]),
+		], $companyId);
+	print_result('Asiento de nómina creado',$payrollEntryReference->AccountingEntryId);*/
 
-	/*$issuedInvoiceEntryReference = Anfix\CompanyAccountingEntryReference::create([
-				'AccountingEntryTypeId' => '2',
-				'PredefinedAccountingEntryId' => '1',
-				'AccountingEntryDate' => '10/05/2016',
-				'FlagCapitalAssets' => false,
-				'AccountingEntryPredefinedEntryId'=> '1', 
-				'Action' => 'ADD', 				
-				'AccountingPeriodYear' => 2016,
-				'CompanyAccountingEntryNote' => array(['Action' => 'ADD', 
-														'AccountingEntryNoteTypeId' => '1', 
-														'AccountingEntryConcept' => 'Fra. de Cliente Pepe',
-														'AccountingEntryDocumentDescription' => 'F2016/134',
-														'CompanyAccountingAccountNumber' => 4300003,
-														'AccountingEntryTypeId' => '2',
-														'PredefinedAccountingEntryId' => '1',
-														'AccountingEntryAmountDebit' => 1021.34,
-														'AccountingEntryIsDebitAmount' => true,
-														'AccountingEntryAmount' => 1021.34,
-														'AccountingEntryNoteAmountExpression' => '?'],
-														['Action' => 'ADD', 
-														'AccountingEntryNoteTypeId' => '1', 
-														'AccountingEntryConcept' => 'Fra. de Cliente Pepe',
-														'AccountingEntryDocumentDescription' => 'F2016/134',
-														'CompanyAccountingAccountNumber' => 7000000,
-														'AccountingEntryNoteTaxLineNumber' => 1,
-														'AccountingEntryTypeId' => '2',
-														'AccountingEntryAmountDebit' => 844.08,
-														'AccountingEntryIsDebitAmount' => false,
-														'AccountingEntryAmount' => 844.08,
-														'AccountingEntryNoteAmountExpression' => 'TaxBaseValue1'],
-														['Action' => 'ADD', 
-														'AccountingEntryNoteTypeId' => '2', 
-														'AccountingEntryConcept' => 'Fra. de Cliente Pepe',
-														'AccountingEntryDocumentDescription' => 'F2016/134',
-														'CompanyAccountingAccountNumber' => 4770000,
-														'AccountingEntryNoteTaxLineNumber' => 1,
-														'AccountingEntryTypeId' => '2',
-														'AccountingEntryAmountDebit' => 177.26,
-														'AccountingEntryIsDebitAmount' => false,
-														'AccountingEntryAmount' => 177.26,
-														'AccountingEntryNoteAmountExpression' => 'TaxBaseValue1 TaxPercentage1 %']),				
-				'Invoice' => ['InvoiceOperationKeyId' => '1',
-									'InvoiceDate' => '10/05/2016',
-									'InvoiceOperationDate' => '10/05/2016',
-									'InvoiceCustomerSupplierId' => 'MuuWnXxCo',
-									'InvoiceCustomerSupplierIdentificationTypeId' => '1',
-									'InvoiceCustomerSupplierIdentificationNumber' => '11111111H',
-									'InvoiceOrder' => 21,
-									'Action' => 'ADD',
-									'InvoiceCustomerSupplierAccountingAccountNumber' => 4300003,
-									'Invoice347OperationKeyId' => '2',
-									'InvoiceCashAccounting' => false,
-									'InvoiceLine' => array(['InvoiceLineOrder' => 1,
-															'InvoiceLineOperationTypeId' => '7',
-															'InvoiceLineTaxBaseValue' => 844.08,
-															'InvoiceLineTaxValueId' => 'g',
-															'InvoiceLineTaxPercentage' => 21,
-															'InvoiceLineTaxValue' => 177.26,
-															'InvoiceLineESPercentage' => 5.2,
-															'InvoiceLineIncludeEquivalenceSurcharge' =>  false,
-															'InvoiceLineIncludeIn340' => false,
-															'InvoiceLineIncludeIn349' => false,
-															'Action' => 'ADD'
-										])
-					]
-				],$companyId);
-	
-	print_result('Asiento de factura emitida creada',$issuedInvoiceEntryReference->AccountingEntryId);*/
-
-//35) Actualización de un asiento contable
+//29) Actualización de un asiento contable
      // Si creamos un asiento y lo actualizamos posteriormente
-    /*$issuedInvoiceEntryReference->AccountingEntryDate = '11/05/2016';
-    $issuedInvoiceEntryReference->AccountingPeriodYear = 2016;
-    $issuedInvoiceEntryReference->save(); //Actualizo el asiento contable
+    /*$payrollEntryReference->AccountingEntryDate = '11/05/2019';
+    $payrollEntryReference->AccountingPeriodYear = 2019;
+    $payrollEntryReference->save(); //Actualizo el asiento contable
 
-    print_result('Asiento de factura emitida actualizado',$issuedInvoiceEntryReference->AccountingEntryId);    */
+    print_result('Asiento de nómina actualizado',$payrollEntryReference->AccountingEntryId);*/
 
     //recuperando uno en concreto
-    /*$issuedInvoiceEntryReference = Anfix\CompanyAccountingEntryReference::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
-    $issuedInvoiceToUpdate = $issuedInvoiceEntryReference[key($issuedInvoiceEntryReference)];
+    /*$payrollEntryReference = Anfix\CompanyAccountingEntryReference::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2019]);
+    $entryReferenceToUpdate = $payrollEntryReference[key($payrollEntryReference)];
 
-    $issuedInvoiceToUpdate->AccountingEntryDate = '12/05/2016';
-    $issuedInvoiceToUpdate->AccountingPeriodYear = 2016;
-    $issuedInvoiceToUpdate->save(); //Actualizo el asiento contable
+    $entryReferenceToUpdate->AccountingEntryDate = '12/05/2019';
+    $entryReferenceToUpdate->AccountingPeriodYear = 2019;
+    $entryReferenceToUpdate->save(); //Actualizo el asiento contable
 
-    print_result('Asiento de factura emitida actualizado',$issuedInvoiceToUpdate->AccountingEntryId);*/
+    print_result('Asiento de nómina actualizado',$entryReferenceToUpdate->AccountingEntryId);*/
     
-//36) Eliminación de un asiento contable
-    /*$issuedInvoiceEntryReference = Anfix\CompanyAccountingEntryReference::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
-    $issuedInvoiceToDelete = $issuedInvoiceEntryReference[key($issuedInvoiceEntryReference)];
-    $result = $issuedInvoiceToDelete->delete(["AccountingPeriodYear" => 2016]);
+//30) Eliminación de un asiento contable
+    /*$entryReferenceToDelete = $entryReferenceToUpdate;
+    $result = $entryReferenceToDelete->delete(["AccountingPeriodYear" => 2019]);
     print_result('Número de asientos eliminados',$result);*/
 
-//37) Borrado de ejercicio contable
-    /*$result = $accountingPeriodYear = Anfix\CompanyAccountingPeriod::purge(2011, $companyId);
+//31) Borrado de ejercicio contable
+    /*$result = $accountingPeriodYear = Anfix\CompanyAccountingPeriod::purge(2013, $companyId);
     print_result('Número de ejercicios eliminados',$result);*/
 
-//38) Desactivación de ejercicio contable
+//32) Desactivación de ejercicio contable
     /*$accountingPeriodYear = Anfix\CompanyAccountingPeriod::where(['AccountingPeriodYear' => 2021], $companyId)->get();
     print_result('Ejercicio a eliminar',$accountingPeriodYear[2021]);
 
     $result = $accountingPeriodYear[2021]->delete();
     print_result('Número de ejercicios desactivados',$result);*/
 
-//39) Actualización de ejercicio contable
+//33) Actualización de ejercicio contable
     /*$accountingPeriodYear = Anfix\CompanyAccountingPeriod::where(['AccountingPeriodYear' => 2012], $companyId)->get();
     print_result('Ejercicio a actualizar',$accountingPeriodYear[2012]);
 
@@ -469,93 +624,7 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
     $result = $accountingPeriodYear[2012]->save();
     print_result('Número de ejercicios actualizados',$result);*/
 
-//40) Creación de empresa
-    //TO-DO: aparece un error porque no se puede crear la empresa (el objeto company no admite creación)
-    /*$newCompany = Anfix\Company::create(['Action' => 'ADD',
-    									'AccountingPeriodYear' => 2016,
-    									'AccountingPeriodInitDate' => '01/01/2016',
-    									'AccountingPeriodEndDate' => '31/12/2016',
-    									'CompanyAccountingPlanIdSource' => '2',
-    									'CompanyAccountingPlanSourceFlag' => '2',
-    									'CompanyCorporateName' => 'Empresa',
-    									'CompanyIdentificationNumber' => 'B00000000',
-    									'CompanyIdentificationTypeId' => '1',
-    									'DesktopApplicationId' => '3',
-    									'CompanyParameter' => ['ChargeAccountNumber2' => 432,
-    															'ChargeAccountNumber3' => 433,
-    															'ChargeAccountNumber4' => 440,
-																'ChargeAccountNumber5' => 449,
-																'ChargeAccountNumber6' => 431,
-																'ChargeAccountNumber7' => 441,
-																'ChargeAccountNumber8' => 0,
-																'ChargeAccountNumber9' => 0,
-																'ChargeAccountNumber10' => 0,
-																'ChargeAccountNumber11' => 0,
-																'ChargeAccountNumber12' => 0,
-																'ClosedAccountingPeriodYearEntryAutoUpdate' => true,
-																'CompanyAccountingDigitNumber' => 7, 
-																'CompanyDeductionValueId' =>'1',
-																'CompanyProrate' => false,
-																'CompanyTaxTypeId' => '1',
-																'CompanyTaxValueId' => 'g',
-																'DeductionAccountingBreakdown' => '1',
-																'InputDeductionAccountNumber' => 4730000,
-																'InputVAT1AccountNumber' => 4720000,
-																'InputVAT2AccountNumber' => 4720000,
-																'InputVAT3AccountNumber' => 4720000,
-																'InputVAT4AccountNumber' => 4720000,
-																'InputVAT5AccountNumber' => 4720000,
-																'InputVAT6AccountNumber' => 4720000,
-																'InputVAT7AccountNumber' => 6000000,
-																'IssuedInvoiceAccountNumber1' => 70,
-																'IssuedInvoiceAccountNumber2'=>73,
-																'IssuedInvoiceAccountNumber3'=>75,
-																'IssuedInvoiceAccountNumber4'=>0,
-																'IssuedInvoiceAccountNumber5'=>0,
-																'IssuedInvoiceAccountNumber6'=>0,
-																'IssuedInvoiceAccountNumber7'=>0,
-																'IssuedInvoiceAccountNumber8'=>0,
-																'IssuedInvoiceAccountNumber9'=>0,
-																'IssuedInvoiceAccountNumber10'=>0,
-																'IssuedInvoiceAccountNumber11'=>0,
-																'IssuedInvoiceAccountNumber12'=>0,
-																'OutputDeductionAccountNumber'=>4751000,
-																'OutputVAT1AccountNumber'=>4770000,
-																'OutputVAT2AccountNumber'=>4770000,
-																'OutputVAT3AccountNumber'=>4770000,
-																'PaymentAccountNumber1'=>173,
-																'PaymentAccountNumber2'=>400,
-																'PaymentAccountNumber3'=>402,
-																'PaymentAccountNumber4'=>403,
-																'PaymentAccountNumber5'=>410,
-																'PaymentAccountNumber6'=>419,
-																'PaymentAccountNumber7'=>523,
-																'PaymentAccountNumber8'=>401,
-																'PaymentAccountNumber9'=>411,
-																'PaymentAccountNumber10'=>0,
-																'PaymentAccountNumber11'=>0,
-																'PaymentAccountNumber12'=>0,
-																'ReceivedInvoiceAccountNumber1'=>60,
-																'ReceivedInvoiceAccountNumber2'=>62,
-																'ReceivedInvoiceAccountNumber3'=>20,
-																'ReceivedInvoiceAccountNumber4'=>21,
-																'ReceivedInvoiceAccountNumber5'=>22,
-																'ReceivedInvoiceAccountNumber6'=>0,
-																'ReceivedInvoiceAccountNumber7'=>0,
-																'ReceivedInvoiceAccountNumber8'=>0,
-																'ReceivedInvoiceAccountNumber9'=>0,
-																'ReceivedInvoiceAccountNumber10'=>0,
-																'ReceivedInvoiceAccountNumber11'=>0,
-																'ReceivedInvoiceAccountNumber12'=>0,
-																'VATAccountingBreakdown'=>'1'
-
-    									]
-
-    	], $companyId);
-
-		print_result('Empresa creada', $newCompany);*/
-
-//42) Actualización de una empresa
+//34) Actualización de una empresa
 	/*$companyToUpdate = Anfix\Company::firstOrFail([],$companyId);
 
 	$companyToUpdate->CorporateName = 'Empresa 2';
@@ -563,9 +632,9 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
 	print_result('Empresa actualizada', $result);*/
 
-//43) Creación de cuenta contable
+//35) Creación de cuenta contable
 	/*$accountingAccount = Anfix\CompanyAccountingAccount::create([
-				'AccountingPeriodYear' => 2016,	
+				'AccountingPeriodYear' => 2019,	
 				'CompanyAccountingAccount' => array((object)['Action' => 'ADD',
 														'CompanyAccountingAccountDescription' => 'Proveedores de inmovilizado a largo plazo', 
 														'CompanyAccountingAccountNumber' => 1730005
@@ -574,103 +643,46 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 	
 	print_result('Cuenta contable creada',$accountingAccount);*/
 
-//44) Modificación de cuenta contable
+//36) Modificación de cuenta contable
 
-    /*$accountingAccount = Anfix\CompanyAccountingAccount::select(2016, 4300000, $companyId);
+    /*$accountingAccount = Anfix\CompanyAccountingAccount::select(2019, 4300000, $companyId);
 
-    $accountingAccount->AccountingPeriodYear = 2016;
+    $accountingAccount->AccountingPeriodYear = 2019;
     $accountingAccount->CompanyAccountingAccountNumber = 4300000;
     $accountingAccount->CompanyAccountingAccountInitBalance = 200;
     $result = $accountingAccount->save();
     print_result('Número de cuentas contables actualizadas',$result);*/
 
-//45) Eliminación de cuenta contable
-	/*$accountingAccountToDelete = Anfix\CompanyAccountingAccount::select(2016, 1730003, $companyId);
+//37) Eliminación de cuenta contable
+	/*$accountingAccountToDelete = Anfix\CompanyAccountingAccount::select(2019, 1730003, $companyId);
 	print_result('Cuenta a eliminar',$accountingAccountToDelete);
 
-	$result = $accountingAccountToDelete->delete(["AccountingPeriodYear" => 2016]);
+	$result = $accountingAccountToDelete->delete(["AccountingPeriodYear" => 2019]);
 
     print_result('Número de cuentas contables eliminadas',$result);*/
 
-//47) Creación de retención
+//38) Creación de retención
 	/*$deductionValue = Anfix\DeductionValue::create([
 					'Action' => 'ADD', 								
 					'DeductionValueTypeId' => '1',
-					'DeductionValueInitDate' => '10/05/2016',
+					'DeductionValueInitDate' => '10/05/2019',
 					'DeductionValueValue' => 0,
 					'DeductionValueName' => 'Personalizada'
 						],$companyId);
 
 	    print_result('Impuesto creado',$deductionValue->DeductionValueId);*/
-//48) Modificación de retención
+//39) Modificación de retención
 	    /*$deductionValue->DeductionValueValue= 19.5;
 	    $result = $deductionValue->save();
 	    print_result("Retención actualizada", $result);*/
 
-//49) Eliminación de retención
+//40) Eliminación de retención
 	    /*$result = $deductionValue->delete();
 	    print_result("Retención eliminado", $result);*/
 
-//50) Creación de factura
-	/*$invoice = Anfix\Invoice::create([
-				'AccountingPeriodYear' => 2016,
-				'Action' => 'ADD', 								
-				'FromInvoiceManagement' => true,
-				'Invoice347OperationKeyId' => '2',
-				'InvoiceCashAccounting' => false,
-				'InvoiceCustomerSupplierAccountingAccountNumber' => 4300003,
-				'InvoiceCustomerSupplierId'=> 'MuuWmORY;',
-				'InvoiceDate' => '10/05/2016',
-				'InvoiceNumber' => 17,
-				'InvoiceOperationKeyId' => '1',
-				'InvoiceOrder' => 33,
-				'InvoiceSerialNum' => 'FE2016',
-				'InvoiceTotalValue' => 100,
-				'InvoiceType' => 'R',
-				'InvoiceLine' => array(['Action' => 'ADD',
-										'InvoiceLineESPercentage' => 5.2,
-										'InvoiceLineIncludeEquivalenceSurcharge' => false,
-										'InvoiceLineIncludeIn340' => false,
-										'InvoiceLineIncludeIn349' => false,
-										'InvoiceLineOperationTypeId' => '7',
-										'InvoiceLineOrder' => 1,
-										'InvoiceLineTaxBaseValue' => 82.64,
-										'InvoiceLineTaxPercentage' => 21,
-										'InvoiceLineTaxValue' => 17.36,
-										'InvoiceLineTaxValueId' => 'g'
-					]),
-				'Address' => array(['Action' => 'ADD',
-										'AddressCityId' => '9;u',
-										'AddressCountryId' => '1',
-										'AddressPostalCode' => '47001',
-										'AddressProvinceId' => 'L',
-										'AddressText' => 'Plaza España, 13'
-									])
-					],$companyId);
-
-    print_result('Factura creada',$invoice->InvoiceId);*/
-
-//51) Modificación de factura
-    /*$invoice = Anfix\Invoice::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
-    print_result('Factura a modificar',$invoice[key($invoice)]);
-
-    $invoiceToUpdate = $invoice[key($invoice)];
-    $invoiceToUpdate->AccountingPeriodYear = 2016;
-    $invoiceToUpdate->InvoiceDate = '15/05/2016';
-    $result = $invoiceToUpdate->save();
-
-    print_result('Facturas modificadas',$result);*/
-
-//52) Eliminación de factura
-	$invoice = Anfix\Invoice::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
-    	$invoiceToDelete = $invoice[key($invoice)];
-	$result = $invoiceToDelete->delete(["AccountingPeriodYear" => 2016, "FromInvoiceManagement" => true]);
-
-    print_result('Facturas eliminadas',$result);
-
-//53) Creación de predefinido
+//41) Creación de predefinido
 	/*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::create([
-				'AccountingPeriodYear' => 2016,
+				'AccountingPeriodYear' => 2019,
 				'Action' => 'ADD', 								
 				'PredefinedAccountingEntryCode' => '202',
 				'PredefinedAccountingEntryDescription' => 'Predefinido personalizado',
@@ -685,52 +697,52 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
     print_result('Predefindo creado',$predefinedAccountingEntry->PredefinedAccountingEntryId);*/
 
-//54) Modificación de predefinido
-    /*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::where(['EntryTypeToPredefinedEntryEntryTypeId' => '2'],$companyId)->getByEntryType(2016,true, [], [], []);
+//42) Modificación de predefinido
+    /*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::where(['EntryTypeToPredefinedEntryEntryTypeId' => '2'],$companyId)->getByEntryType(2019,true, [], [], []);
     print_result('Predefinido a actualizar',$predefinedAccountingEntry);
 
     $predefinedToCreate = $predefinedAccountingEntry[key($predefinedAccountingEntry)];
 
     $predefinedToCreate->PredefinedAccountingEntryDescription = 'Asiento predefinido personalizado';
-    $predefinedToCreate->AccountingPeriodYear=2016;
+    $predefinedToCreate->AccountingPeriodYear=2019;
     $predefinedToCreate->PredefinedAccountingEntryCode='990';
     $result = $predefinedToCreate->save();
 
     print_result('Número de asientos predefinidos actualizados',$result);*/
 
-//55) Eliminación de predefinido
-    /*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::where([],$companyId)->get([],1,1,['PredefinedAccountingEntryCode'],['ASC'],'search',['AccountingPeriodYear' => 2016, 'IncludeStructuralPredefinedAccountingEntries' => true]);
+//43) Eliminación de predefinido
+    /*$predefinedAccountingEntry = Anfix\PredefinedAccountingEntry::where([],$companyId)->get([],1,1,['PredefinedAccountingEntryCode'],['ASC'],'search',['AccountingPeriodYear' => 2019, 'IncludeStructuralPredefinedAccountingEntries' => true]);
     print_result('Predefinido a eliminar',$predefinedAccountingEntry);
 
     $predefinedToDelete = $predefinedAccountingEntry[key($predefinedAccountingEntry)];
 
-    $result = $predefinedToDelete->delete(["AccountingPeriodYear" => 2016]);
+    $result = $predefinedToDelete->delete(["AccountingPeriodYear" => 2019]);
 
     print_result('Número de asientos predefinidos eliminados',$result);*/
 
 
-//56) Creación de tipo impositivo
+//44) Creación de tipo impositivo
 	/*$vat = Anfix\Vat::create([
 				'VatClassId' => '1',
 				'Action' => 'ADD', 								
 				'VatEsValue' => 5.2,
-				'VatInitDate' => '10/05/2016',
+				'VatInitDate' => '10/05/2019',
 				'VatTypeId' => '1',
 				'VatValue' => 28
 					],$companyId);
 
     print_result('Impuesto creado',$vat->VatId);*/
-//57) Modificación de tipo impositivo
+//45) Modificación de tipo impositivo
     /*$vat -> VatValue= 29.5;
     $result = $vat->save();
     print_result("Impuesto actualizado", $result);*/
 
-//58) Eliminación de tipo impositivo
+//46) Eliminación de tipo impositivo
     /*$result = $vat->delete();
     print_result("Impuesto eliminado", $result);*/
 
-//59) Eliminación de plantilla de Balance/PyG
-	/*$templates = Anfix\Template::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2016]);
+//47) Eliminación de plantilla de Balance/PyG
+	/*$templates = Anfix\Template::where([],$companyId)->get([],1,1,[],'','search',['AccountingPeriodYear' => 2019]);
 
 	$templateToDelete = $templates[key($templates)];
 	print_result('Plantilla a eliminar', $templateToDelete);

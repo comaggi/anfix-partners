@@ -27,40 +27,45 @@ include 'example_utils.php';
 $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)
 
 
-    //Listado de facturas
-    $invoices = Anfix\IssuedInvoice::all($companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
-    print_result('Listado de id de facturas',array_map(function($e){ return $e->IssuedInvoiceId; },$invoices));
+    //Listado de presupuestos
+    $budgets = Anfix\CustomerBudget::all($companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
+    print_result('Listado de id de presupuestos',array_map(function($e){ return $e->CustomerBudgetId; },$budgets));
 
+    //Obtención de un presupuesto con id L,iBgPqlc
+    //$budget = Anfix\CustomerBudget::findOrFail('L,iBgPqlc',$companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
 
-    //Obtención de la factura con id L,iWRC3GE
-    //$invoice = Anfix\IssuedInvoice::findOrFail('L,iWRC3GE',$companyId); //Obtenemos la factura con el id indicado o un error si no existe
+    //Obtención dl primer presupuesto
+    $budget = Anfix\CustomerBudget::first([],$companyId); //Obtenemos el presupuesto con el id indicado o un error si no existe
 
-    //Obtención de la primera factura
-    $invoice = Anfix\IssuedInvoice::first([],$companyId); //Obtenemos la factura con el id indicado o un error si no existe
-
-
-    //Cobro de la factura
-    $charge = \Anfix\Charge::create([
-        "ChargeAmount" => 90.75,
-        "ChargeSourceId" => $invoice->IssuedInvoiceId,
-        "ChargeSourceType" => "2"
+    //Reporte del presupuesto
+    $report = \Anfix\DocumentReport::customerBudget([
+        "CustomerBudgetIds" =>  [$budget->CustomerBudgetId],
+        "CustomerBudgetTemplateId" =>  "65",
+        "CustomerBudgetOutputFormat" =>  "PDF",
+        "CustomerBudgetForce" =>  false,
+        "CustomerBudgetTemporal" =>  true
     ],$companyId);
-    print_result('Creación de un cargo',$charge);
+    print_result('Reporte del presupuesto',$report);
 
-    //Reporte de la factura
-    $report = \Anfix\DocumentReport::issuedInvoice([
-        "IssuedInvoiceIds" =>  [$invoice->IssuedInvoiceId],
-        "IssuedInvoiceTemplateId" =>  "65",
-        "IssuedInvoiceFormat" =>  "PDF",
-        "IssuedInvoiceForce" =>  false,
-        "IssuedInvoiceTemporal" =>  true
+
+    //Conversión del presupuesto en factura
+    $invoice = $budget->generatedocuments([$budget->CustomerBudgetId],3,$companyId);
+    print_result('Conversión de presupuesto en factura',$invoice);
+
+
+    //Envío del presupuesto por email
+    $mydoc = \Anfix\MyDocuments::send([
+          "Email" => ["patricia.ganan@anfix.com"],
+          "EmailSubject" => "Patosa te ha enviado el presupuesto",
+          "EmailText" => "Presupuesto",
+          "EntryIds" => [$report->MyDocuments->EntryId]
     ],$companyId);
-    print_result('Reporte de la factura',$report);
-
-    //Contabilización de la factura
-    $export_result = $invoice->export(2016,true);
-    print_result('Contabilización de la factura',$export_result);
+    print_result('Envío del presupuesto por email',$mydoc);
 
 
-    //Almacenamiento de la factura en local
-    \Anfix\MyDocuments::download($report->MyDocuments->EntryId,'../download/invoice.pdf');
+    //Almacenamiento del presupuesto en local
+    \Anfix\MyDocuments::download($report->MyDocuments->EntryId,'../download/budget.pdf');
+
+
+
+

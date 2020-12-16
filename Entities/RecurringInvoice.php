@@ -22,8 +22,8 @@ namespace Anfix;
 
 class RecurringInvoice extends BaseModel
 {
-    protected $applicationId = 'E';
-    protected $apiUrlSufix = 'recurringissuedinvoice/';
+    protected $applicationId = 'e';
+    protected $apiUrlSufix = 'sale/recurringissuedinvoice/';
     protected $update = true;
     protected $create = true;
     protected $delete = true;

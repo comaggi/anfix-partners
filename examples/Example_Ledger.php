@@ -27,5 +27,5 @@ include 'example_utils.php';
 $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)
 
 
-$data = Anfix\Ledger::report(['AccountingPeriodYear' => 2016], $companyId);
+$data = Anfix\Ledger::report(['AccountingPeriodYear' => 2019], $companyId);
 print_result('Generación del libro Mayor.',$data);

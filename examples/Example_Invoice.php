@@ -28,16 +28,12 @@ include 'example_utils.php';
 $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponible (función únicamente válida para ejemplos)
 
 
-$data = Anfix\Invoice::renumerate(2016, 'R', $companyId);
-print_result('Renumera las facturas',$data);
-
-
 $data = Anfix\Invoice::reportIssued([
-    'AccountingPeriodYear' => 2016,
+    'AccountingPeriodYear' => 2019,
     'ReportFormat' => 'PDF'
     ], $companyId);
 print_result('Informe de IVA repercutido',$data);
 
 
-$data = Anfix\Invoice::reportReceived(['AccountingPeriodYear' => 2016], $companyId);
+$data = Anfix\Invoice::reportReceived(['AccountingPeriodYear' => 2019], $companyId);
 print_result('Informe de IVA soportado',$data);

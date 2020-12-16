@@ -49,13 +49,13 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
 
     //Conversión del presupuesto en factura
-    $invoice = $budget->generateDocuments([$budget->CustomerBudgetId],3,$companyId);
+    $invoice = $budget->generatedocuments([$budget->CustomerBudgetId],3,$companyId);
     print_result('Conversión de presupuesto en factura',$invoice);
 
 
     //Envío del presupuesto por email
     $mydoc = \Anfix\MyDocuments::send([
-          "Email" => ["patricia.ganan@anfix.com"],
+          "Email" => ["mail@nomail.com"],
           "EmailSubject" => "Patosa te ha enviado el presupuesto",
           "EmailText" => "Presupuesto",
           "EntryIds" => [$report->MyDocuments->EntryId]

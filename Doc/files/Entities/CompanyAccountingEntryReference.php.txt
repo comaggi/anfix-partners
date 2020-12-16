@@ -23,7 +23,7 @@ namespace Anfix;
 class CompanyAccountingEntryReference extends BaseModel
 {
     protected $applicationId = '3';
-    protected $apiUrlSufix = 'company/accountingentryreference/';
+    protected $apiUrlSufix = 'company/accountingentry/';
     protected $primaryKey = 'AccountingEntryId';
     protected $update = true;
     protected $create = true;
@@ -76,7 +76,7 @@ class CompanyAccountingEntryReference extends BaseModel
      * @return Object
      */
     public static function selectPredefined($accountingPeriodYear,$predefinedEntryId,$companyId){
-        //accountingentryreference
+        //accountingentry
         $obj = new static([],false,$companyId);
         $result = self::_send(['AccountingPeriodYear' => $accountingPeriodYear, 'AccountingEntryPredefinedEntryId' => $predefinedEntryId],$companyId,'selectpredefined');
         return $result->outputData;

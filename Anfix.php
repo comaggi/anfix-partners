@@ -218,7 +218,7 @@ class Anfix {
         return ['response' => $response, 'headers' => $response_headers];
     }
 
-
+    
     /**
      * Hace una llamada GET con las cabeceras indicadas y almacena un fichero retornado en el path indicado
      * @param string $url Url a acceder

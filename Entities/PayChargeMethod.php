@@ -20,11 +20,10 @@
 
 namespace Anfix;
 
-class CustomerBudgetLine extends BaseModel
+class PayChargeMethod extends BaseModel
 {
-    protected $applicationId = 'E';
-    protected $update = true;
-    protected $create = true;
-    protected $delete = true;
-
+    protected $applicationId = 1;
+    protected $update = false;
+	protected $create = false;
+	protected $delete = false;
 }

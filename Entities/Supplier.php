@@ -22,9 +22,14 @@ namespace Anfix;
 
 class Supplier extends BaseModel
 {
-    protected $applicationId = 'E';
+    protected $applicationId = 'e';
+    protected $apiUrlSufix = 'expense/supplier/';
     protected $update = true;
     protected $create = true;
     protected $delete = true;
+
+    public function get(array $fields = [], $maxRows = null, $minRowNumber = null, array $order = [], $orderTypes = 'ASC', $path = 'searchwithpendinginvoices', array $params = [], $apiUrl = null){
+        return parent::get($fields, $maxRows, $minRowNumber, $order, $orderTypes, $path, $params,$apiUrl);
+    }
 
 }

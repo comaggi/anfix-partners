@@ -29,11 +29,11 @@ $companyId = firstCompanyId(); //Obtención del id de la primera empresa disponi
 
 
 $data = Anfix\Journal::report([
-      'AccountingPeriodYear' => 2016,
+      'AccountingPeriodYear' => 2019,
       'MaxRows' => 300,
       'JournalTypeId' => '1',
-      'AccountingEntryInitDate' => '01/01/2016',
-      'AccountingEntryEndDate' => '31/12/2016',
+      'AccountingEntryInitDate' => '01/01/2019',
+      'AccountingEntryEndDate' => '31/12/2019',
       'FlagIncludeAccountDescription' => true,
       'MinRowNumber' => 1
 ], $companyId);

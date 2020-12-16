@@ -23,22 +23,8 @@ namespace Anfix;
 class Invoice extends BaseModel
 {
     protected $applicationId = '3';
-    protected $update = true;
-    protected $create = true;
-    protected $delete = true;
-	
-   /**
-	* Renumera las facturas
-	* @param int $accountingPeriodYear Año
-	* @param string $invoiceType Tipo de factura a renumerar según doc anfix
-	* @param string $companyId Identificador de la empresa
-	* @return int Número de facturas afectadas
-	*/
-	public static function renumerate($accountingPeriodYear,$invoiceType,$companyId){
-		$obj = new static([],false,$companyId);
-        $result = self::_send(['AccountingPeriodYear' => $accountingPeriodYear, 'InvoiceType' => $invoiceType],$companyId,'renumerate');
-        return $result->outputData->{$obj->Model}->rowcount;
-	}
+    protected $update = false;
+    protected $create = false;
 	
    /**
 	* Informe de IVA repercutido

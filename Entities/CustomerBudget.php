@@ -22,7 +22,8 @@ namespace Anfix;
 
 class CustomerBudget extends BaseModel
 {
-    protected $applicationId = 'E';
+    protected $applicationId = 'e';
+    protected $apiUrlSufix = 'sale/customerbudget/';
     protected $update = true;
     protected $create = true;
     protected $delete = true;
@@ -46,9 +47,9 @@ class CustomerBudget extends BaseModel
      * @param $companyId
      * @return Object
      */
-    public static function generateDocuments($CustomerBudgetIds,$CustomerBudgetOutputType = 3,$companyId){
+    public static function generatedocuments($CustomerBudgetIds,$CustomerBudgetOutputType = 3,$companyId){
         $obj = new static([],false,$companyId);
-        $result = self::_send(['CustomerBudgetId' => $CustomerBudgetIds, 'CustomerBudgetOutputType' => $CustomerBudgetOutputType],$companyId,'generateDocuments');
+        $result = self::_send(['CustomerBudgetId' => $CustomerBudgetIds, 'CustomerBudgetOutputType' => $CustomerBudgetOutputType],$companyId,'generatedocuments');
         return $result->outputData->{$obj->Model};
     }
 
