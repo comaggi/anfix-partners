@@ -1,4 +1,4 @@
-Versión Beta de la nueva API para conexión con los servicios de facturacin de anfix. Capa de abstracción en PHP que pretende simplificar el uso de la API de anfix. Con ella, se puede acceder a los servicios de Facturación y Contabilidad más básicos y habituales.
+Versión de la nueva API para conexión con los servicios de facturacin de anfix. Capa de abstracción en PHP que pretende simplificar el uso de la API de anfix. Con ella, se puede acceder a los servicios de Facturación y Contabilidad más básicos y habituales.
 
 ([Ver ejemplos!](examples/Examples.php)
 
