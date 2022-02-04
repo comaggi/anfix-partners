@@ -297,8 +297,7 @@ class Anfix {
             oauth_consumer_key=\"{$oauth_consumer_key}\",
             oauth_signature_method=\"PLAINTEXT\",
             oauth_callback=\"{$oauth_callback}\",
-            oauth_signature=\"{$oauth_signature}&\"",
-            'Content-Type: application/json']
+            oauth_signature=\"{$oauth_signature}&\""]
         );
 
         //Obtenemos el fichero temporal de tokens
@@ -344,8 +343,7 @@ class Anfix {
             oauth_signature_method=\"PLAINTEXT\",
             oauth_token=\"$token\",
             oauth_verifier=\"$verifier\",
-            oauth_signature=\"{$oauth_signature}&$secret\"",
-            'Content-Type: application/json']
+            oauth_signature=\"{$oauth_signature}&$secret\""]
         );
 
         //Enviamos la respuesta al closure indicado
@@ -372,8 +370,7 @@ class Anfix {
             oauth_consumer_key=\"{$oauth_consumer_key}\",
             oauth_signature_method=\"PLAINTEXT\",
             oauth_token=\"{$token}\",
-            oauth_signature=\"{$oauth_signature}&{$secret}\"",
-            'Content-Type: application/json']
+            oauth_signature=\"{$oauth_signature}&{$secret}\""]
         );
 
         return true;
