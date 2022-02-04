@@ -99,7 +99,7 @@ Versión de la nueva API para conexión con los servicios de facturacin de anfix
 
 
 #### Requerimientos mínimos
-* php > 5.2.2
+* php > 7.2.24
 * curl
 * curl openssl (Si desea conectar por ssl)
 * Permiso de escritura en los ficheros tokens_temp.php y examples/tokens.php
