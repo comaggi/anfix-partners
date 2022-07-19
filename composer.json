@@ -10,7 +10,8 @@
     "include-path": ["/"],
     "autoload": {
       "classmap": [
-        "Entities"
+        "Entities",
+          "/"
       ]
     },
     "authors": [
