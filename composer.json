@@ -7,10 +7,10 @@
     "type": "library",
     "homepage": "https://github.com/",
     "license": "GNU",
-    "include-path": ["src/"],
+    "include-path": ["/"],
     "autoload": {
       "classmap": [
-        "src/Entities"
+        "Entities"
       ]
     },
     "authors": [
